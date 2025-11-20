@@ -1,0 +1,14 @@
+{
+  "claude_code_api": {
+    "capabilities": ["complex_analysis", "long_form", "reasoning"],
+    "priority": 10
+  },
+  "dolphin-mistral:7b": {
+    "capabilities": ["code", "general"],
+    "priority": 8
+  },
+  "moondream:1.8b": {
+    "capabilities": ["vision"],
+    "priority": 9
+  }
+}

@@ -1,54 +1,21 @@
-from typing import Dict, List
+from typing import Dict, Any
 
-import json
-import requests
 from utils.logging import get_logger
+from nova.core.intelligent_router import route as intelligent_route
+import requests
+from config.settings import settings
 
 logger = get_logger("core.orquestador")
 
-with open("config/routing_rules.json", "r", encoding="utf-8") as f:
-    ROUTING_RULES = json.load(f)
-
-
-def _tokenize(text: str) -> List[str]:
-    return [t.strip() for t in text.lower().replace("?", " ").replace("¿", " ").split() if t.strip()]
-
 
 def route_query(message: str, has_image: bool = False) -> dict:
-    """Route a model based on keywords and image presence.
-
-    Returns dict: {model: str, confidence: int, reasoning: str}
-    """
-    if has_image:
-        logger.info("routing_image_detected")
-        return {"model": "moondream:1.8b", "confidence": 100, "reasoning": "Imagen adjunta"}
-
-    msg = message.lower()
-    tokens = _tokenize(message)
-
-    # Exact token match -> 100
-    for rule, cfg in ROUTING_RULES.items():
-        triggers = cfg.get("triggers", [])
-        for t in triggers:
-            if t in tokens:
-                logger.info("routing_exact_match", rule=rule, trigger=t)
-                return {"model": cfg["model"], "confidence": 100, "reasoning": f"Trigger exacto: {t}"}
-
-    # Substring match -> 90
-    for rule, cfg in ROUTING_RULES.items():
-        triggers = cfg.get("triggers", [])
-        for t in triggers:
-            if t in msg:
-                logger.info("routing_partial_match", rule=rule, trigger=t)
-                return {"model": cfg["model"], "confidence": 90, "reasoning": f"Trigger parcial: {t}"}
-
-    # Default
-    default_model = ROUTING_RULES["default"]["model"]
-    logger.info("routing_default", model=default_model)
-    return {"model": default_model, "confidence": 70, "reasoning": "Default routing"}
-
-
-from config.settings import settings
+    """Delegate routing to intelligent router; keep compatibility shape."""
+    result = intelligent_route(message, has_image)
+    # If router asks for clarification, return that shape directly
+    if result.get("status") == "needs_clarification":
+        return result
+    # Normalize to expected keys
+    return {"model": result.get("model"), "confidence": result.get("confidence", 70), "reasoning": result.get("reasoning", "")}
 
 
 def generate_response(model: str, prompt: str, history: list = []) -> str:
@@ -59,7 +26,6 @@ def generate_response(model: str, prompt: str, history: list = []) -> str:
         if r.status_code == 200:
             try:
                 data = r.json()
-                # adapt to different response shapes
                 if isinstance(data, dict) and "result" in data:
                     return data["result"]
                 if isinstance(data, dict) and "text" in data:
@@ -72,5 +38,4 @@ def generate_response(model: str, prompt: str, history: list = []) -> str:
     except Exception as e:
         logger.error("generate_request_failed", error=str(e))
 
-    # Fallback simple echo
     return f"[NOVA fallback reply from {model}]: {prompt[:200]}"

@@ -33,21 +33,54 @@ def init_db() -> None:
                 content TEXT NOT NULL,
                 model_used TEXT,
                 routing_decision TEXT,
+                routing_confidence INTEGER,
                 created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+            )
+            """
+        )
+        # ensure routing_confidence column exists (migrations)
+        c.execute("PRAGMA table_info(messages)")
+        cols = [r[1] for r in c.fetchall()]
+        if "routing_confidence" not in cols:
+            try:
+                c.execute("ALTER TABLE messages ADD COLUMN routing_confidence INTEGER")
+            except Exception:
+                pass
+
+        # feedback table
+        c.execute(
+            """
+            CREATE TABLE IF NOT EXISTS feedback (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                message_id INTEGER,
+                session_id TEXT,
+                rating INTEGER NOT NULL,
+                comment TEXT,
+                created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+                FOREIGN KEY(message_id) REFERENCES messages(id)
             )
             """
         )
     logger.info("db_initialized", path=settings.db_path)
 
 
-def save_conversation(session_id: str, role: str, content: str, model_used: Optional[str] = None, routing_decision: Optional[str] = None) -> None:
+def save_conversation(
+    session_id: str,
+    role: str,
+    content: str,
+    model_used: Optional[str] = None,
+    routing_decision: Optional[str] = None,
+    routing_confidence: Optional[int] = None,
+) -> int:
     with _get_conn() as conn:
         c = conn.cursor()
         c.execute(
-            "INSERT INTO messages (session_id, role, content, model_used, routing_decision) VALUES (?, ?, ?, ?, ?)",
-            (session_id, role, content, model_used, routing_decision),
+            "INSERT INTO messages (session_id, role, content, model_used, routing_decision, routing_confidence) VALUES (?, ?, ?, ?, ?, ?)",
+            (session_id, role, content, model_used, routing_decision, routing_confidence),
         )
-    logger.info("message_saved", session_id=session_id, role=role)
+        last_id = c.lastrowid
+    logger.info("message_saved", session_id=session_id, role=role, message_id=last_id)
+    return last_id
 
 
 def get_conversation(session_id: str, limit: int = 20) -> List[Dict]:
