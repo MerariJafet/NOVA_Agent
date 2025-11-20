@@ -25,9 +25,9 @@ def _startup():
 @app.post("/chat")
 async def chat(request: ChatRequest):
     routing = orquestador.route_query(request.message, request.has_image)
-    # If router asks for clarification, return that directly
+    # If router asks for clarification, return the clarifying shape and DO NOT generate a model response
     if routing.get("status") == "needs_clarification":
-        return {"status": "needs_clarification", "message": routing.get("message")}
+        return {"status": "clarify", "message": routing.get("message")}
 
     try:
         response = orquestador.generate_response(routing["model"], request.message)
@@ -59,6 +59,50 @@ async def metrics_routing():
     init_db()
     perf = feedback_system.analyze_performance()
     return perf
+
+
+@app.get("/dashboard")
+async def dashboard():
+    """Simple HTML dashboard showing routing metrics and recent conversation counts."""
+    init_db()
+    perf = feedback_system.analyze_performance()
+    # gather simple DB counts
+    from nova.core import memoria
+
+    with memoria._get_conn() as conn:
+        c = conn.cursor()
+        c.execute("SELECT COUNT(*) FROM messages")
+        total_messages = c.fetchone()[0]
+        c.execute("SELECT COUNT(*) FROM feedback")
+        total_feedback = c.fetchone()[0]
+
+    # Build a minimal HTML dashboard
+    html = [
+        "<html><head><title>NOVA Dashboard</title>",
+        "<style>body{font-family:Arial,Helvetica,sans-serif;padding:20px} .card{border:1px solid #ddd;padding:12px;margin:8px;border-radius:6px}</style>",
+        "</head><body>",
+        "<h1>NOVA Dashboard</h1>",
+        f"<div class=\"card\"><strong>Total messages:</strong> {total_messages}<br/><strong>Total feedback:</strong> {total_feedback}</div>",
+        "<h2>Model Performance (feedback)</h2>",
+        "<div class=\"card\">",
+    ]
+
+    if perf:
+        html.append("<ul>")
+        for model, data in perf.items():
+            html.append(f"<li><strong>{model}</strong>: avg_rating={data.get('avg_rating')}, feedback_count={data.get('feedback_count')}</li>")
+        html.append("</ul>")
+    else:
+        html.append("<p>No feedback yet</p>")
+
+    html.extend([
+        "</div>",
+        "<h2>Routing Settings</h2>",
+        f"<div class=\"card\"><strong>USE_LLM_BRAIN:</strong> {settings.USE_LLM_BRAIN} <br/><strong>llm_router_url:</strong> {settings.llm_router_url}</div>",
+        "</body></html>",
+    ])
+
+    return "\n".join(html)
 
 
 @app.get("/status")

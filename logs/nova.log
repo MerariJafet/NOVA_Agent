@@ -196,3 +196,485 @@ HTTP Request: GET http://testserver/status "HTTP/1.1 200 OK"
 {"session_id": "s1", "role": "user", "message_id": 1, "event": "message_saved", "timestamp": "2025-11-20T01:44:51.273594Z"}
 {"session_id": "s1", "role": "assistant", "message_id": 2, "event": "message_saved", "timestamp": "2025-11-20T01:44:51.275495Z"}
 {"session_id": "s1", "count": 2, "event": "conversation_retrieved", "timestamp": "2025-11-20T01:44:51.275820Z"}
+{"chosen": "claude_code_api", "score": 35, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:47:29.894866Z"}
+{"chosen": "claude_code_api", "score": 35, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:47:29.895060Z"}
+{"chosen": "claude_code_api", "score": 35, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:47:29.895167Z"}
+{"chosen": "claude_code_api", "score": 35, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:47:29.895251Z"}
+{"chosen": "claude_code_api", "score": 35, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:47:29.895328Z"}
+{"chosen": "dolphin-mistral:7b", "score": 28, "alternatives": [{"model": "claude_code_api", "score": 10}], "event": "routing_result", "timestamp": "2025-11-20T01:47:29.895403Z"}
+{"chosen": "dolphin-mistral:7b", "score": 28, "alternatives": [{"model": "claude_code_api", "score": 10}], "event": "routing_result", "timestamp": "2025-11-20T01:47:29.895479Z"}
+{"chosen": "claude_code_api", "score": 10, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:47:29.895546Z"}
+{"chosen": "claude_code_api", "score": 35, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:48:02.255778Z"}
+{"chosen": "claude_code_api", "score": 35, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:48:02.255971Z"}
+{"chosen": "claude_code_api", "score": 35, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:48:02.256084Z"}
+{"chosen": "claude_code_api", "score": 35, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:48:02.256172Z"}
+{"chosen": "claude_code_api", "score": 35, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:48:02.256248Z"}
+{"chosen": "dolphin-mistral:7b", "score": 28, "alternatives": [{"model": "claude_code_api", "score": 10}], "event": "routing_result", "timestamp": "2025-11-20T01:48:02.256325Z"}
+{"chosen": "dolphin-mistral:7b", "score": 28, "alternatives": [{"model": "claude_code_api", "score": 10}], "event": "routing_result", "timestamp": "2025-11-20T01:48:02.256394Z"}
+{"chosen": "dolphin-mistral:7b", "score": 28, "alternatives": [{"model": "claude_code_api", "score": 10}], "event": "routing_result", "timestamp": "2025-11-20T01:48:02.256457Z"}
+{"chosen": "dolphin-mistral:7b", "score": 28, "alternatives": [{"model": "claude_code_api", "score": 10}], "event": "routing_result", "timestamp": "2025-11-20T01:48:02.256518Z"}
+{"chosen": "dolphin-mistral:7b", "score": 28, "alternatives": [{"model": "claude_code_api", "score": 10}], "event": "routing_result", "timestamp": "2025-11-20T01:48:02.256594Z"}
+{"message": "Describe esta foto", "event": "routing_image", "timestamp": "2025-11-20T01:48:02.256659Z"}
+{"message": "Analiza la imagen adjunta y enumera objetos detectables", "event": "routing_image", "timestamp": "2025-11-20T01:48:02.256713Z"}
+{"message": "\u00bfQu\u00e9 ves en esta foto?", "event": "routing_image", "timestamp": "2025-11-20T01:48:02.256764Z"}
+{"message": "Mira esto y descr\u00edbelo", "event": "routing_image", "timestamp": "2025-11-20T01:48:02.256812Z"}
+{"message": "Foto: identifica colores dominantes y contexto", "event": "routing_image", "timestamp": "2025-11-20T01:48:02.256859Z"}
+{"chosen": "claude_code_api", "score": 10, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:48:02.256918Z"}
+{"chosen": "claude_code_api", "score": 10, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:48:02.256987Z"}
+{"chosen": "claude_code_api", "score": 10, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:48:02.257052Z"}
+{"chosen": "claude_code_api", "score": 10, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:48:02.257115Z"}
+{"chosen": "claude_code_api", "score": 10, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:48:02.257177Z"}
+{"message": "Ay\u00fadame", "event": "needs_clarification", "timestamp": "2025-11-20T01:48:02.257229Z"}
+{"message": "Expl\u00edcate", "event": "needs_clarification_short", "timestamp": "2025-11-20T01:48:02.257282Z"}
+{"chosen": "claude_code_api", "score": 0, "alternatives": [{"model": "moondream:1.8b", "score": -1}], "event": "routing_result", "timestamp": "2025-11-20T01:48:02.257340Z"}
+{"chosen": "claude_code_api", "score": 35, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:48:19.869227Z"}
+{"chosen": "claude_code_api", "score": 35, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:48:19.869431Z"}
+{"chosen": "claude_code_api", "score": 35, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:48:19.869535Z"}
+{"chosen": "claude_code_api", "score": 35, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:48:19.869639Z"}
+{"chosen": "claude_code_api", "score": 35, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:48:19.869726Z"}
+{"chosen": "dolphin-mistral:7b", "score": 28, "alternatives": [{"model": "claude_code_api", "score": 10}], "event": "routing_result", "timestamp": "2025-11-20T01:48:19.869812Z"}
+{"chosen": "dolphin-mistral:7b", "score": 28, "alternatives": [{"model": "claude_code_api", "score": 10}], "event": "routing_result", "timestamp": "2025-11-20T01:48:19.869884Z"}
+{"chosen": "dolphin-mistral:7b", "score": 28, "alternatives": [{"model": "claude_code_api", "score": 10}], "event": "routing_result", "timestamp": "2025-11-20T01:48:19.869955Z"}
+{"chosen": "dolphin-mistral:7b", "score": 28, "alternatives": [{"model": "claude_code_api", "score": 10}], "event": "routing_result", "timestamp": "2025-11-20T01:48:19.870018Z"}
+{"chosen": "dolphin-mistral:7b", "score": 28, "alternatives": [{"model": "claude_code_api", "score": 10}], "event": "routing_result", "timestamp": "2025-11-20T01:48:19.870081Z"}
+{"message": "Describe esta foto", "event": "routing_image", "timestamp": "2025-11-20T01:48:19.870133Z"}
+{"message": "Analiza la imagen adjunta y enumera objetos detectables", "event": "routing_image", "timestamp": "2025-11-20T01:48:19.870187Z"}
+{"message": "\u00bfQu\u00e9 ves en esta foto?", "event": "routing_image", "timestamp": "2025-11-20T01:48:19.870238Z"}
+{"message": "Mira esto y descr\u00edbelo", "event": "routing_image", "timestamp": "2025-11-20T01:48:19.870286Z"}
+{"message": "Foto: identifica colores dominantes y contexto", "event": "routing_image", "timestamp": "2025-11-20T01:48:19.870333Z"}
+{"chosen": "claude_code_api", "score": 10, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:48:19.870392Z"}
+{"chosen": "claude_code_api", "score": 10, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:48:19.870457Z"}
+{"chosen": "claude_code_api", "score": 10, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:48:19.870519Z"}
+{"chosen": "claude_code_api", "score": 10, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:48:19.870586Z"}
+{"chosen": "claude_code_api", "score": 10, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:48:19.870674Z"}
+{"message": "Ay\u00fadame", "event": "needs_clarification", "timestamp": "2025-11-20T01:48:19.870733Z"}
+{"message": "Expl\u00edcate", "event": "needs_clarification_short", "timestamp": "2025-11-20T01:48:19.870787Z"}
+{"chosen": "dolphin-mistral:7b", "score": 8, "alternatives": [{"model": "moondream:1.8b", "score": -1}], "event": "routing_result", "timestamp": "2025-11-20T01:48:19.870846Z"}
+{"chosen": "dolphin-mistral:7b", "score": 8, "alternatives": [{"model": "moondream:1.8b", "score": -1}], "event": "routing_result", "timestamp": "2025-11-20T01:48:19.870912Z"}
+{"message": "Info", "event": "needs_clarification_short", "timestamp": "2025-11-20T01:48:19.870969Z"}
+{"chosen": "claude_code_api", "score": 35, "alternatives": [{"model": "dolphin-mistral:7b", "score": 28}], "event": "routing_result", "timestamp": "2025-11-20T01:48:19.871031Z"}
+{"message": "Imagen + c\u00f3digo: analiza el diagrama y genera el c\u00f3digo", "event": "routing_image", "timestamp": "2025-11-20T01:48:19.871086Z"}
+{"chosen": "claude_code_api", "score": 10, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:48:19.871147Z"}
+{"chosen": "claude_code_api", "score": 35, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:49:41.833110Z"}
+{"chosen": "claude_code_api", "score": 35, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:49:41.833263Z"}
+{"chosen": "claude_code_api", "score": 35, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:49:41.833340Z"}
+{"chosen": "claude_code_api", "score": 35, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:49:41.833405Z"}
+{"chosen": "claude_code_api", "score": 35, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:49:41.833462Z"}
+{"chosen": "dolphin-mistral:7b", "score": 28, "alternatives": [{"model": "claude_code_api", "score": 10}], "event": "routing_result", "timestamp": "2025-11-20T01:49:41.833516Z"}
+{"chosen": "dolphin-mistral:7b", "score": 28, "alternatives": [{"model": "claude_code_api", "score": 10}], "event": "routing_result", "timestamp": "2025-11-20T01:49:41.833571Z"}
+{"chosen": "dolphin-mistral:7b", "score": 28, "alternatives": [{"model": "claude_code_api", "score": 10}], "event": "routing_result", "timestamp": "2025-11-20T01:49:41.833630Z"}
+{"chosen": "dolphin-mistral:7b", "score": 28, "alternatives": [{"model": "claude_code_api", "score": 10}], "event": "routing_result", "timestamp": "2025-11-20T01:49:41.833684Z"}
+{"chosen": "dolphin-mistral:7b", "score": 28, "alternatives": [{"model": "claude_code_api", "score": 10}], "event": "routing_result", "timestamp": "2025-11-20T01:49:41.833736Z"}
+{"message": "Describe esta foto", "event": "routing_image", "timestamp": "2025-11-20T01:49:41.833775Z"}
+{"message": "Analiza la imagen adjunta y enumera objetos detectables", "event": "routing_image", "timestamp": "2025-11-20T01:49:41.833817Z"}
+{"message": "\u00bfQu\u00e9 ves en esta foto?", "event": "routing_image", "timestamp": "2025-11-20T01:49:41.833854Z"}
+{"message": "Mira esto y descr\u00edbelo", "event": "routing_image", "timestamp": "2025-11-20T01:49:41.833889Z"}
+{"message": "Foto: identifica colores dominantes y contexto", "event": "routing_image", "timestamp": "2025-11-20T01:49:41.833924Z"}
+{"chosen": "claude_code_api", "score": 10, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:49:41.833969Z"}
+{"chosen": "claude_code_api", "score": 10, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:49:41.834014Z"}
+{"chosen": "claude_code_api", "score": 10, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:49:41.834064Z"}
+{"chosen": "claude_code_api", "score": 10, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:49:41.834112Z"}
+{"chosen": "claude_code_api", "score": 10, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:49:41.834159Z"}
+{"message": "Ay\u00fadame", "event": "needs_clarification", "timestamp": "2025-11-20T01:49:41.834198Z"}
+{"message": "Expl\u00edcate", "event": "needs_clarification_short", "timestamp": "2025-11-20T01:49:41.834238Z"}
+{"chosen": "dolphin-mistral:7b", "score": 8, "alternatives": [{"model": "moondream:1.8b", "score": -1}], "event": "routing_result", "timestamp": "2025-11-20T01:49:41.834281Z"}
+{"chosen": "dolphin-mistral:7b", "score": 8, "alternatives": [{"model": "moondream:1.8b", "score": -1}], "event": "routing_result", "timestamp": "2025-11-20T01:49:41.834326Z"}
+{"message": "Info", "event": "needs_clarification_short", "timestamp": "2025-11-20T01:49:41.834366Z"}
+{"chosen": "claude_code_api", "score": 35, "alternatives": [{"model": "dolphin-mistral:7b", "score": 28}], "event": "routing_result", "timestamp": "2025-11-20T01:49:41.834411Z"}
+{"message": "Imagen + c\u00f3digo: analiza el diagrama y genera el c\u00f3digo", "event": "routing_image", "timestamp": "2025-11-20T01:49:41.834448Z"}
+{"chosen": "dolphin-mistral:7b", "score": 18, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:49:41.834496Z"}
+{"chosen": "dolphin-mistral:7b", "score": 18, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:49:41.834546Z"}
+{"chosen": "claude_code_api", "score": 35, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:49:51.655253Z"}
+{"chosen": "claude_code_api", "score": 35, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:49:51.655408Z"}
+{"chosen": "claude_code_api", "score": 35, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:49:51.655484Z"}
+{"chosen": "claude_code_api", "score": 35, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:49:51.655545Z"}
+{"chosen": "claude_code_api", "score": 35, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:49:51.655608Z"}
+{"chosen": "dolphin-mistral:7b", "score": 28, "alternatives": [{"model": "claude_code_api", "score": 10}], "event": "routing_result", "timestamp": "2025-11-20T01:49:51.655666Z"}
+{"chosen": "dolphin-mistral:7b", "score": 28, "alternatives": [{"model": "claude_code_api", "score": 10}], "event": "routing_result", "timestamp": "2025-11-20T01:49:51.655721Z"}
+{"chosen": "dolphin-mistral:7b", "score": 28, "alternatives": [{"model": "claude_code_api", "score": 10}], "event": "routing_result", "timestamp": "2025-11-20T01:49:51.655770Z"}
+{"chosen": "dolphin-mistral:7b", "score": 28, "alternatives": [{"model": "claude_code_api", "score": 10}], "event": "routing_result", "timestamp": "2025-11-20T01:49:51.655815Z"}
+{"chosen": "dolphin-mistral:7b", "score": 28, "alternatives": [{"model": "claude_code_api", "score": 10}], "event": "routing_result", "timestamp": "2025-11-20T01:49:51.655872Z"}
+{"message": "Describe esta foto", "event": "routing_image", "timestamp": "2025-11-20T01:49:51.655912Z"}
+{"message": "Analiza la imagen adjunta y enumera objetos detectables", "event": "routing_image", "timestamp": "2025-11-20T01:49:51.655950Z"}
+{"message": "\u00bfQu\u00e9 ves en esta foto?", "event": "routing_image", "timestamp": "2025-11-20T01:49:51.655986Z"}
+{"message": "Mira esto y descr\u00edbelo", "event": "routing_image", "timestamp": "2025-11-20T01:49:51.656021Z"}
+{"message": "Foto: identifica colores dominantes y contexto", "event": "routing_image", "timestamp": "2025-11-20T01:49:51.656060Z"}
+{"chosen": "claude_code_api", "score": 10, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:49:51.656102Z"}
+{"chosen": "claude_code_api", "score": 10, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:49:51.656147Z"}
+{"chosen": "claude_code_api", "score": 10, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:49:51.656197Z"}
+{"chosen": "claude_code_api", "score": 10, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:49:51.656243Z"}
+{"chosen": "claude_code_api", "score": 10, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:49:51.656287Z"}
+{"message": "Ay\u00fadame", "event": "needs_clarification", "timestamp": "2025-11-20T01:49:51.656326Z"}
+{"message": "Expl\u00edcate", "event": "needs_clarification_short", "timestamp": "2025-11-20T01:49:51.656365Z"}
+{"chosen": "dolphin-mistral:7b", "score": 8, "alternatives": [{"model": "moondream:1.8b", "score": -1}], "event": "routing_result", "timestamp": "2025-11-20T01:49:51.656407Z"}
+{"chosen": "dolphin-mistral:7b", "score": 8, "alternatives": [{"model": "moondream:1.8b", "score": -1}], "event": "routing_result", "timestamp": "2025-11-20T01:49:51.656450Z"}
+{"message": "Info", "event": "needs_clarification_short", "timestamp": "2025-11-20T01:49:51.656489Z"}
+{"chosen": "claude_code_api", "score": 35, "alternatives": [{"model": "dolphin-mistral:7b", "score": 28}], "event": "routing_result", "timestamp": "2025-11-20T01:49:51.656533Z"}
+{"message": "Imagen + c\u00f3digo: analiza el diagrama y genera el c\u00f3digo", "event": "routing_image", "timestamp": "2025-11-20T01:49:51.656573Z"}
+{"chosen": "dolphin-mistral:7b", "score": 28, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:49:51.656629Z"}
+{"chosen": "dolphin-mistral:7b", "score": 28, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:49:51.656681Z"}
+{"chosen": "claude_code_api", "score": 35, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:50:02.934868Z"}
+{"chosen": "claude_code_api", "score": 35, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:50:02.935041Z"}
+{"chosen": "claude_code_api", "score": 35, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:50:02.935133Z"}
+{"chosen": "claude_code_api", "score": 35, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:50:02.935203Z"}
+{"chosen": "claude_code_api", "score": 35, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:50:02.935289Z"}
+{"chosen": "dolphin-mistral:7b", "score": 28, "alternatives": [{"model": "claude_code_api", "score": 10}], "event": "routing_result", "timestamp": "2025-11-20T01:50:02.935367Z"}
+{"chosen": "dolphin-mistral:7b", "score": 28, "alternatives": [{"model": "claude_code_api", "score": 10}], "event": "routing_result", "timestamp": "2025-11-20T01:50:02.935429Z"}
+{"chosen": "dolphin-mistral:7b", "score": 28, "alternatives": [{"model": "claude_code_api", "score": 10}], "event": "routing_result", "timestamp": "2025-11-20T01:50:02.935482Z"}
+{"chosen": "dolphin-mistral:7b", "score": 28, "alternatives": [{"model": "claude_code_api", "score": 10}], "event": "routing_result", "timestamp": "2025-11-20T01:50:02.935533Z"}
+{"chosen": "dolphin-mistral:7b", "score": 28, "alternatives": [{"model": "claude_code_api", "score": 10}], "event": "routing_result", "timestamp": "2025-11-20T01:50:02.935585Z"}
+{"message": "Describe esta foto", "event": "routing_image", "timestamp": "2025-11-20T01:50:02.935646Z"}
+{"message": "Analiza la imagen adjunta y enumera objetos detectables", "event": "routing_image", "timestamp": "2025-11-20T01:50:02.935686Z"}
+{"message": "\u00bfQu\u00e9 ves en esta foto?", "event": "routing_image", "timestamp": "2025-11-20T01:50:02.935724Z"}
+{"message": "Mira esto y descr\u00edbelo", "event": "routing_image", "timestamp": "2025-11-20T01:50:02.935762Z"}
+{"message": "Foto: identifica colores dominantes y contexto", "event": "routing_image", "timestamp": "2025-11-20T01:50:02.935798Z"}
+{"chosen": "claude_code_api", "score": 10, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:50:02.935843Z"}
+{"chosen": "claude_code_api", "score": 10, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:50:02.935892Z"}
+{"chosen": "claude_code_api", "score": 10, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:50:02.935942Z"}
+{"chosen": "claude_code_api", "score": 10, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:50:02.935988Z"}
+{"chosen": "claude_code_api", "score": 10, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:50:02.936033Z"}
+{"message": "Ay\u00fadame", "event": "needs_clarification", "timestamp": "2025-11-20T01:50:02.936072Z"}
+{"message": "Expl\u00edcate", "event": "needs_clarification_short", "timestamp": "2025-11-20T01:50:02.936110Z"}
+{"chosen": "dolphin-mistral:7b", "score": 8, "alternatives": [{"model": "moondream:1.8b", "score": -1}], "event": "routing_result", "timestamp": "2025-11-20T01:50:02.936154Z"}
+{"chosen": "dolphin-mistral:7b", "score": 8, "alternatives": [{"model": "moondream:1.8b", "score": -1}], "event": "routing_result", "timestamp": "2025-11-20T01:50:02.936203Z"}
+{"message": "Info", "event": "needs_clarification_short", "timestamp": "2025-11-20T01:50:02.936243Z"}
+{"chosen": "claude_code_api", "score": 35, "alternatives": [{"model": "dolphin-mistral:7b", "score": 28}], "event": "routing_result", "timestamp": "2025-11-20T01:50:02.936293Z"}
+{"message": "Imagen + c\u00f3digo: analiza el diagrama y genera el c\u00f3digo", "event": "routing_image", "timestamp": "2025-11-20T01:50:02.936330Z"}
+{"chosen": "dolphin-mistral:7b", "score": 28, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:50:02.936375Z"}
+{"chosen": "dolphin-mistral:7b", "score": 28, "alternatives": [{"model": "claude_code_api", "score": 10}], "event": "routing_result", "timestamp": "2025-11-20T01:50:02.936423Z"}
+{"chosen": "claude_code_api", "score": 35, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:51:04.124913Z"}
+{"chosen": "claude_code_api", "score": 35, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:51:04.125085Z"}
+{"chosen": "claude_code_api", "score": 35, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:51:04.125162Z"}
+{"chosen": "claude_code_api", "score": 35, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:51:04.125224Z"}
+{"chosen": "claude_code_api", "score": 35, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:51:04.125279Z"}
+{"chosen": "claude_code_api", "score": 30, "alternatives": [{"model": "dolphin-mistral:7b", "score": 28}], "event": "routing_result", "timestamp": "2025-11-20T01:51:04.125333Z"}
+{"chosen": "claude_code_api", "score": 35, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:51:35.176081Z"}
+{"chosen": "claude_code_api", "score": 35, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:51:35.176249Z"}
+{"chosen": "claude_code_api", "score": 35, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:51:35.176340Z"}
+{"chosen": "claude_code_api", "score": 35, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:51:35.176418Z"}
+{"chosen": "claude_code_api", "score": 35, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:51:35.176476Z"}
+{"chosen": "dolphin-mistral:7b", "score": 33, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:51:35.176533Z"}
+{"chosen": "claude_code_api", "score": 30, "alternatives": [{"model": "dolphin-mistral:7b", "score": 28}], "event": "routing_result", "timestamp": "2025-11-20T01:51:35.176586Z"}
+{"chosen": "claude_code_api", "score": 35, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:52:15.869955Z"}
+{"chosen": "claude_code_api", "score": 35, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:52:15.870211Z"}
+{"chosen": "claude_code_api", "score": 35, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:52:15.870310Z"}
+{"chosen": "claude_code_api", "score": 35, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:52:15.870379Z"}
+{"chosen": "claude_code_api", "score": 35, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:52:15.870440Z"}
+{"chosen": "dolphin-mistral:7b", "score": 33, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:52:15.870520Z"}
+{"chosen": "dolphin-mistral:7b", "score": 38, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:52:15.870609Z"}
+{"chosen": "dolphin-mistral:7b", "score": 33, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:52:15.870693Z"}
+{"chosen": "claude_code_api", "score": 30, "alternatives": [{"model": "dolphin-mistral:7b", "score": 28}], "event": "routing_result", "timestamp": "2025-11-20T01:52:15.870764Z"}
+{"chosen": "claude_code_api", "score": 35, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:52:30.543814Z"}
+{"chosen": "claude_code_api", "score": 35, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:52:30.544018Z"}
+{"chosen": "claude_code_api", "score": 35, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:52:30.544130Z"}
+{"chosen": "claude_code_api", "score": 35, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:52:30.544223Z"}
+{"chosen": "claude_code_api", "score": 35, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:52:30.544305Z"}
+{"chosen": "dolphin-mistral:7b", "score": 33, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:52:30.544392Z"}
+{"chosen": "dolphin-mistral:7b", "score": 38, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:52:30.544468Z"}
+{"chosen": "dolphin-mistral:7b", "score": 33, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:52:30.544537Z"}
+{"chosen": "dolphin-mistral:7b", "score": 38, "alternatives": [{"model": "claude_code_api", "score": 25}], "event": "routing_result", "timestamp": "2025-11-20T01:52:30.544622Z"}
+{"chosen": "dolphin-mistral:7b", "score": 38, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:52:30.544700Z"}
+{"message": "Describe esta foto", "event": "routing_image", "timestamp": "2025-11-20T01:52:30.544760Z"}
+{"message": "Analiza la imagen adjunta y enumera objetos detectables", "event": "routing_image", "timestamp": "2025-11-20T01:52:30.544815Z"}
+{"message": "\u00bfQu\u00e9 ves en esta foto?", "event": "routing_image", "timestamp": "2025-11-20T01:52:30.544867Z"}
+{"message": "Mira esto y descr\u00edbelo", "event": "routing_image", "timestamp": "2025-11-20T01:52:30.544915Z"}
+{"message": "Foto: identifica colores dominantes y contexto", "event": "routing_image", "timestamp": "2025-11-20T01:52:30.544963Z"}
+{"chosen": "claude_code_api", "score": 10, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:52:30.545026Z"}
+{"chosen": "claude_code_api", "score": 10, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:52:30.545094Z"}
+{"chosen": "claude_code_api", "score": 10, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:52:30.545160Z"}
+{"chosen": "claude_code_api", "score": 10, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:52:30.545228Z"}
+{"chosen": "claude_code_api", "score": 10, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:52:30.545293Z"}
+{"message": "Ay\u00fadame", "event": "needs_clarification", "timestamp": "2025-11-20T01:52:30.545350Z"}
+{"message": "Expl\u00edcate", "event": "needs_clarification_short", "timestamp": "2025-11-20T01:52:30.545405Z"}
+{"chosen": "dolphin-mistral:7b", "score": 8, "alternatives": [{"model": "moondream:1.8b", "score": -1}], "event": "routing_result", "timestamp": "2025-11-20T01:52:30.545475Z"}
+{"chosen": "dolphin-mistral:7b", "score": 8, "alternatives": [{"model": "moondream:1.8b", "score": -1}], "event": "routing_result", "timestamp": "2025-11-20T01:52:30.545541Z"}
+{"message": "Info", "event": "needs_clarification_short", "timestamp": "2025-11-20T01:52:30.545610Z"}
+{"chosen": "dolphin-mistral:7b", "score": 33, "alternatives": [{"model": "claude_code_api", "score": 25}], "event": "routing_result", "timestamp": "2025-11-20T01:52:30.545686Z"}
+{"chosen": "claude_code_api", "score": 35, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:52:44.158821Z"}
+{"chosen": "claude_code_api", "score": 35, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:52:44.159019Z"}
+{"chosen": "claude_code_api", "score": 35, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:52:44.159132Z"}
+{"chosen": "claude_code_api", "score": 35, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:52:44.159223Z"}
+{"chosen": "claude_code_api", "score": 35, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:52:44.159304Z"}
+{"chosen": "dolphin-mistral:7b", "score": 33, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:52:44.159385Z"}
+{"chosen": "dolphin-mistral:7b", "score": 38, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:52:44.159461Z"}
+{"chosen": "dolphin-mistral:7b", "score": 33, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:52:44.159535Z"}
+{"chosen": "dolphin-mistral:7b", "score": 38, "alternatives": [{"model": "claude_code_api", "score": 25}], "event": "routing_result", "timestamp": "2025-11-20T01:52:44.159624Z"}
+{"chosen": "dolphin-mistral:7b", "score": 38, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:52:44.159704Z"}
+{"message": "Describe esta foto", "event": "routing_image", "timestamp": "2025-11-20T01:52:44.159759Z"}
+{"message": "Analiza la imagen adjunta y enumera objetos detectables", "event": "routing_image", "timestamp": "2025-11-20T01:52:44.159815Z"}
+{"message": "\u00bfQu\u00e9 ves en esta foto?", "event": "routing_image", "timestamp": "2025-11-20T01:52:44.159868Z"}
+{"message": "Mira esto y descr\u00edbelo", "event": "routing_image", "timestamp": "2025-11-20T01:52:44.159922Z"}
+{"message": "Foto: identifica colores dominantes y contexto", "event": "routing_image", "timestamp": "2025-11-20T01:52:44.159972Z"}
+{"chosen": "claude_code_api", "score": 10, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:52:44.160033Z"}
+{"chosen": "claude_code_api", "score": 10, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:52:44.160100Z"}
+{"chosen": "claude_code_api", "score": 10, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:52:44.160164Z"}
+{"chosen": "claude_code_api", "score": 10, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:52:44.160230Z"}
+{"chosen": "claude_code_api", "score": 10, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:52:44.160294Z"}
+{"message": "Ay\u00fadame", "event": "needs_clarification", "timestamp": "2025-11-20T01:52:44.160349Z"}
+{"message": "Expl\u00edcate", "event": "needs_clarification_short", "timestamp": "2025-11-20T01:52:44.160405Z"}
+{"chosen": "dolphin-mistral:7b", "score": 8, "alternatives": [{"model": "moondream:1.8b", "score": -1}], "event": "routing_result", "timestamp": "2025-11-20T01:52:44.160475Z"}
+{"chosen": "dolphin-mistral:7b", "score": 8, "alternatives": [{"model": "moondream:1.8b", "score": -1}], "event": "routing_result", "timestamp": "2025-11-20T01:52:44.160545Z"}
+{"message": "Info", "event": "needs_clarification_short", "timestamp": "2025-11-20T01:52:44.160610Z"}
+{"chosen": "claude_code_api", "score": 55, "alternatives": [{"model": "dolphin-mistral:7b", "score": 33}], "event": "routing_result", "timestamp": "2025-11-20T01:52:44.160680Z"}
+{"message": "Imagen + c\u00f3digo: analiza el diagrama y genera el c\u00f3digo", "event": "routing_image", "timestamp": "2025-11-20T01:52:44.160734Z"}
+{"chosen": "dolphin-mistral:7b", "score": 28, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:52:44.160799Z"}
+{"chosen": "dolphin-mistral:7b", "score": 38, "alternatives": [{"model": "claude_code_api", "score": 25}], "event": "routing_result", "timestamp": "2025-11-20T01:52:44.160879Z"}
+{"chosen": "claude_code_api", "score": 35, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:53:05.440456Z"}
+{"chosen": "claude_code_api", "score": 35, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:53:05.440697Z"}
+{"chosen": "claude_code_api", "score": 35, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:53:05.440820Z"}
+{"chosen": "claude_code_api", "score": 35, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:53:05.440921Z"}
+{"chosen": "claude_code_api", "score": 35, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:53:05.441037Z"}
+{"chosen": "dolphin-mistral:7b", "score": 33, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:53:05.441146Z"}
+{"chosen": "dolphin-mistral:7b", "score": 38, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:53:05.441254Z"}
+{"chosen": "dolphin-mistral:7b", "score": 33, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:53:05.441348Z"}
+{"chosen": "dolphin-mistral:7b", "score": 38, "alternatives": [{"model": "claude_code_api", "score": 25}], "event": "routing_result", "timestamp": "2025-11-20T01:53:05.441452Z"}
+{"chosen": "dolphin-mistral:7b", "score": 38, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:53:05.441556Z"}
+{"message": "Describe esta foto", "event": "routing_image", "timestamp": "2025-11-20T01:53:05.441650Z"}
+{"message": "Analiza la imagen adjunta y enumera objetos detectables", "event": "routing_image", "timestamp": "2025-11-20T01:53:05.441714Z"}
+{"message": "\u00bfQu\u00e9 ves en esta foto?", "event": "routing_image", "timestamp": "2025-11-20T01:53:05.441770Z"}
+{"message": "Mira esto y descr\u00edbelo", "event": "routing_image", "timestamp": "2025-11-20T01:53:05.441822Z"}
+{"message": "Foto: identifica colores dominantes y contexto", "event": "routing_image", "timestamp": "2025-11-20T01:53:05.441874Z"}
+{"chosen": "claude_code_api", "score": 10, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:53:05.441947Z"}
+{"chosen": "claude_code_api", "score": 10, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:53:05.442015Z"}
+{"chosen": "claude_code_api", "score": 10, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:53:05.442092Z"}
+{"chosen": "claude_code_api", "score": 10, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:53:05.442167Z"}
+{"chosen": "claude_code_api", "score": 10, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:53:05.442239Z"}
+{"message": "Ay\u00fadame", "event": "needs_clarification", "timestamp": "2025-11-20T01:53:05.442297Z"}
+{"message": "Expl\u00edcate", "event": "needs_clarification_short", "timestamp": "2025-11-20T01:53:05.442353Z"}
+{"chosen": "dolphin-mistral:7b", "score": 8, "alternatives": [{"model": "moondream:1.8b", "score": -1}], "event": "routing_result", "timestamp": "2025-11-20T01:53:05.442415Z"}
+{"chosen": "dolphin-mistral:7b", "score": 8, "alternatives": [{"model": "moondream:1.8b", "score": -1}], "event": "routing_result", "timestamp": "2025-11-20T01:53:05.442483Z"}
+{"message": "Info", "event": "needs_clarification_short", "timestamp": "2025-11-20T01:53:05.442540Z"}
+{"chosen": "claude_code_api", "score": 55, "alternatives": [{"model": "dolphin-mistral:7b", "score": 33}], "event": "routing_result", "timestamp": "2025-11-20T01:53:05.442623Z"}
+{"message": "Imagen + c\u00f3digo: analiza el diagrama y genera el c\u00f3digo", "event": "routing_image", "timestamp": "2025-11-20T01:53:05.442690Z"}
+{"chosen": "dolphin-mistral:7b", "score": 28, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:53:05.442758Z"}
+{"chosen": "claude_code_api", "score": 55, "alternatives": [{"model": "dolphin-mistral:7b", "score": 38}], "event": "routing_result", "timestamp": "2025-11-20T01:53:05.442831Z"}
+{"chosen": "dolphin-mistral:7b", "score": 28, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:53:05.442896Z"}
+{"chosen": "claude_code_api", "score": 65, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:53:36.213657Z"}
+{"chosen": "claude_code_api", "score": 35, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:53:36.213821Z"}
+{"chosen": "claude_code_api", "score": 35, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:53:36.213901Z"}
+{"chosen": "claude_code_api", "score": 65, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:53:36.213968Z"}
+{"chosen": "claude_code_api", "score": 35, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:53:36.214027Z"}
+{"chosen": "dolphin-mistral:7b", "score": 33, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:53:36.214088Z"}
+{"chosen": "dolphin-mistral:7b", "score": 38, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:53:36.214148Z"}
+{"chosen": "dolphin-mistral:7b", "score": 33, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:53:36.214203Z"}
+{"chosen": "dolphin-mistral:7b", "score": 38, "alternatives": [{"model": "claude_code_api", "score": 25}], "event": "routing_result", "timestamp": "2025-11-20T01:53:36.214258Z"}
+{"chosen": "dolphin-mistral:7b", "score": 38, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:53:36.214334Z"}
+{"message": "Describe esta foto", "event": "routing_image", "timestamp": "2025-11-20T01:53:36.214382Z"}
+{"message": "Analiza la imagen adjunta y enumera objetos detectables", "event": "routing_image", "timestamp": "2025-11-20T01:53:36.214423Z"}
+{"message": "\u00bfQu\u00e9 ves en esta foto?", "event": "routing_image", "timestamp": "2025-11-20T01:53:36.214461Z"}
+{"message": "Mira esto y descr\u00edbelo", "event": "routing_image", "timestamp": "2025-11-20T01:53:36.214496Z"}
+{"message": "Foto: identifica colores dominantes y contexto", "event": "routing_image", "timestamp": "2025-11-20T01:53:36.214530Z"}
+{"chosen": "claude_code_api", "score": 40, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:53:36.214583Z"}
+{"chosen": "claude_code_api", "score": 10, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:53:36.214775Z"}
+{"chosen": "claude_code_api", "score": 40, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:53:36.214829Z"}
+{"chosen": "claude_code_api", "score": 40, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:53:36.214879Z"}
+{"chosen": "claude_code_api", "score": 10, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:53:36.214927Z"}
+{"message": "Ay\u00fadame", "event": "needs_clarification", "timestamp": "2025-11-20T01:53:36.214967Z"}
+{"message": "Expl\u00edcate", "event": "needs_clarification_short", "timestamp": "2025-11-20T01:53:36.215011Z"}
+{"chosen": "dolphin-mistral:7b", "score": 8, "alternatives": [{"model": "moondream:1.8b", "score": -1}], "event": "routing_result", "timestamp": "2025-11-20T01:53:36.215055Z"}
+{"chosen": "dolphin-mistral:7b", "score": 8, "alternatives": [{"model": "moondream:1.8b", "score": -1}], "event": "routing_result", "timestamp": "2025-11-20T01:53:36.215099Z"}
+{"message": "Info", "event": "needs_clarification_short", "timestamp": "2025-11-20T01:53:36.215138Z"}
+{"chosen": "claude_code_api", "score": 55, "alternatives": [{"model": "dolphin-mistral:7b", "score": 33}], "event": "routing_result", "timestamp": "2025-11-20T01:53:36.215187Z"}
+{"message": "Imagen + c\u00f3digo: analiza el diagrama y genera el c\u00f3digo", "event": "routing_image", "timestamp": "2025-11-20T01:53:36.215223Z"}
+{"chosen": "dolphin-mistral:7b", "score": 28, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:53:36.215268Z"}
+{"chosen": "claude_code_api", "score": 55, "alternatives": [{"model": "dolphin-mistral:7b", "score": 38}], "event": "routing_result", "timestamp": "2025-11-20T01:53:36.215318Z"}
+{"chosen": "claude_code_api", "score": 30, "alternatives": [{"model": "dolphin-mistral:7b", "score": 28}], "event": "routing_result", "timestamp": "2025-11-20T01:53:36.215364Z"}
+{"chosen": "claude_code_api", "score": 10, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:53:36.215407Z"}
+{"chosen": "claude_code_api", "score": 65, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:53:49.324705Z"}
+{"chosen": "claude_code_api", "score": 35, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:53:49.324870Z"}
+{"chosen": "claude_code_api", "score": 35, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:53:49.324954Z"}
+{"chosen": "claude_code_api", "score": 65, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:53:49.325030Z"}
+{"chosen": "claude_code_api", "score": 35, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:53:49.325092Z"}
+{"chosen": "dolphin-mistral:7b", "score": 33, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:53:49.325152Z"}
+{"chosen": "dolphin-mistral:7b", "score": 38, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:53:49.325212Z"}
+{"chosen": "dolphin-mistral:7b", "score": 33, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:53:49.325272Z"}
+{"chosen": "dolphin-mistral:7b", "score": 38, "alternatives": [{"model": "claude_code_api", "score": 25}], "event": "routing_result", "timestamp": "2025-11-20T01:53:49.325327Z"}
+{"chosen": "dolphin-mistral:7b", "score": 38, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:53:49.325387Z"}
+{"message": "Describe esta foto", "event": "routing_image", "timestamp": "2025-11-20T01:53:49.325428Z"}
+{"message": "Analiza la imagen adjunta y enumera objetos detectables", "event": "routing_image", "timestamp": "2025-11-20T01:53:49.325467Z"}
+{"message": "\u00bfQu\u00e9 ves en esta foto?", "event": "routing_image", "timestamp": "2025-11-20T01:53:49.325504Z"}
+{"message": "Mira esto y descr\u00edbelo", "event": "routing_image", "timestamp": "2025-11-20T01:53:49.325539Z"}
+{"message": "Foto: identifica colores dominantes y contexto", "event": "routing_image", "timestamp": "2025-11-20T01:53:49.325574Z"}
+{"chosen": "claude_code_api", "score": 40, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:53:49.325633Z"}
+{"chosen": "claude_code_api", "score": 10, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:53:49.325685Z"}
+{"chosen": "claude_code_api", "score": 40, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:53:49.325741Z"}
+{"chosen": "claude_code_api", "score": 40, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:53:49.325791Z"}
+{"chosen": "claude_code_api", "score": 10, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:53:49.325839Z"}
+{"message": "Ay\u00fadame", "event": "needs_clarification", "timestamp": "2025-11-20T01:53:49.325881Z"}
+{"message": "Expl\u00edcate", "event": "needs_clarification_short", "timestamp": "2025-11-20T01:53:49.325923Z"}
+{"chosen": "dolphin-mistral:7b", "score": 8, "alternatives": [{"model": "moondream:1.8b", "score": -1}], "event": "routing_result", "timestamp": "2025-11-20T01:53:49.325969Z"}
+{"chosen": "dolphin-mistral:7b", "score": 8, "alternatives": [{"model": "moondream:1.8b", "score": -1}], "event": "routing_result", "timestamp": "2025-11-20T01:53:49.326018Z"}
+{"message": "Info", "event": "needs_clarification_short", "timestamp": "2025-11-20T01:53:49.326061Z"}
+{"chosen": "claude_code_api", "score": 55, "alternatives": [{"model": "dolphin-mistral:7b", "score": 33}], "event": "routing_result", "timestamp": "2025-11-20T01:53:49.326108Z"}
+{"message": "Imagen + c\u00f3digo: analiza el diagrama y genera el c\u00f3digo", "event": "routing_image", "timestamp": "2025-11-20T01:53:49.326145Z"}
+{"chosen": "dolphin-mistral:7b", "score": 28, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:53:49.326192Z"}
+{"chosen": "claude_code_api", "score": 55, "alternatives": [{"model": "dolphin-mistral:7b", "score": 38}], "event": "routing_result", "timestamp": "2025-11-20T01:53:49.326243Z"}
+{"chosen": "claude_code_api", "score": 30, "alternatives": [{"model": "dolphin-mistral:7b", "score": 28}], "event": "routing_result", "timestamp": "2025-11-20T01:53:49.326290Z"}
+{"chosen": "dolphin-mistral:7b", "score": 38, "alternatives": [{"model": "claude_code_api", "score": 25}], "event": "routing_result", "timestamp": "2025-11-20T01:53:49.326335Z"}
+{"chosen": "dolphin-mistral:7b", "score": 38, "alternatives": [{"model": "claude_code_api", "score": 25}], "event": "routing_result", "timestamp": "2025-11-20T01:53:49.326378Z"}
+{"message": "Describe la foto y sugiere tags SEO", "event": "routing_image", "timestamp": "2025-11-20T01:53:49.326412Z"}
+{"chosen": "claude_code_api", "score": 65, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:53:49.326458Z"}
+{"chosen": "claude_code_api", "score": 40, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:53:49.326503Z"}
+{"chosen": "claude_code_api", "score": 65, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:59:29.174406Z"}
+{"chosen": "claude_code_api", "score": 35, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:59:29.174572Z"}
+{"chosen": "claude_code_api", "score": 35, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:59:29.174671Z"}
+{"chosen": "claude_code_api", "score": 65, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:59:29.174741Z"}
+{"chosen": "claude_code_api", "score": 35, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:59:29.174810Z"}
+{"chosen": "dolphin-mistral:7b", "score": 33, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:59:29.174873Z"}
+{"chosen": "dolphin-mistral:7b", "score": 38, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:59:29.174933Z"}
+{"chosen": "dolphin-mistral:7b", "score": 33, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:59:29.174988Z"}
+{"chosen": "dolphin-mistral:7b", "score": 38, "alternatives": [{"model": "claude_code_api", "score": 25}], "event": "routing_result", "timestamp": "2025-11-20T01:59:29.175043Z"}
+{"chosen": "dolphin-mistral:7b", "score": 38, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:59:29.175096Z"}
+{"message": "Describe esta foto", "event": "routing_image", "timestamp": "2025-11-20T01:59:29.175136Z"}
+{"message": "Analiza la imagen adjunta y enumera objetos detectables", "event": "routing_image", "timestamp": "2025-11-20T01:59:29.175175Z"}
+{"message": "\u00bfQu\u00e9 ves en esta foto?", "event": "routing_image", "timestamp": "2025-11-20T01:59:29.175213Z"}
+{"message": "Mira esto y descr\u00edbelo", "event": "routing_image", "timestamp": "2025-11-20T01:59:29.175250Z"}
+{"message": "Foto: identifica colores dominantes y contexto", "event": "routing_image", "timestamp": "2025-11-20T01:59:29.175286Z"}
+{"chosen": "claude_code_api", "score": 40, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:59:29.175333Z"}
+{"chosen": "claude_code_api", "score": 10, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:59:29.175386Z"}
+{"chosen": "claude_code_api", "score": 40, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:59:29.175439Z"}
+{"chosen": "claude_code_api", "score": 40, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:59:29.175491Z"}
+{"chosen": "claude_code_api", "score": 10, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:59:29.175542Z"}
+{"message": "Ay\u00fadame", "event": "needs_clarification", "timestamp": "2025-11-20T01:59:29.175611Z"}
+{"message": "Expl\u00edcate", "event": "needs_clarification_short", "timestamp": "2025-11-20T01:59:29.175659Z"}
+{"chosen": "dolphin-mistral:7b", "score": 8, "alternatives": [{"model": "moondream:1.8b", "score": -1}], "event": "routing_result", "timestamp": "2025-11-20T01:59:29.175708Z"}
+{"chosen": "dolphin-mistral:7b", "score": 8, "alternatives": [{"model": "moondream:1.8b", "score": -1}], "event": "routing_result", "timestamp": "2025-11-20T01:59:29.175757Z"}
+{"message": "Info", "event": "needs_clarification_short", "timestamp": "2025-11-20T01:59:29.175800Z"}
+{"chosen": "claude_code_api", "score": 55, "alternatives": [{"model": "dolphin-mistral:7b", "score": 33}], "event": "routing_result", "timestamp": "2025-11-20T01:59:29.175852Z"}
+{"message": "Imagen + c\u00f3digo: analiza el diagrama y genera el c\u00f3digo", "event": "routing_image", "timestamp": "2025-11-20T01:59:29.175898Z"}
+{"chosen": "dolphin-mistral:7b", "score": 28, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:59:29.175948Z"}
+{"chosen": "claude_code_api", "score": 55, "alternatives": [{"model": "dolphin-mistral:7b", "score": 38}], "event": "routing_result", "timestamp": "2025-11-20T01:59:29.175996Z"}
+{"chosen": "claude_code_api", "score": 30, "alternatives": [{"model": "dolphin-mistral:7b", "score": 28}], "event": "routing_result", "timestamp": "2025-11-20T01:59:29.176044Z"}
+{"chosen": "dolphin-mistral:7b", "score": 38, "alternatives": [{"model": "claude_code_api", "score": 25}], "event": "routing_result", "timestamp": "2025-11-20T01:59:29.176089Z"}
+{"chosen": "dolphin-mistral:7b", "score": 38, "alternatives": [{"model": "claude_code_api", "score": 25}], "event": "routing_result", "timestamp": "2025-11-20T01:59:29.176132Z"}
+{"message": "Describe la foto y sugiere tags SEO", "event": "routing_image", "timestamp": "2025-11-20T01:59:29.176168Z"}
+{"chosen": "claude_code_api", "score": 65, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:59:29.176212Z"}
+{"chosen": "claude_code_api", "score": 40, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T01:59:29.176260Z"}
+{"event": "system_startup_attempt", "timestamp": "2025-11-20T02:03:48.120880Z"}
+{"event": "ollama_already_running", "timestamp": "2025-11-20T02:03:48.127627Z"}
+{"model": "dolphin-mistral:7b", "event": "pull_model_start", "timestamp": "2025-11-20T02:03:48.127993Z"}
+{"step": "pulling_model", "model": "dolphin-mistral:7b", "percent": 0, "event": "startup_progress", "timestamp": "2025-11-20T02:03:48.531956Z"}
+{"step": "pulling_model", "model": "dolphin-mistral:7b", "percent": 10, "event": "startup_progress", "timestamp": "2025-11-20T02:03:48.583030Z"}
+{"step": "pulling_model", "model": "dolphin-mistral:7b", "percent": 20, "event": "startup_progress", "timestamp": "2025-11-20T02:03:48.633717Z"}
+{"step": "pulling_model", "model": "dolphin-mistral:7b", "percent": 30, "event": "startup_progress", "timestamp": "2025-11-20T02:03:48.684323Z"}
+{"step": "pulling_model", "model": "dolphin-mistral:7b", "percent": 40, "event": "startup_progress", "timestamp": "2025-11-20T02:03:48.735423Z"}
+{"step": "pulling_model", "model": "dolphin-mistral:7b", "percent": 50, "event": "startup_progress", "timestamp": "2025-11-20T02:03:48.786262Z"}
+{"step": "pulling_model", "model": "dolphin-mistral:7b", "percent": 60, "event": "startup_progress", "timestamp": "2025-11-20T02:03:48.837419Z"}
+{"step": "pulling_model", "model": "dolphin-mistral:7b", "percent": 70, "event": "startup_progress", "timestamp": "2025-11-20T02:03:48.888288Z"}
+{"step": "pulling_model", "model": "dolphin-mistral:7b", "percent": 80, "event": "startup_progress", "timestamp": "2025-11-20T02:03:48.939105Z"}
+{"step": "pulling_model", "model": "dolphin-mistral:7b", "percent": 90, "event": "startup_progress", "timestamp": "2025-11-20T02:03:48.990005Z"}
+{"step": "pulling_model", "model": "dolphin-mistral:7b", "percent": 100, "event": "startup_progress", "timestamp": "2025-11-20T02:03:49.040640Z"}
+{"model": "dolphin-mistral:7b", "event": "pull_model_done", "timestamp": "2025-11-20T02:03:49.091686Z"}
+{"model": "moondream:1.8b", "event": "pull_model_start", "timestamp": "2025-11-20T02:03:49.092149Z"}
+{"step": "pulling_model", "model": "moondream:1.8b", "percent": 0, "event": "startup_progress", "timestamp": "2025-11-20T02:03:49.403664Z"}
+{"step": "pulling_model", "model": "moondream:1.8b", "percent": 10, "event": "startup_progress", "timestamp": "2025-11-20T02:03:49.455004Z"}
+{"step": "pulling_model", "model": "moondream:1.8b", "percent": 20, "event": "startup_progress", "timestamp": "2025-11-20T02:03:49.505949Z"}
+{"step": "pulling_model", "model": "moondream:1.8b", "percent": 30, "event": "startup_progress", "timestamp": "2025-11-20T02:03:49.556974Z"}
+{"step": "pulling_model", "model": "moondream:1.8b", "percent": 40, "event": "startup_progress", "timestamp": "2025-11-20T02:03:49.608029Z"}
+{"step": "pulling_model", "model": "moondream:1.8b", "percent": 50, "event": "startup_progress", "timestamp": "2025-11-20T02:03:49.658635Z"}
+{"step": "pulling_model", "model": "moondream:1.8b", "percent": 60, "event": "startup_progress", "timestamp": "2025-11-20T02:03:49.709129Z"}
+{"step": "pulling_model", "model": "moondream:1.8b", "percent": 70, "event": "startup_progress", "timestamp": "2025-11-20T02:03:49.759730Z"}
+{"step": "pulling_model", "model": "moondream:1.8b", "percent": 80, "event": "startup_progress", "timestamp": "2025-11-20T02:03:49.810737Z"}
+{"step": "pulling_model", "model": "moondream:1.8b", "percent": 90, "event": "startup_progress", "timestamp": "2025-11-20T02:03:49.861747Z"}
+{"step": "pulling_model", "model": "moondream:1.8b", "percent": 100, "event": "startup_progress", "timestamp": "2025-11-20T02:03:49.912726Z"}
+{"model": "moondream:1.8b", "event": "pull_model_done", "timestamp": "2025-11-20T02:03:49.963856Z"}
+{"url": "http://localhost:11434/api/tags", "event": "waiting_for_ollama_health", "timestamp": "2025-11-20T02:03:49.964649Z"}
+{"event": "ollama_health_ok", "timestamp": "2025-11-20T02:03:49.969705Z"}
+{"port": 8000, "event": "system_ready", "timestamp": "2025-11-20T02:03:49.970065Z"}
+{"message": " _   _  ___  _   _   ___   _   _\n| \\ | |/ _ \\| \\ | | / _ \\ | \\ | |\n|  \\| | | | |  \\| || | | ||  \\| |\n| |\\  | |_| | |\\  || |_| || |\\  |\n|_| \\_|\\___/|_| \\_| \\___/ |_| \\_|\n\nN O V A   O P E R A T I V O", "event": "startup_progress", "timestamp": "2025-11-20T02:03:49.970118Z"}
+{"message": "NOVA OPERATIVO \u2192 http://localhost:8000 | Presiona Ctrl+C para detener", "event": "startup_progress", "timestamp": "2025-11-20T02:03:49.970173Z"}
+{"port": 8000, "event": "uvicorn_started", "timestamp": "2025-11-20T02:03:49.971017Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-20T02:03:50.544235Z"}
+{"event": "app_startup", "timestamp": "2025-11-20T02:03:50.544799Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-20T02:04:24.715808Z"}
+{"result": {}, "event": "performance_analyzed", "timestamp": "2025-11-20T02:04:24.716705Z"}
+{"chosen": "dolphin-mistral:7b", "score": 18, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T02:04:38.260423Z"}
+{"model": "dolphin-mistral:7b", "event": "generate_request", "timestamp": "2025-11-20T02:04:38.260969Z"}
+{"error": "HTTPConnectionPool(host='localhost', port=11434): Read timed out. (read timeout=10)", "event": "generate_request_failed", "timestamp": "2025-11-20T02:04:48.274809Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-20T02:04:48.275295Z"}
+{"session_id": "yo", "role": "user", "message_id": 15, "event": "message_saved", "timestamp": "2025-11-20T02:04:48.328690Z"}
+{"session_id": "yo", "role": "assistant", "message_id": 16, "event": "message_saved", "timestamp": "2025-11-20T02:04:48.334808Z"}
+{"session_id": "yo", "model": "dolphin-mistral:7b", "event": "chat_handled", "timestamp": "2025-11-20T02:04:48.335117Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-20T02:04:48.341585Z"}
+{"result": {}, "event": "performance_analyzed", "timestamp": "2025-11-20T02:04:48.342446Z"}
+{"chosen": "claude_code_api", "score": 35, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T02:04:50.837936Z"}
+{"model": "claude_code_api", "event": "generate_request", "timestamp": "2025-11-20T02:04:50.838578Z"}
+{"status": 404, "event": "generate_non_200", "timestamp": "2025-11-20T02:04:50.844526Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-20T02:04:50.846526Z"}
+{"session_id": "yo", "role": "user", "message_id": 17, "event": "message_saved", "timestamp": "2025-11-20T02:04:50.854954Z"}
+{"session_id": "yo", "role": "assistant", "message_id": 18, "event": "message_saved", "timestamp": "2025-11-20T02:04:50.858058Z"}
+{"session_id": "yo", "model": "claude_code_api", "event": "chat_handled", "timestamp": "2025-11-20T02:04:50.858427Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-20T02:05:03.152323Z"}
+{"result": {}, "event": "performance_analyzed", "timestamp": "2025-11-20T02:05:03.152774Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-20T02:05:08.628031Z"}
+{"result": {}, "event": "performance_analyzed", "timestamp": "2025-11-20T02:05:08.628658Z"}
+{"chosen": "claude_code_api", "score": 65, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T02:09:30.709314Z"}
+{"chosen": "claude_code_api", "score": 35, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T02:09:30.709541Z"}
+{"chosen": "claude_code_api", "score": 35, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T02:09:30.709652Z"}
+{"chosen": "claude_code_api", "score": 65, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T02:09:30.709729Z"}
+{"chosen": "claude_code_api", "score": 35, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T02:09:30.709797Z"}
+{"chosen": "dolphin-mistral:7b", "score": 33, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T02:09:30.709871Z"}
+{"chosen": "dolphin-mistral:7b", "score": 38, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T02:09:30.709933Z"}
+{"chosen": "dolphin-mistral:7b", "score": 33, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T02:09:30.709988Z"}
+{"chosen": "dolphin-mistral:7b", "score": 38, "alternatives": [{"model": "claude_code_api", "score": 25}], "event": "routing_result", "timestamp": "2025-11-20T02:09:30.710041Z"}
+{"chosen": "dolphin-mistral:7b", "score": 38, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T02:09:30.710095Z"}
+{"message": "Describe esta foto", "event": "routing_image", "timestamp": "2025-11-20T02:09:30.710137Z"}
+{"message": "Analiza la imagen adjunta y enumera objetos detectables", "event": "routing_image", "timestamp": "2025-11-20T02:09:30.710178Z"}
+{"message": "\u00bfQu\u00e9 ves en esta foto?", "event": "routing_image", "timestamp": "2025-11-20T02:09:30.710218Z"}
+{"message": "Mira esto y descr\u00edbelo", "event": "routing_image", "timestamp": "2025-11-20T02:09:30.710258Z"}
+{"message": "Foto: identifica colores dominantes y contexto", "event": "routing_image", "timestamp": "2025-11-20T02:09:30.710296Z"}
+{"chosen": "claude_code_api", "score": 40, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T02:09:30.710345Z"}
+{"chosen": "claude_code_api", "score": 10, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T02:09:30.710396Z"}
+{"chosen": "claude_code_api", "score": 40, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T02:09:30.710447Z"}
+{"chosen": "claude_code_api", "score": 40, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T02:09:30.710498Z"}
+{"chosen": "claude_code_api", "score": 10, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T02:09:30.710549Z"}
+{"message": "Ay\u00fadame", "event": "needs_clarification", "timestamp": "2025-11-20T02:09:30.710599Z"}
+{"message": "Expl\u00edcate", "event": "needs_clarification_short", "timestamp": "2025-11-20T02:09:30.710646Z"}
+{"chosen": "dolphin-mistral:7b", "score": 8, "alternatives": [{"model": "moondream:1.8b", "score": -1}], "event": "routing_result", "timestamp": "2025-11-20T02:09:30.710695Z"}
+{"chosen": "dolphin-mistral:7b", "score": 8, "alternatives": [{"model": "moondream:1.8b", "score": -1}], "event": "routing_result", "timestamp": "2025-11-20T02:09:30.710749Z"}
+{"message": "Info", "event": "needs_clarification_short", "timestamp": "2025-11-20T02:09:30.710802Z"}
+{"chosen": "claude_code_api", "score": 55, "alternatives": [{"model": "dolphin-mistral:7b", "score": 33}], "event": "routing_result", "timestamp": "2025-11-20T02:09:30.710855Z"}
+{"message": "Imagen + c\u00f3digo: analiza el diagrama y genera el c\u00f3digo", "event": "routing_image", "timestamp": "2025-11-20T02:09:30.710895Z"}
+{"chosen": "dolphin-mistral:7b", "score": 28, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T02:09:30.710948Z"}
+{"chosen": "claude_code_api", "score": 55, "alternatives": [{"model": "dolphin-mistral:7b", "score": 38}], "event": "routing_result", "timestamp": "2025-11-20T02:09:30.710998Z"}
+{"chosen": "claude_code_api", "score": 30, "alternatives": [{"model": "dolphin-mistral:7b", "score": 28}], "event": "routing_result", "timestamp": "2025-11-20T02:09:30.711047Z"}
+{"chosen": "dolphin-mistral:7b", "score": 38, "alternatives": [{"model": "claude_code_api", "score": 25}], "event": "routing_result", "timestamp": "2025-11-20T02:09:30.711093Z"}
+{"chosen": "dolphin-mistral:7b", "score": 38, "alternatives": [{"model": "claude_code_api", "score": 25}], "event": "routing_result", "timestamp": "2025-11-20T02:09:30.711138Z"}
+{"message": "Describe la foto y sugiere tags SEO", "event": "routing_image", "timestamp": "2025-11-20T02:09:30.711174Z"}
+{"chosen": "claude_code_api", "score": 65, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T02:09:30.711222Z"}
+{"chosen": "claude_code_api", "score": 40, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T02:09:30.711268Z"}
+{"chosen": "claude_code_api", "score": 65, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T02:09:35.499610Z"}
+{"chosen": "claude_code_api", "score": 35, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T02:09:35.499790Z"}
+{"chosen": "claude_code_api", "score": 35, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T02:09:35.499879Z"}
+{"chosen": "claude_code_api", "score": 65, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T02:09:35.499948Z"}
+{"chosen": "claude_code_api", "score": 35, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T02:09:35.500010Z"}
+{"chosen": "dolphin-mistral:7b", "score": 33, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T02:09:35.500069Z"}
+{"chosen": "dolphin-mistral:7b", "score": 38, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T02:09:35.500128Z"}
+{"chosen": "dolphin-mistral:7b", "score": 33, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T02:09:35.500180Z"}
+{"chosen": "dolphin-mistral:7b", "score": 38, "alternatives": [{"model": "claude_code_api", "score": 25}], "event": "routing_result", "timestamp": "2025-11-20T02:09:35.500234Z"}
+{"chosen": "dolphin-mistral:7b", "score": 38, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T02:09:35.500287Z"}
+{"message": "Describe esta foto", "event": "routing_image", "timestamp": "2025-11-20T02:09:35.500327Z"}
+{"message": "Analiza la imagen adjunta y enumera objetos detectables", "event": "routing_image", "timestamp": "2025-11-20T02:09:35.500367Z"}
+{"message": "\u00bfQu\u00e9 ves en esta foto?", "event": "routing_image", "timestamp": "2025-11-20T02:09:35.500412Z"}
+{"message": "Mira esto y descr\u00edbelo", "event": "routing_image", "timestamp": "2025-11-20T02:09:35.500452Z"}
+{"message": "Foto: identifica colores dominantes y contexto", "event": "routing_image", "timestamp": "2025-11-20T02:09:35.500490Z"}
+{"chosen": "claude_code_api", "score": 40, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T02:09:35.500537Z"}
+{"chosen": "claude_code_api", "score": 10, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T02:09:35.500595Z"}
+{"chosen": "claude_code_api", "score": 40, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T02:09:35.500664Z"}
+{"chosen": "claude_code_api", "score": 40, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T02:09:35.500718Z"}
+{"chosen": "claude_code_api", "score": 10, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T02:09:35.500768Z"}
+{"message": "Ay\u00fadame", "event": "needs_clarification", "timestamp": "2025-11-20T02:09:35.500809Z"}
+{"message": "Expl\u00edcate", "event": "needs_clarification_short", "timestamp": "2025-11-20T02:09:35.500851Z"}
+{"chosen": "dolphin-mistral:7b", "score": 8, "alternatives": [{"model": "moondream:1.8b", "score": -1}], "event": "routing_result", "timestamp": "2025-11-20T02:09:35.500896Z"}
+{"chosen": "dolphin-mistral:7b", "score": 8, "alternatives": [{"model": "moondream:1.8b", "score": -1}], "event": "routing_result", "timestamp": "2025-11-20T02:09:35.500942Z"}
+{"message": "Info", "event": "needs_clarification_short", "timestamp": "2025-11-20T02:09:35.500988Z"}
+{"chosen": "claude_code_api", "score": 55, "alternatives": [{"model": "dolphin-mistral:7b", "score": 33}], "event": "routing_result", "timestamp": "2025-11-20T02:09:35.501038Z"}
+{"message": "Imagen + c\u00f3digo: analiza el diagrama y genera el c\u00f3digo", "event": "routing_image", "timestamp": "2025-11-20T02:09:35.501076Z"}
+{"chosen": "dolphin-mistral:7b", "score": 28, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T02:09:35.501127Z"}
+{"chosen": "claude_code_api", "score": 55, "alternatives": [{"model": "dolphin-mistral:7b", "score": 38}], "event": "routing_result", "timestamp": "2025-11-20T02:09:35.501178Z"}
+{"chosen": "claude_code_api", "score": 30, "alternatives": [{"model": "dolphin-mistral:7b", "score": 28}], "event": "routing_result", "timestamp": "2025-11-20T02:09:35.501226Z"}
+{"chosen": "dolphin-mistral:7b", "score": 38, "alternatives": [{"model": "claude_code_api", "score": 25}], "event": "routing_result", "timestamp": "2025-11-20T02:09:35.501272Z"}
+{"chosen": "dolphin-mistral:7b", "score": 38, "alternatives": [{"model": "claude_code_api", "score": 25}], "event": "routing_result", "timestamp": "2025-11-20T02:09:35.501317Z"}
+{"message": "Describe la foto y sugiere tags SEO", "event": "routing_image", "timestamp": "2025-11-20T02:09:35.501356Z"}
+{"chosen": "claude_code_api", "score": 65, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T02:09:35.501401Z"}
+{"chosen": "claude_code_api", "score": 40, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T02:09:35.501449Z"}

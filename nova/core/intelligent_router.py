@@ -16,10 +16,55 @@ def score_model_for_query(model_name: str, signals: Dict[str, Any]) -> int:
         score += 30
     if signals.get("mentions_architecture") and ("complex_analysis" in caps or "reasoning" in caps):
         score += 25
-    if signals.get("mentions_code") and "code" in caps:
-        score += 20
+    # If query mixes architecture and code concerns, favor complex-analysis models
+    if signals.get("mentions_architecture") and signals.get("mentions_code"):
+        if "complex_analysis" in caps or "reasoning" in caps:
+            score += 30
+    # If query mixes strategy and code (e.g., 'estrategia' + 'ejemplos de código'), favor complex-analysis models
+    if signals.get("mentions_strategy") and signals.get("mentions_code"):
+        if "complex_analysis" in caps or "reasoning" in caps:
+            score += 30
+    # If the user requests a deep analysis (legal, financiero, seguridad, producto), prefer complex-analysis models
+    if signals.get("mentions_complex") and not signals.get("mentions_code") and not signals.get("mentions_image"):
+        if "complex_analysis" in caps or "reasoning" in caps:
+            score += 30
+    # If message mentions code, handle debugging vs deeper strategy differently
+    if signals.get("mentions_code"):
+        # If user explicitly wants code generation (e.g., "escribe una función"), strongly prefer code-specialized models
+        if signals.get("wants_code_generation"):
+            if "code" in caps:
+                score += 30
+            if "complex_analysis" in caps or "reasoning" in caps:
+                score -= 10
+        # Quick debugging / error-fix requests should prefer code-specialized models
+        elif signals.get("mentions_debug"):
+            if "code" in caps:
+                score += 25
+            if "complex_analysis" in caps or "reasoning" in caps:
+                score -= 10
+        else:
+            # For broader code + strategy requests, prefer code-specialized models stronger
+            if "code" in caps:
+                score += 30
+            elif "complex_analysis" in caps or "reasoning" in caps:
+                score += 15
     if signals.get("is_short"):
         score -= 10
+    # If the user explicitly asks for documentation/examples (and not code), prefer generalist/assistant models
+    if signals.get("mentions_docs") and not signals.get("mentions_code"):
+        if "general" in caps or "assistant" in caps:
+            score += 20
+        # Penalize heavy-reasoning models for pure doc requests
+        if "complex_analysis" in caps or "reasoning" in caps:
+            score -= 10
+    # Prefer generalist models for generic questions without other signals
+    if signals.get("has_question") and not (
+        signals.get("mentions_architecture") or signals.get("mentions_code") or signals.get("mentions_image")
+    ):
+        if "general" in caps:
+            score += 10
+        if "complex_analysis" in caps or "reasoning" in caps:
+            score -= 5
     return score
 
 
