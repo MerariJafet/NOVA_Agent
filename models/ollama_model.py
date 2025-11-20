@@ -83,23 +83,33 @@ def generate(model: str, prompt: str, stream: bool = False, timeout: int = 10) -
 
     # Streaming mode: return a generator
     def _stream_generator():
+        # Collect all chunks and return the assembled clean text at the end.
+        parts = []
         try:
             with requests.post(url, json=payload, stream=True, timeout=timeout) as r:
-                # If chunked JSON lines
-                buffer_parts = []
                 for chunk in r.iter_lines(decode_unicode=True):
                     if chunk is None:
                         continue
                     line = chunk.strip()
                     if not line:
                         continue
-                    # yield line for streaming clients, and also collect to assemble final
-                    buffer_parts.append(line)
-                    yield line
-                # after stream ends, nothing more to do here
+                    parts.append(line)
+            # After stream finishes, try to parse/join and return single clean string
+            combined = "\n".join(parts).strip()
+            # If combined looks like JSON, try to extract useful fields
+            try:
+                j = json.loads(combined)
+                if isinstance(j, dict):
+                    for k in ("result", "text", "response", "content"):
+                        if k in j:
+                            val = j[k]
+                            return val if isinstance(val, str) else json.dumps(val, ensure_ascii=False)
+            except Exception:
+                pass
+            return combined
         except Exception as e:
             logger.warning("ollama_stream_failed", error=str(e))
-            # on stream failure, stop generator
-            return
+            raise
 
+    # For stream=True we return the fully assembled string (not a generator)
     return _stream_generator()
