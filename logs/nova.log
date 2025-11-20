@@ -1,0 +1,71 @@
+HTTP Request: GET http://testserver/status "HTTP/1.1 200 OK"
+{"model": "dolphin-mistral:7b", "event": "routing_default", "timestamp": "2025-11-20T01:21:21.330012Z"}
+{"model": "dolphin-mistral:7b", "event": "generate_request", "timestamp": "2025-11-20T01:21:21.330127Z"}
+HTTP Request: GET http://testserver/status "HTTP/1.1 200 OK"
+{"event": "system_startup_attempt", "timestamp": "2025-11-20T01:21:24.766571Z"}
+{"event": "system_startup_attempt", "timestamp": "2025-11-20T01:21:24.769089Z"}
+{"path": "/tmp/pytest-of-merari-acero/pytest-0/test_memoria_init_and_save0/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-20T01:21:24.775179Z"}
+{"session_id": "s1", "role": "user", "event": "message_saved", "timestamp": "2025-11-20T01:21:24.777071Z"}
+{"session_id": "s1", "role": "assistant", "event": "message_saved", "timestamp": "2025-11-20T01:21:24.778879Z"}
+{"session_id": "s1", "count": 2, "event": "conversation_retrieved", "timestamp": "2025-11-20T01:21:24.779129Z"}
+{"model": "dolphin-mistral:7b", "event": "routing_default", "timestamp": "2025-11-20T01:21:49.031913Z"}
+{"model": "dolphin-mistral:7b", "event": "generate_request", "timestamp": "2025-11-20T01:21:49.032071Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-20T01:21:53.590854Z"}
+{"session_id": "s-e2e", "role": "user", "event": "message_saved", "timestamp": "2025-11-20T01:21:53.592937Z"}
+{"session_id": "s-e2e", "role": "assistant", "event": "message_saved", "timestamp": "2025-11-20T01:21:53.595354Z"}
+{"session_id": "s-e2e", "model": "dolphin-mistral:7b", "event": "chat_handled", "timestamp": "2025-11-20T01:21:53.595426Z"}
+HTTP Request: POST http://testserver/chat "HTTP/1.1 200 OK"
+HTTP Request: GET http://testserver/status "HTTP/1.1 200 OK"
+{"event": "system_startup_attempt", "timestamp": "2025-11-20T01:21:53.625805Z"}
+{"event": "ollama_already_running", "timestamp": "2025-11-20T01:21:53.625879Z"}
+{"url": "http://localhost:11434/api/tags", "event": "waiting_for_ollama_health", "timestamp": "2025-11-20T01:21:53.625941Z"}
+{"event": "ollama_health_ok", "timestamp": "2025-11-20T01:21:53.626002Z"}
+{"port": 8001, "event": "system_ready", "timestamp": "2025-11-20T01:21:53.626086Z"}
+{"port": 8001, "event": "uvicorn_started", "timestamp": "2025-11-20T01:21:53.626171Z"}
+{"event": "system_startup_attempt", "timestamp": "2025-11-20T01:21:53.626623Z"}
+{"event": "ollama_already_running", "timestamp": "2025-11-20T01:21:53.626688Z"}
+{"model": "dolphin-mistral:7b", "event": "pull_model_start", "timestamp": "2025-11-20T01:21:53.626743Z"}
+{"model": "dolphin-mistral:7b", "event": "pull_model_done", "timestamp": "2025-11-20T01:21:54.177728Z"}
+{"model": "moondream:1.8b", "event": "pull_model_start", "timestamp": "2025-11-20T01:21:54.177885Z"}
+{"model": "moondream:1.8b", "event": "pull_model_done", "timestamp": "2025-11-20T01:21:54.728860Z"}
+{"url": "http://localhost:11434/api/tags", "event": "waiting_for_ollama_health", "timestamp": "2025-11-20T01:21:54.729037Z"}
+{"event": "ollama_health_ok", "timestamp": "2025-11-20T01:21:54.729152Z"}
+{"port": 8000, "event": "system_ready", "timestamp": "2025-11-20T01:21:54.729290Z"}
+{"port": 8000, "event": "uvicorn_started", "timestamp": "2025-11-20T01:21:54.729390Z"}
+{"path": "/tmp/pytest-of-merari-acero/pytest-1/test_memoria_init_and_save0/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-20T01:21:54.738744Z"}
+{"session_id": "s1", "role": "user", "event": "message_saved", "timestamp": "2025-11-20T01:21:54.740888Z"}
+{"session_id": "s1", "role": "assistant", "event": "message_saved", "timestamp": "2025-11-20T01:21:54.743075Z"}
+{"session_id": "s1", "count": 2, "event": "conversation_retrieved", "timestamp": "2025-11-20T01:21:54.743349Z"}
+{"model": "dolphin-mistral:7b", "event": "routing_default", "timestamp": "2025-11-20T01:22:09.506712Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-20T01:22:09.507236Z"}
+{"session_id": "s-e2e", "role": "user", "event": "message_saved", "timestamp": "2025-11-20T01:22:09.509955Z"}
+{"session_id": "s-e2e", "role": "assistant", "event": "message_saved", "timestamp": "2025-11-20T01:22:09.511877Z"}
+{"session_id": "s-e2e", "model": "dolphin-mistral:7b", "event": "chat_handled", "timestamp": "2025-11-20T01:22:09.512004Z"}
+HTTP Request: POST http://testserver/chat "HTTP/1.1 200 OK"
+{"model": "dolphin-mistral:7b", "event": "routing_default", "timestamp": "2025-11-20T01:22:12.744320Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-20T01:22:12.744871Z"}
+{"session_id": "s-e2e", "role": "user", "event": "message_saved", "timestamp": "2025-11-20T01:22:12.749806Z"}
+{"session_id": "s-e2e", "role": "assistant", "event": "message_saved", "timestamp": "2025-11-20T01:22:12.751684Z"}
+{"session_id": "s-e2e", "model": "dolphin-mistral:7b", "event": "chat_handled", "timestamp": "2025-11-20T01:22:12.751779Z"}
+HTTP Request: POST http://testserver/chat "HTTP/1.1 200 OK"
+HTTP Request: GET http://testserver/status "HTTP/1.1 200 OK"
+{"event": "system_startup_attempt", "timestamp": "2025-11-20T01:22:12.755651Z"}
+{"event": "ollama_already_running", "timestamp": "2025-11-20T01:22:12.755744Z"}
+{"url": "http://localhost:11434/api/tags", "event": "waiting_for_ollama_health", "timestamp": "2025-11-20T01:22:12.755810Z"}
+{"event": "ollama_health_ok", "timestamp": "2025-11-20T01:22:12.755869Z"}
+{"port": 8001, "event": "system_ready", "timestamp": "2025-11-20T01:22:12.755963Z"}
+{"port": 8001, "event": "uvicorn_started", "timestamp": "2025-11-20T01:22:12.756063Z"}
+{"event": "system_startup_attempt", "timestamp": "2025-11-20T01:22:12.756680Z"}
+{"event": "ollama_already_running", "timestamp": "2025-11-20T01:22:12.756763Z"}
+{"model": "dolphin-mistral:7b", "event": "pull_model_start", "timestamp": "2025-11-20T01:22:12.756823Z"}
+{"model": "dolphin-mistral:7b", "event": "pull_model_done", "timestamp": "2025-11-20T01:22:13.307811Z"}
+{"model": "moondream:1.8b", "event": "pull_model_start", "timestamp": "2025-11-20T01:22:13.307992Z"}
+{"model": "moondream:1.8b", "event": "pull_model_done", "timestamp": "2025-11-20T01:22:13.858964Z"}
+{"url": "http://localhost:11434/api/tags", "event": "waiting_for_ollama_health", "timestamp": "2025-11-20T01:22:13.859173Z"}
+{"event": "ollama_health_ok", "timestamp": "2025-11-20T01:22:13.859277Z"}
+{"port": 8000, "event": "system_ready", "timestamp": "2025-11-20T01:22:13.859407Z"}
+{"port": 8000, "event": "uvicorn_started", "timestamp": "2025-11-20T01:22:13.859497Z"}
+{"path": "/tmp/pytest-of-merari-acero/pytest-2/test_memoria_init_and_save0/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-20T01:22:13.867393Z"}
+{"session_id": "s1", "role": "user", "event": "message_saved", "timestamp": "2025-11-20T01:22:13.869371Z"}
+{"session_id": "s1", "role": "assistant", "event": "message_saved", "timestamp": "2025-11-20T01:22:13.871344Z"}
+{"session_id": "s1", "count": 2, "event": "conversation_retrieved", "timestamp": "2025-11-20T01:22:13.871621Z"}

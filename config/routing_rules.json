@@ -1,0 +1,15 @@
+{
+  "vision": {
+    "triggers": ["imagen", "foto", "describe", "qué ves", "analiza imagen", "mira esto"],
+    "model": "moondream:1.8b"
+  },
+  "code": {
+    "triggers": ["código", "python", "javascript", "función", "debug", "error", "script", "programa"],
+    "model": "dolphin-mistral:7b"
+  },
+  "complex_analysis": {
+    "triggers": ["analiza a fondo", "arquitectura", "estrategia", "detallado", "profundo"],
+    "model": "dolphin-mistral:7b"
+  },
+  "default": { "model": "dolphin-mistral:7b" }
+}

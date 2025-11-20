@@ -1,0 +1,8 @@
+fastapi
+uvicorn
+requests
+structlog
+pydantic
+pydantic-settings
+pytest
+starlette
