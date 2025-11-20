@@ -807,3 +807,56 @@ HTTP Request: GET http://testserver/status "HTTP/1.1 200 OK"
 {"message": "Describe la foto y sugiere tags SEO", "event": "routing_image", "timestamp": "2025-11-20T02:13:33.222658Z"}
 {"chosen": "mixtral:8x7b", "score": 104, "alternatives": [{"model": "claude_code_api", "score": 45}], "event": "routing_result", "timestamp": "2025-11-20T02:13:33.222702Z"}
 {"chosen": "claude_code_api", "score": 80, "alternatives": [{"model": "mixtral:8x7b", "score": 39}], "event": "routing_result", "timestamp": "2025-11-20T02:13:33.222748Z"}
+{"chosen": "dolphin-mistral:7b", "score": 18, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T02:13:47.334024Z"}
+{"model": "dolphin-mistral:7b", "event": "generate_request", "timestamp": "2025-11-20T02:13:47.334177Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-20T02:13:51.260666Z"}
+{"session_id": "prueba", "role": "user", "message_id": 19, "event": "message_saved", "timestamp": "2025-11-20T02:13:51.265362Z"}
+{"session_id": "prueba", "role": "assistant", "message_id": 20, "event": "message_saved", "timestamp": "2025-11-20T02:13:51.267562Z"}
+{"session_id": "prueba", "model": "dolphin-mistral:7b", "event": "chat_handled", "timestamp": "2025-11-20T02:13:51.267626Z"}
+{"chosen": "claude_code_api", "score": 65, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T02:13:51.274083Z"}
+{"model": "claude_code_api", "event": "generate_request", "timestamp": "2025-11-20T02:13:51.274178Z"}
+{"status": 404, "event": "generate_non_200", "timestamp": "2025-11-20T02:13:51.275245Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-20T02:13:51.275501Z"}
+{"session_id": "prueba", "role": "user", "message_id": 21, "event": "message_saved", "timestamp": "2025-11-20T02:13:51.277476Z"}
+{"session_id": "prueba", "role": "assistant", "message_id": 22, "event": "message_saved", "timestamp": "2025-11-20T02:13:51.279229Z"}
+{"session_id": "prueba", "model": "claude_code_api", "event": "chat_handled", "timestamp": "2025-11-20T02:13:51.279280Z"}
+{"message": "Ay\u00fadame con esto", "event": "needs_clarification", "timestamp": "2025-11-20T02:13:51.284469Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-20T02:13:51.289149Z"}
+{"result": {}, "event": "performance_analyzed", "timestamp": "2025-11-20T02:13:51.289383Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-20T02:13:51.352460Z"}
+{"result": {}, "event": "performance_analyzed", "timestamp": "2025-11-20T02:13:51.352763Z"}
+{"chosen": "mixtral:8x7b", "score": 104, "alternatives": [{"model": "claude_code_api", "score": 45}], "event": "routing_result", "timestamp": "2025-11-20T02:16:53.548071Z"}
+{"chosen": "mixtral:8x7b", "score": 74, "alternatives": [{"model": "claude_code_api", "score": 15}], "event": "routing_result", "timestamp": "2025-11-20T02:16:53.548275Z"}
+{"chosen": "mixtral:8x7b", "score": 74, "alternatives": [{"model": "claude_code_api", "score": 15}], "event": "routing_result", "timestamp": "2025-11-20T02:16:53.548419Z"}
+{"chosen": "mixtral:8x7b", "score": 104, "alternatives": [{"model": "claude_code_api", "score": 45}], "event": "routing_result", "timestamp": "2025-11-20T02:16:53.548520Z"}
+{"chosen": "mixtral:8x7b", "score": 74, "alternatives": [{"model": "claude_code_api", "score": 15}], "event": "routing_result", "timestamp": "2025-11-20T02:16:53.548689Z"}
+{"chosen": "dolphin-mistral:7b", "score": 33, "alternatives": [{"model": "moondream:1.8b", "score": 7}], "event": "routing_result", "timestamp": "2025-11-20T02:16:53.548778Z"}
+{"chosen": "dolphin-mistral:7b", "score": 38, "alternatives": [{"model": "moondream:1.8b", "score": 7}], "event": "routing_result", "timestamp": "2025-11-20T02:16:53.548858Z"}
+{"chosen": "dolphin-mistral:7b", "score": 33, "alternatives": [{"model": "moondream:1.8b", "score": 7}], "event": "routing_result", "timestamp": "2025-11-20T02:16:53.548930Z"}
+{"chosen": "dolphin-mistral:7b", "score": 38, "alternatives": [{"model": "claude_code_api", "score": 25}], "event": "routing_result", "timestamp": "2025-11-20T02:16:53.548999Z"}
+{"chosen": "dolphin-mistral:7b", "score": 38, "alternatives": [{"model": "moondream:1.8b", "score": 7}], "event": "routing_result", "timestamp": "2025-11-20T02:16:53.549068Z"}
+{"message": "Describe esta foto", "event": "routing_image", "timestamp": "2025-11-20T02:16:53.549121Z"}
+{"message": "Analiza la imagen adjunta y enumera objetos detectables", "event": "routing_image", "timestamp": "2025-11-20T02:16:53.549178Z"}
+{"message": "\u00bfQu\u00e9 ves en esta foto?", "event": "routing_image", "timestamp": "2025-11-20T02:16:53.549238Z"}
+{"message": "Mira esto y descr\u00edbelo", "event": "routing_image", "timestamp": "2025-11-20T02:16:53.549289Z"}
+{"message": "Foto: identifica colores dominantes y contexto", "event": "routing_image", "timestamp": "2025-11-20T02:16:53.549338Z"}
+{"chosen": "claude_code_api", "score": 80, "alternatives": [{"model": "mixtral:8x7b", "score": 39}], "event": "routing_result", "timestamp": "2025-11-20T02:16:53.549402Z"}
+{"chosen": "claude_code_api", "score": 10, "alternatives": [{"model": "mixtral:8x7b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T02:16:53.549468Z"}
+{"chosen": "claude_code_api", "score": 80, "alternatives": [{"model": "mixtral:8x7b", "score": 39}], "event": "routing_result", "timestamp": "2025-11-20T02:16:53.549535Z"}
+{"chosen": "claude_code_api", "score": 80, "alternatives": [{"model": "mixtral:8x7b", "score": 39}], "event": "routing_result", "timestamp": "2025-11-20T02:16:53.549609Z"}
+{"chosen": "claude_code_api", "score": 10, "alternatives": [{"model": "mixtral:8x7b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T02:16:53.549678Z"}
+{"message": "Ay\u00fadame", "event": "needs_clarification", "timestamp": "2025-11-20T02:16:53.549737Z"}
+{"message": "Expl\u00edcate", "event": "needs_clarification_short", "timestamp": "2025-11-20T02:16:53.549794Z"}
+{"chosen": "dolphin-mistral:7b", "score": 8, "alternatives": [{"model": "mixtral:8x7b", "score": 4}], "event": "routing_result", "timestamp": "2025-11-20T02:16:53.549857Z"}
+{"chosen": "dolphin-mistral:7b", "score": 8, "alternatives": [{"model": "mixtral:8x7b", "score": 4}], "event": "routing_result", "timestamp": "2025-11-20T02:16:53.549921Z"}
+{"message": "Info", "event": "needs_clarification_short", "timestamp": "2025-11-20T02:16:53.549998Z"}
+{"chosen": "mixtral:8x7b", "score": 94, "alternatives": [{"model": "claude_code_api", "score": 35}], "event": "routing_result", "timestamp": "2025-11-20T02:16:53.550069Z"}
+{"message": "Imagen + c\u00f3digo: analiza el diagrama y genera el c\u00f3digo", "event": "routing_image", "timestamp": "2025-11-20T02:16:53.550122Z"}
+{"chosen": "dolphin-mistral:7b", "score": 28, "alternatives": [{"model": "mixtral:8x7b", "score": 19}], "event": "routing_result", "timestamp": "2025-11-20T02:16:53.550193Z"}
+{"chosen": "claude_code_api", "score": 55, "alternatives": [{"model": "mixtral:8x7b", "score": 54}], "event": "routing_result", "timestamp": "2025-11-20T02:16:53.550262Z"}
+{"chosen": "claude_code_api", "score": 70, "alternatives": [{"model": "mixtral:8x7b", "score": 49}], "event": "routing_result", "timestamp": "2025-11-20T02:16:53.550328Z"}
+{"chosen": "dolphin-mistral:7b", "score": 38, "alternatives": [{"model": "claude_code_api", "score": 25}], "event": "routing_result", "timestamp": "2025-11-20T02:16:53.550391Z"}
+{"chosen": "dolphin-mistral:7b", "score": 38, "alternatives": [{"model": "claude_code_api", "score": 25}], "event": "routing_result", "timestamp": "2025-11-20T02:16:53.550451Z"}
+{"message": "Describe la foto y sugiere tags SEO", "event": "routing_image", "timestamp": "2025-11-20T02:16:53.550505Z"}
+{"chosen": "mixtral:8x7b", "score": 104, "alternatives": [{"model": "claude_code_api", "score": 45}], "event": "routing_result", "timestamp": "2025-11-20T02:16:53.550570Z"}
+{"chosen": "claude_code_api", "score": 80, "alternatives": [{"model": "mixtral:8x7b", "score": 39}], "event": "routing_result", "timestamp": "2025-11-20T02:16:53.550645Z"}

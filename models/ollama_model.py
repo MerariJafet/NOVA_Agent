@@ -7,6 +7,7 @@ falls back to streaming raw lines if the server provides chunked text.
 """
 from typing import Generator, Optional, Union
 import requests
+import json
 from config.settings import settings
 from utils.logging import get_logger
 
@@ -53,9 +54,29 @@ def generate(model: str, prompt: str, stream: bool = False, timeout: int = 10) -
             # Try parse JSON-friendly responses
             parsed = _parse_json_response(r)
             if parsed is not None:
-                return parsed
-            # Fallback: return raw text
-            return r.text
+                # If parsed is itself JSON-like string, coerce to string
+                if isinstance(parsed, (dict, list)):
+                    # Convert to pretty text
+                    return json.dumps(parsed, ensure_ascii=False)
+                return str(parsed)
+
+            # If the response text looks like JSON, try to parse and extract
+            text = r.text or ""
+            try:
+                j2 = json.loads(text)
+                parsed2 = None
+                if isinstance(j2, dict):
+                    for k in ("result", "text", "response", "content"):
+                        if k in j2:
+                            parsed2 = j2[k]
+                            break
+                if parsed2:
+                    return parsed2 if isinstance(parsed2, str) else json.dumps(parsed2, ensure_ascii=False)
+            except Exception:
+                pass
+
+            # Fallback: return raw text but cleaned (strip surrounding whitespace)
+            return text.strip()
         except Exception as e:
             logger.error("ollama_generate_failed", error=str(e))
             raise
@@ -65,24 +86,17 @@ def generate(model: str, prompt: str, stream: bool = False, timeout: int = 10) -
         try:
             with requests.post(url, json=payload, stream=True, timeout=timeout) as r:
                 # If chunked JSON lines
+                buffer_parts = []
                 for chunk in r.iter_lines(decode_unicode=True):
                     if chunk is None:
                         continue
                     line = chunk.strip()
                     if not line:
                         continue
-                    # try to parse JSON chunk
-                    try:
-                        j = None
-                        try:
-                            j = r.json() if False else None
-                        except Exception:
-                            j = None
-                        # if it's a plain line, yield it
-                        yield line
-                    except Exception:
-                        # best-effort: yield raw line
-                        yield line
+                    # yield line for streaming clients, and also collect to assemble final
+                    buffer_parts.append(line)
+                    yield line
+                # after stream ends, nothing more to do here
         except Exception as e:
             logger.warning("ollama_stream_failed", error=str(e))
             # on stream failure, stop generator

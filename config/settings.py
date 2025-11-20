@@ -14,6 +14,8 @@ class Settings(BaseSettings):
     # LLM Brain toggle and router URL for external LLM-based routing (timeout fallback)
     USE_LLM_BRAIN: bool = False
     llm_router_url: str = "http://localhost:11435/api/llm_route"
+    # Optional API keys
+    claude_api_key: str | None = None
 
 
 settings = Settings()
