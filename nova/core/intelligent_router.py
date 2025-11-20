@@ -28,6 +28,10 @@ def score_model_for_query(model_name: str, signals: Dict[str, Any]) -> int:
     if signals.get("mentions_complex") and not signals.get("mentions_code") and not signals.get("mentions_image"):
         if "complex_analysis" in caps or "reasoning" in caps:
             score += 30
+    # Sofía: Claude should be the go-to for extreme deep-analysis (non-architecture) cases
+    if signals.get("mentions_complex") and not signals.get("mentions_architecture"):
+        if model_name == "claude_code_api":
+            score += 40
     # If message mentions code, handle debugging vs deeper strategy differently
     if signals.get("mentions_code"):
         # If user explicitly wants code generation (e.g., "escribe una función"), strongly prefer code-specialized models
@@ -65,6 +69,18 @@ def score_model_for_query(model_name: str, signals: Dict[str, Any]) -> int:
             score += 10
         if "complex_analysis" in caps or "reasoning" in caps:
             score -= 5
+
+    # Sofía routing policy: for architecture-related queries prefer Mixtral (tier2). Claude (tier4)
+    # should only be chosen in extreme deep-analysis cases.
+    if signals.get("mentions_architecture"):
+        if model_name == "mixtral:8x7b":
+            score += 40
+        if "claude" in model_name:
+            # allow Claude only if request is explicitly deep and strategic
+            if signals.get("mentions_complex") and signals.get("mentions_strategy"):
+                score += 15
+            else:
+                score -= 20
     return score
 
 

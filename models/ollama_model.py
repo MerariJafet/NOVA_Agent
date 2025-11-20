@@ -32,6 +32,24 @@ def generate(model: str, prompt: str, stream: bool = False, timeout: int = 10) -
     if not stream:
         try:
             r = requests.post(url, json=payload, timeout=timeout)
+            # If Ollama returns a JSON error like {"error": "model 'X' not found"} and the requested
+            # model is Claude, automatically fallback to Mixtral (Sofía's policy).
+            try:
+                j = r.json()
+            except Exception:
+                j = None
+
+            if j and isinstance(j, dict) and "error" in j and "claude" in model:
+                logger.warning("claude_fallback_to_mixtral", error=j.get("error"))
+                # attempt fallback to mixtral
+                fallback_model = "mixtral:8x7b"
+                payload["model"] = fallback_model
+                rf = requests.post(url, json=payload, timeout=timeout)
+                parsed_f = _parse_json_response(rf)
+                if parsed_f is not None:
+                    return parsed_f
+                return rf.text
+
             # Try parse JSON-friendly responses
             parsed = _parse_json_response(r)
             if parsed is not None:

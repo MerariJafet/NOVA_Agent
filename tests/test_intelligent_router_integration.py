@@ -3,12 +3,12 @@ from nova.core import orquestador
 
 
 CASES = [
-    # Architecture / strategy (expect claude_code_api)
-    ("Analiza trade-offs entre microservicios y monolito para 1M usuarios", False, "claude_code_api"),
-    ("Diseña una arquitectura para alta concurrencia y baja latencia", False, "claude_code_api"),
-    ("¿Cómo estructurarías la arquitectura para 1 millón de usuarios simultáneos?", False, "claude_code_api"),
-    ("Evaluar escalabilidad, tolerancia a fallos y coste de una plataforma distribuida", False, "claude_code_api"),
-    ("Comparativa detallada entre CQRS y Event Sourcing en sistemas a escala", False, "claude_code_api"),
+    # Architecture / strategy (expect mixtral:8x7b per Sofía)
+    ("Analiza trade-offs entre microservicios y monolito para 1M usuarios", False, "mixtral:8x7b"),
+    ("Diseña una arquitectura para alta concurrencia y baja latencia", False, "mixtral:8x7b"),
+    ("¿Cómo estructurarías la arquitectura para 1 millón de usuarios simultáneos?", False, "mixtral:8x7b"),
+    ("Evaluar escalabilidad, tolerancia a fallos y coste de una plataforma distribuida", False, "mixtral:8x7b"),
+    ("Comparativa detallada entre CQRS y Event Sourcing en sistemas a escala", False, "mixtral:8x7b"),
 
     # Code / debugging (expect dolphin-mistral:7b)
     ("Arregla este error de Python: TypeError en función map", False, "dolphin-mistral:7b"),
@@ -39,7 +39,7 @@ CASES = [
     ("Info", False, "dolphin-mistral:7b"),
 
     # Mixed triggers
-    ("Tengo un error en Python y además necesito escalar la arquitectura", False, "claude_code_api"),
+    ("Tengo un error en Python y además necesito escalar la arquitectura", False, "mixtral:8x7b"),
     ("Imagen + código: analiza el diagrama y genera el código", True, "moondream:1.8b"),
     ("Documenta este proyecto y escribe ejemplos de uso", False, "dolphin-mistral:7b"),
     ("Dame una estrategia detallada y ejemplos de código para la integración", False, "claude_code_api"),
@@ -49,7 +49,7 @@ CASES = [
     ("Lista de comandos git útiles", False, "dolphin-mistral:7b"),
     ("Crea un script bash para backup", False, "dolphin-mistral:7b"),
     ("Describe la foto y sugiere tags SEO", True, "moondream:1.8b"),
-    ("Analiza la arquitectura y sugiere mejoras de coste", False, "claude_code_api"),
+    ("Analiza la arquitectura y sugiere mejoras de coste", False, "mixtral:8x7b"),
     ("Resumen ejecutivo del proyecto para stakeholders", False, "claude_code_api"),
 ]
 

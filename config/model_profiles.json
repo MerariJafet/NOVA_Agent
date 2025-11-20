@@ -1,14 +1,22 @@
 {
   "claude_code_api": {
     "capabilities": ["complex_analysis", "long_form", "reasoning"],
-    "priority": 10
+    "priority": 10,
+    "tier": 4
+  },
+  "mixtral:8x7b": {
+    "capabilities": ["complex_analysis", "reasoning", "general"],
+    "priority": 9,
+    "tier": 2
   },
   "dolphin-mistral:7b": {
     "capabilities": ["code", "general"],
-    "priority": 8
+    "priority": 8,
+    "tier": 2
   },
   "moondream:1.8b": {
     "capabilities": ["vision"],
-    "priority": 9
+    "priority": 7,
+    "tier": 3
   }
 }
