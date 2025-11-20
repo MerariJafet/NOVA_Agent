@@ -860,3 +860,51 @@ HTTP Request: GET http://testserver/status "HTTP/1.1 200 OK"
 {"message": "Describe la foto y sugiere tags SEO", "event": "routing_image", "timestamp": "2025-11-20T02:16:53.550505Z"}
 {"chosen": "mixtral:8x7b", "score": 104, "alternatives": [{"model": "claude_code_api", "score": 45}], "event": "routing_result", "timestamp": "2025-11-20T02:16:53.550570Z"}
 {"chosen": "claude_code_api", "score": 80, "alternatives": [{"model": "mixtral:8x7b", "score": 39}], "event": "routing_result", "timestamp": "2025-11-20T02:16:53.550645Z"}
+{"chosen": "claude_code_api", "score": 65, "alternatives": [{"model": "moondream:1.8b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T02:17:50.142711Z"}
+{"model": "claude_code_api", "event": "generate_request", "timestamp": "2025-11-20T02:17:50.142853Z"}
+{"status": 404, "event": "generate_non_200", "timestamp": "2025-11-20T02:17:50.144586Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-20T02:17:50.145087Z"}
+{"session_id": "real", "role": "user", "message_id": 23, "event": "message_saved", "timestamp": "2025-11-20T02:17:50.149972Z"}
+{"session_id": "real", "role": "assistant", "message_id": 24, "event": "message_saved", "timestamp": "2025-11-20T02:17:50.151745Z"}
+{"session_id": "real", "model": "claude_code_api", "event": "chat_handled", "timestamp": "2025-11-20T02:17:50.151822Z"}
+{"chosen": "mixtral:8x7b", "score": 104, "alternatives": [{"model": "claude_code_api", "score": 45}], "event": "routing_result", "timestamp": "2025-11-20T02:19:36.838315Z"}
+{"chosen": "mixtral:8x7b", "score": 74, "alternatives": [{"model": "claude_code_api", "score": 15}], "event": "routing_result", "timestamp": "2025-11-20T02:19:36.838547Z"}
+{"chosen": "mixtral:8x7b", "score": 74, "alternatives": [{"model": "claude_code_api", "score": 15}], "event": "routing_result", "timestamp": "2025-11-20T02:19:36.838696Z"}
+{"chosen": "mixtral:8x7b", "score": 104, "alternatives": [{"model": "claude_code_api", "score": 45}], "event": "routing_result", "timestamp": "2025-11-20T02:19:36.838795Z"}
+{"chosen": "mixtral:8x7b", "score": 74, "alternatives": [{"model": "claude_code_api", "score": 15}], "event": "routing_result", "timestamp": "2025-11-20T02:19:36.838893Z"}
+{"chosen": "dolphin-mistral:7b", "score": 33, "alternatives": [{"model": "moondream:1.8b", "score": 7}], "event": "routing_result", "timestamp": "2025-11-20T02:19:36.838977Z"}
+{"chosen": "dolphin-mistral:7b", "score": 38, "alternatives": [{"model": "moondream:1.8b", "score": 7}], "event": "routing_result", "timestamp": "2025-11-20T02:19:36.839053Z"}
+{"chosen": "dolphin-mistral:7b", "score": 33, "alternatives": [{"model": "moondream:1.8b", "score": 7}], "event": "routing_result", "timestamp": "2025-11-20T02:19:36.839124Z"}
+{"chosen": "dolphin-mistral:7b", "score": 38, "alternatives": [{"model": "claude_code_api", "score": 25}], "event": "routing_result", "timestamp": "2025-11-20T02:19:36.839202Z"}
+{"chosen": "dolphin-mistral:7b", "score": 38, "alternatives": [{"model": "moondream:1.8b", "score": 7}], "event": "routing_result", "timestamp": "2025-11-20T02:19:36.839275Z"}
+{"message": "Describe esta foto", "event": "routing_image", "timestamp": "2025-11-20T02:19:36.839329Z"}
+{"message": "Analiza la imagen adjunta y enumera objetos detectables", "event": "routing_image", "timestamp": "2025-11-20T02:19:36.839381Z"}
+{"message": "\u00bfQu\u00e9 ves en esta foto?", "event": "routing_image", "timestamp": "2025-11-20T02:19:36.839438Z"}
+{"message": "Mira esto y descr\u00edbelo", "event": "routing_image", "timestamp": "2025-11-20T02:19:36.839488Z"}
+{"message": "Foto: identifica colores dominantes y contexto", "event": "routing_image", "timestamp": "2025-11-20T02:19:36.839535Z"}
+{"chosen": "claude_code_api", "score": 80, "alternatives": [{"model": "mixtral:8x7b", "score": 39}], "event": "routing_result", "timestamp": "2025-11-20T02:19:36.839605Z"}
+{"chosen": "claude_code_api", "score": 10, "alternatives": [{"model": "mixtral:8x7b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T02:19:36.839674Z"}
+{"chosen": "claude_code_api", "score": 80, "alternatives": [{"model": "mixtral:8x7b", "score": 39}], "event": "routing_result", "timestamp": "2025-11-20T02:19:36.839741Z"}
+{"chosen": "claude_code_api", "score": 80, "alternatives": [{"model": "mixtral:8x7b", "score": 39}], "event": "routing_result", "timestamp": "2025-11-20T02:19:36.839808Z"}
+{"chosen": "claude_code_api", "score": 10, "alternatives": [{"model": "mixtral:8x7b", "score": 9}], "event": "routing_result", "timestamp": "2025-11-20T02:19:36.839878Z"}
+{"message": "Ay\u00fadame", "event": "needs_clarification", "timestamp": "2025-11-20T02:19:36.839938Z"}
+{"message": "Expl\u00edcate", "event": "needs_clarification_short", "timestamp": "2025-11-20T02:19:36.839996Z"}
+{"chosen": "dolphin-mistral:7b", "score": 8, "alternatives": [{"model": "mixtral:8x7b", "score": 4}], "event": "routing_result", "timestamp": "2025-11-20T02:19:36.840194Z"}
+{"chosen": "dolphin-mistral:7b", "score": 8, "alternatives": [{"model": "mixtral:8x7b", "score": 4}], "event": "routing_result", "timestamp": "2025-11-20T02:19:36.840322Z"}
+{"message": "Info", "event": "needs_clarification_short", "timestamp": "2025-11-20T02:19:36.840413Z"}
+{"chosen": "mixtral:8x7b", "score": 94, "alternatives": [{"model": "claude_code_api", "score": 35}], "event": "routing_result", "timestamp": "2025-11-20T02:19:36.840496Z"}
+{"message": "Imagen + c\u00f3digo: analiza el diagrama y genera el c\u00f3digo", "event": "routing_image", "timestamp": "2025-11-20T02:19:36.840565Z"}
+{"chosen": "dolphin-mistral:7b", "score": 28, "alternatives": [{"model": "mixtral:8x7b", "score": 19}], "event": "routing_result", "timestamp": "2025-11-20T02:19:36.840659Z"}
+{"chosen": "claude_code_api", "score": 55, "alternatives": [{"model": "mixtral:8x7b", "score": 54}], "event": "routing_result", "timestamp": "2025-11-20T02:19:36.840736Z"}
+{"chosen": "claude_code_api", "score": 70, "alternatives": [{"model": "mixtral:8x7b", "score": 49}], "event": "routing_result", "timestamp": "2025-11-20T02:19:36.840807Z"}
+{"chosen": "dolphin-mistral:7b", "score": 38, "alternatives": [{"model": "claude_code_api", "score": 25}], "event": "routing_result", "timestamp": "2025-11-20T02:19:36.840926Z"}
+{"chosen": "dolphin-mistral:7b", "score": 38, "alternatives": [{"model": "claude_code_api", "score": 25}], "event": "routing_result", "timestamp": "2025-11-20T02:19:36.841040Z"}
+{"message": "Describe la foto y sugiere tags SEO", "event": "routing_image", "timestamp": "2025-11-20T02:19:36.841108Z"}
+{"chosen": "mixtral:8x7b", "score": 104, "alternatives": [{"model": "claude_code_api", "score": 45}], "event": "routing_result", "timestamp": "2025-11-20T02:19:36.841237Z"}
+{"chosen": "claude_code_api", "score": 80, "alternatives": [{"model": "mixtral:8x7b", "score": 39}], "event": "routing_result", "timestamp": "2025-11-20T02:19:36.841344Z"}
+{"chosen": "mixtral:8x7b", "score": 104, "alternatives": [{"model": "claude_code_api", "score": 45}], "event": "routing_result", "timestamp": "2025-11-20T02:19:54.350796Z"}
+{"chosen": "mixtral:8x7b", "score": 104, "alternatives": [{"model": "claude_code_api", "score": 45}], "event": "routing_result", "timestamp": "2025-11-20T02:19:54.350986Z"}
+{"model": "mixtral:8x7b", "event": "generate_request", "timestamp": "2025-11-20T02:19:54.351084Z"}
+{"chosen": "mixtral:8x7b", "score": 104, "alternatives": [{"model": "claude_code_api", "score": 45}], "event": "routing_result", "timestamp": "2025-11-20T02:22:24.951309Z"}
+{"chosen": "mixtral:8x7b", "score": 104, "alternatives": [{"model": "claude_code_api", "score": 45}], "event": "routing_result", "timestamp": "2025-11-20T02:22:24.951501Z"}
+{"model": "mixtral:8x7b", "event": "generate_request", "timestamp": "2025-11-20T02:22:24.951594Z"}

@@ -60,8 +60,9 @@ def generate(model: str, prompt: str, stream: bool = False, timeout: int = 10) -
                     return json.dumps(parsed, ensure_ascii=False)
                 return str(parsed)
 
-            # If the response text looks like JSON, try to parse and extract
+            # If the response text looks like JSON or multiple JSON objects (chunked), try to extract 'response' fields
             text = r.text or ""
+            # First try single JSON object
             try:
                 j2 = json.loads(text)
                 parsed2 = None
@@ -74,6 +75,23 @@ def generate(model: str, prompt: str, stream: bool = False, timeout: int = 10) -
                     return parsed2 if isinstance(parsed2, str) else json.dumps(parsed2, ensure_ascii=False)
             except Exception:
                 pass
+
+            # Try parsing the text as newline-separated JSON objects (common streaming format)
+            lines = [ln.strip() for ln in text.splitlines() if ln.strip()]
+            extracted = []
+            for ln in lines:
+                try:
+                    obj = json.loads(ln)
+                    if isinstance(obj, dict) and "response" in obj:
+                        extracted.append(obj.get("response") or "")
+                        continue
+                except Exception:
+                    pass
+                # fallback: append raw line
+                extracted.append(ln)
+
+            if extracted:
+                return "".join(extracted).strip()
 
             # Fallback: return raw text but cleaned (strip surrounding whitespace)
             return text.strip()
