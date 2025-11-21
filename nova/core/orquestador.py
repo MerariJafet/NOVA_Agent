@@ -29,7 +29,7 @@ def generate_response(model: str, prompt: str, history: list = []) -> str:
             model = "mixtral:8x7b"
         # Prefer a blocking non-streaming call (the client may be synchronous). If you want streaming,
         # change to `stream=True` and consume the generator.
-        result = ollama_model.generate(model, prompt, stream=False, timeout=10)
+        result = ollama_model.generate(model, prompt, stream=False, timeout=120)
         # result expected to be a clean string (ollama_model now returns cleaned text)
         if isinstance(result, str):
             return result

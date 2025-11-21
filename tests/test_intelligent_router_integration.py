@@ -25,11 +25,11 @@ CASES = [
     ("Foto: identifica colores dominantes y contexto", True, "moondream:1.8b"),
 
     # Complex analysis but not architecture (claude or dolphin depending)
-    ("Analiza riesgos legales de un modelo de negocio SaaS", False, "claude_code_api"),
-    ("Estrategia de producto para lanzar en 3 mercados", False, "claude_code_api"),
-    ("Análisis financiero completo de unit economics para startup", False, "claude_code_api"),
-    ("Haz un análisis profundo de seguridad para la app móvil", False, "claude_code_api"),
-    ("Plan detallado de migración de base de datos sin downtime", False, "claude_code_api"),
+    ("Analiza riesgos legales de un modelo de negocio SaaS", False, "mixtral:8x7b"),
+    ("Estrategia de producto para lanzar en 3 mercados", False, "mixtral:8x7b"),
+    ("Análisis financiero completo de unit economics para startup", False, "mixtral:8x7b"),
+    ("Haz un análisis profundo de seguridad para la app móvil", False, "mixtral:8x7b"),
+    ("Plan detallado de migración de base de datos sin downtime", False, "mixtral:8x7b"),
 
     # Short ambiguous requests (needs clarification -> fall back default dolphin)
     ("Ayúdame", False, "dolphin-mistral:7b"),
@@ -42,15 +42,15 @@ CASES = [
     ("Tengo un error en Python y además necesito escalar la arquitectura", False, "mixtral:8x7b"),
     ("Imagen + código: analiza el diagrama y genera el código", True, "moondream:1.8b"),
     ("Documenta este proyecto y escribe ejemplos de uso", False, "dolphin-mistral:7b"),
-    ("Dame una estrategia detallada y ejemplos de código para la integración", False, "claude_code_api"),
-    ("Explica conceptos de seguridad y da ejemplos de mitigación", False, "claude_code_api"),
+    ("Dame una estrategia detallada y ejemplos de código para la integración", False, "mixtral:8x7b"),
+    ("Explica conceptos de seguridad y da ejemplos de mitigación", False, "mixtral:8x7b"),
 
     # Edge cases
     ("Lista de comandos git útiles", False, "dolphin-mistral:7b"),
     ("Crea un script bash para backup", False, "dolphin-mistral:7b"),
     ("Describe la foto y sugiere tags SEO", True, "moondream:1.8b"),
     ("Analiza la arquitectura y sugiere mejoras de coste", False, "mixtral:8x7b"),
-    ("Resumen ejecutivo del proyecto para stakeholders", False, "claude_code_api"),
+    ("Resumen ejecutivo del proyecto para stakeholders", False, "mixtral:8x7b"),
 ]
 
 

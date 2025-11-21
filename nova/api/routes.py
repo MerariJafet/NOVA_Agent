@@ -1,4 +1,5 @@
 from fastapi import FastAPI, HTTPException
+from contextlib import asynccontextmanager
 from nova.api.models import ChatRequest, ChatResponse
 from nova.core import orquestador
 from nova.core.memoria import init_db, save_conversation
@@ -10,16 +11,19 @@ from nova.api.middleware import setup_middlewares, simple_rate_limit_middleware
 
 logger = get_logger("api.routes")
 
-app = FastAPI(title=settings.app_name)
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    # Startup
+    init_db()
+    logger.info("app_startup")
+    yield
+    # Shutdown
+    logger.info("app_shutdown")
+
+app = FastAPI(title=settings.app_name, lifespan=lifespan)
 
 setup_middlewares(app)
 simple_rate_limit_middleware(app)
-
-
-@app.on_event("startup")
-def _startup():
-    init_db()
-    logger.info("app_startup")
 
 
 @app.post("/chat")
@@ -64,45 +68,43 @@ async def metrics_routing():
 @app.get("/dashboard")
 async def dashboard():
     """Simple HTML dashboard showing routing metrics and recent conversation counts."""
-    init_db()
-    perf = feedback_system.analyze_performance()
-    # gather simple DB counts
-    from nova.core import memoria
+    try:
+        init_db()
+        perf = feedback_system.analyze_performance()
+        # gather simple DB counts
+        from nova.core import memoria
 
-    with memoria._get_conn() as conn:
-        c = conn.cursor()
-        c.execute("SELECT COUNT(*) FROM messages")
-        total_messages = c.fetchone()[0]
-        c.execute("SELECT COUNT(*) FROM feedback")
-        total_feedback = c.fetchone()[0]
+        with memoria._get_conn() as conn:
+            c = conn.cursor()
+            c.execute("SELECT COUNT(*) FROM messages")
+            total_messages = c.fetchone()[0]
+            c.execute("SELECT COUNT(*) FROM feedback")
+            total_feedback = c.fetchone()[0]
 
-    # Build a minimal HTML dashboard
-    html = [
-        "<html><head><title>NOVA Dashboard</title>",
-        "<style>body{font-family:Arial,Helvetica,sans-serif;padding:20px} .card{border:1px solid #ddd;padding:12px;margin:8px;border-radius:6px}</style>",
-        "</head><body>",
-        "<h1>NOVA Dashboard</h1>",
-        f"<div class=\"card\"><strong>Total messages:</strong> {total_messages}<br/><strong>Total feedback:</strong> {total_feedback}</div>",
-        "<h2>Model Performance (feedback)</h2>",
-        "<div class=\"card\">",
-    ]
+        # Simple text response
+        lines = []
+        lines.append("NOVA Dashboard")
+        lines.append("==============")
+        lines.append("Total messages: " + str(total_messages))
+        lines.append("Total feedback: " + str(total_feedback))
+        lines.append("")
+        lines.append("Model Performance:")
+        
+        if perf and "model_performance" in perf:
+            for model, data in perf["model_performance"].items():
+                avg_rating = data.get('avg_rating', 'N/A')
+                total_fb = data.get('total_feedback', 0)
+                lines.append("- " + model + ": avg_rating=" + str(avg_rating) + ", feedback_count=" + str(total_fb))
+            
+            if "suggestions" in perf and perf["suggestions"]:
+                lines.append("")
+                lines.append("Suggestions:")
+                for suggestion in perf["suggestions"][:3]:
+                    lines.append("- " + suggestion)
 
-    if perf:
-        html.append("<ul>")
-        for model, data in perf.items():
-            html.append(f"<li><strong>{model}</strong>: avg_rating={data.get('avg_rating')}, feedback_count={data.get('feedback_count')}</li>")
-        html.append("</ul>")
-    else:
-        html.append("<p>No feedback yet</p>")
-
-    html.extend([
-        "</div>",
-        "<h2>Routing Settings</h2>",
-        f"<div class=\"card\"><strong>USE_LLM_BRAIN:</strong> {settings.USE_LLM_BRAIN} <br/><strong>llm_router_url:</strong> {settings.llm_router_url}</div>",
-        "</body></html>",
-    ])
-
-    return "\n".join(html)
+        return "\n".join(lines)
+    except Exception as e:
+        return "Error: " + str(e)
 
 
 @app.get("/status")
