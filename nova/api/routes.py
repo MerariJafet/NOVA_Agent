@@ -1,4 +1,6 @@
 from fastapi import FastAPI, HTTPException
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import RedirectResponse
 from contextlib import asynccontextmanager
 from nova.api.models import ChatRequest, ChatResponse
 from nova.core import orquestador
@@ -12,6 +14,7 @@ from nova.core.auto_optimizer import auto_optimize, get_current_priorities, get_
 import threading
 import time
 from nova.core.cache_system import cache_system
+import os
 
 logger = get_logger("api.routes")
 
@@ -31,8 +34,40 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(title=settings.app_name, lifespan=lifespan)
 
+# Mount static files
+webui_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), "webui")
+logger.info(f"WebUI path: {webui_path}, exists: {os.path.exists(webui_path)}")
+if os.path.exists(webui_path):
+    app.mount("/webui", StaticFiles(directory=webui_path, html=True), name="webui")
+    logger.info("WebUI static files mounted successfully")
+else:
+    logger.error(f"WebUI directory not found: {webui_path}")
+
+
+@app.get("/webui/index.html")
+async def webui_index():
+    """Servir la interfaz web unificada"""
+    try:
+        html_file_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), "webui", "index.html")
+        if os.path.exists(html_file_path):
+            with open(html_file_path, 'r', encoding='utf-8') as f:
+                html_content = f.read()
+            from fastapi.responses import HTMLResponse
+            return HTMLResponse(content=html_content)
+        else:
+            return {"error": "WebUI index.html not found"}
+    except Exception as e:
+        logger.error(f"Error serving webui: {e}")
+        return {"error": str(e)}
+
 setup_middlewares(app)
 simple_rate_limit_middleware(app)
+
+
+@app.get("/")
+async def root():
+    """Redirigir a la interfaz web unificada"""
+    return RedirectResponse(url="/webui/index.html", status_code=302)
 
 
 @app.post("/chat")

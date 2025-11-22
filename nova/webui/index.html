@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🧠 NOVA - Dashboard Unificado</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .container {
+            display: flex;
+            height: 100vh;
+            padding: 20px;
+            gap: 20px;
+        }
+
+        /* Chat Section - Left 40% */
+        .chat-section {
+            flex: 0 0 40%;
+            display: flex;
+            flex-direction: column;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 20px;
+            color: #333;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .chat-header {
+            text-align: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            margin-bottom: 20px;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            max-height: calc(100vh - 300px);
+        }
+
+        .message {
+            margin-bottom: 15px;
+            padding: 12px;
+            border-radius: 10px;
+            position: relative;
+        }
+
+        .message.user {
+            background: #007bff;
+            color: white;
+            margin-left: 20px;
+        }
+
+        .message.assistant {
+            background: #28a745;
+            color: white;
+            margin-right: 20px;
+        }
+
+        .message-content {
+            margin-bottom: 8px;
+        }
+
+        .message-actions {
+            display: flex;
+            gap: 8px;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+
+        .message:hover .message-actions {
+            opacity: 1;
+        }
+
+        .copy-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            border-radius: 4px;
+            padding: 4px 8px;
+            color: white;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        .copy-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .chat-input-area {
+            display: flex;
+            gap: 10px;
+            align-items: flex-end;
+        }
+
+        .chat-input {
+            flex: 1;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            resize: vertical;
+            min-height: 50px;
+            max-height: 150px;
+            font-family: inherit;
+        }
+
+        .chat-input:focus {
+            outline: none;
+            border-color: #007bff;
+        }
+
+        .send-btn {
+            padding: 12px 20px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.2s;
+        }
+
+        .send-btn:hover {
+            background: #0056b3;
+        }
+
+        .send-btn:disabled {
+            background: #6c757d;
+            cursor: not-allowed;
+        }
+
+        /* Metrics Section - Right 60% */
+        .metrics-section {
+            flex: 0 0 60%;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            overflow-y: auto;
+        }
+
+        .metrics-header {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .metric-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 20px;
+            color: #333;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .metric-card h3 {
+            margin-bottom: 15px;
+            color: #495057;
+            font-size: 1.2em;
+        }
+
+        .metric-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .metric-value {
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+
+        .status-active {
+            color: #28a745;
+        }
+
+        .status-inactive {
+            color: #6c757d;
+        }
+
+        .performance-bar {
+            width: 100%;
+            height: 8px;
+            background: #e9ecef;
+            border-radius: 4px;
+            margin-top: 5px;
+            overflow: hidden;
+        }
+
+        .performance-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #28a745, #ffc107, #dc3545);
+            transition: width 0.3s ease;
+        }
+
+        /* Loading animation */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #007bff;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                padding: 10px;
+                gap: 10px;
+            }
+
+            .chat-section, .metrics-section {
+                flex: none;
+                height: 50vh;
+            }
+
+            .chat-section {
+                order: 2;
+            }
+
+            .metrics-section {
+                order: 1;
+            }
+
+            .metrics-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Scrollbar styling */
+        .chat-messages::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .chat-messages::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 3px;
+        }
+
+        .chat-messages::-webkit-scrollbar-thumb {
+            background: #c1c1c1;
+            border-radius: 3px;
+        }
+
+        .chat-messages::-webkit-scrollbar-thumb:hover {
+            background: #a8a8a8;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Chat Section -->
+        <div class="chat-section">
+            <div class="chat-header">
+                <h2>💬 Chat con NOVA</h2>
+                <p>Tu asistente inteligente</p>
+            </div>
+
+            <div class="chat-messages" id="chat-messages">
+                <div class="message assistant">
+                    <div class="message-content">¡Hola! Soy NOVA, tu asistente inteligente. ¿En qué puedo ayudarte hoy?</div>
+                </div>
+            </div>
+
+            <div class="chat-input-area">
+                <textarea
+                    id="chat-input"
+                    class="chat-input"
+                    placeholder="Escribe tu mensaje aquí..."
+                    rows="2"
+                ></textarea>
+                <button id="send-btn" class="send-btn">Enviar</button>
+            </div>
+        </div>
+
+        <!-- Metrics Section -->
+        <div class="metrics-section">
+            <div class="metrics-header">
+                <h1>🧠 NOVA Dashboard</h1>
+                <p>Auto-refresh cada 10s | <span id="last-update">Cargando...</span></p>
+            </div>
+
+            <div class="metrics-grid" id="metrics-grid">
+                <div class="metric-card">
+                    <h3>📊 Sistema General</h3>
+                    <div id="system-metrics">
+                        <div class="loading"></div>
+                    </div>
+                </div>
+
+                <div class="metric-card">
+                    <h3>⚡ Caché Inteligente</h3>
+                    <div id="cache-metrics">
+                        <div class="loading"></div>
+                    </div>
+                </div>
+
+                <div class="metric-card">
+                    <h3>🎯 Auto-Optimización</h3>
+                    <div id="optimization-metrics">
+                        <div class="loading"></div>
+                    </div>
+                </div>
+
+                <div class="metric-card">
+                    <h3>🤖 Modelos y Rendimiento</h3>
+                    <div id="models-metrics">
+                        <div class="loading"></div>
+                    </div>
+                </div>
+
+                <div class="metric-card">
+                    <h3>📈 Rendimiento General</h3>
+                    <div id="performance-metrics">
+                        <div class="loading"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Global state
+        let currentSessionId = 'webui_' + Date.now();
+        let isStreaming = false;
+
+        // DOM elements
+        const chatMessages = document.getElementById('chat-messages');
+        const chatInput = document.getElementById('chat-input');
+        const sendBtn = document.getElementById('send-btn');
+        const lastUpdate = document.getElementById('last-update');
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            setupEventListeners();
+            loadMetrics();
+            setInterval(loadMetrics, 10000); // Refresh every 10 seconds
+        });
+
+        function setupEventListeners() {
+            // Send message on button click
+            sendBtn.addEventListener('click', sendMessage);
+
+            // Send message on Enter (but allow Shift+Enter for new lines)
+            chatInput.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                    e.preventDefault();
+                    sendMessage();
+                }
+            });
+        }
+
+        async function sendMessage() {
+            const message = chatInput.value.trim();
+            if (!message || isStreaming) return;
+
+            // Add user message
+            addMessage('user', message);
+            chatInput.value = '';
+            sendBtn.disabled = true;
+            isStreaming = true;
+
+            // Add assistant message placeholder
+            const assistantMessage = addMessage('assistant', '');
+            const contentDiv = assistantMessage.querySelector('.message-content');
+
+            try {
+                const response = await fetch('/chat', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        message: message,
+                        session_id: currentSessionId
+                    })
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const data = await response.json();
+                contentDiv.textContent = data.response;
+
+                // Add copy button
+                addCopyButton(assistantMessage, data.response);
+
+            } catch (error) {
+                console.error('Error sending message:', error);
+                contentDiv.textContent = '❌ Error: No se pudo enviar el mensaje. Verifica que el servidor esté corriendo.';
+            } finally {
+                sendBtn.disabled = false;
+                isStreaming = false;
+                scrollToBottom();
+            }
+        }
+
+        function addMessage(type, content) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${type}`;
+
+            const contentDiv = document.createElement('div');
+            contentDiv.className = 'message-content';
+            contentDiv.textContent = content;
+
+            messageDiv.appendChild(contentDiv);
+
+            if (type === 'assistant' && content) {
+                addCopyButton(messageDiv, content);
+            }
+
+            chatMessages.appendChild(messageDiv);
+            scrollToBottom();
+
+            return messageDiv;
+        }
+
+        function addCopyButton(messageDiv, text) {
+            const actionsDiv = document.createElement('div');
+            actionsDiv.className = 'message-actions';
+
+            const copyBtn = document.createElement('button');
+            copyBtn.className = 'copy-btn';
+            copyBtn.textContent = '📋 Copiar';
+            copyBtn.onclick = () => copyToClipboard(text);
+
+            actionsDiv.appendChild(copyBtn);
+            messageDiv.appendChild(actionsDiv);
+        }
+
+        async function copyToClipboard(text) {
+            try {
+                await navigator.clipboard.writeText(text);
+                // Simple feedback
+                const btn = event.target;
+                const originalText = btn.textContent;
+                btn.textContent = '✅ Copiado!';
+                setTimeout(() => btn.textContent = originalText, 2000);
+            } catch (err) {
+                console.error('Failed to copy text: ', err);
+            }
+        }
+
+        function scrollToBottom() {
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        async function loadMetrics() {
+            try {
+                // Load dashboard data
+                const dashboardResponse = await fetch('/dashboard');
+                const dashboardHtml = await dashboardResponse.text();
+
+                // Parse metrics from HTML (simple approach)
+                updateMetricsFromHtml(dashboardHtml);
+
+                lastUpdate.textContent = new Date().toLocaleTimeString();
+
+            } catch (error) {
+                console.error('Error loading metrics:', error);
+                showErrorMetrics();
+            }
+        }
+
+        function updateMetricsFromHtml(html) {
+            // Extract metrics from the HTML content
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, 'text/html');
+
+            // System metrics
+            updateSystemMetrics(html);
+
+            // Cache metrics
+            updateCacheMetrics(html);
+
+            // Optimization metrics
+            updateOptimizationMetrics(html);
+
+            // Models metrics
+            updateModelsMetrics(html);
+
+            // Performance metrics (mock for now)
+            updatePerformanceMetrics();
+        }
+
+        function updateSystemMetrics(html) {
+            const systemCard = document.getElementById('system-metrics');
+            const messagesMatch = html.match(/Mensajes Totales<\/span>\s*<span[^>]*>([^<]+)<\/span>/);
+            const feedbackMatch = html.match(/Feedback Recibido<\/span>\s*<span[^>]*>([^<]+)<\/span>/);
+            const cacheMatch = html.match(/Entradas en Caché<\/span>\s*<span[^>]*>([^<]+)<\/span>/);
+
+            systemCard.innerHTML = `
+                <div class="metric-item">
+                    <span>Mensajes Totales</span>
+                    <span class="metric-value">${messagesMatch ? messagesMatch[1] : 'N/A'}</span>
+                </div>
+                <div class="metric-item">
+                    <span>Feedback Recibido</span>
+                    <span class="metric-value">${feedbackMatch ? feedbackMatch[1] : 'N/A'}</span>
+                </div>
+                <div class="metric-item">
+                    <span>Entradas en Caché</span>
+                    <span class="metric-value">${cacheMatch ? cacheMatch[1] : 'N/A'}</span>
+                </div>
+            `;
+        }
+
+        function updateCacheMetrics(html) {
+            const cacheCard = document.getElementById('cache-metrics');
+            const hitRateMatch = html.match(/Hit Rate<\/span>\s*<span[^>]*>([^<]+)%<\/span>/);
+            const validEntriesMatch = html.match(/Entradas Válidas<\/span>\s*<span[^>]*>([^<]+)<\/span>/);
+            const sizeMatch = html.match(/Tamaño<\/span>\s*<span[^>]*>([^<]+)MB<\/span>/);
+
+            cacheCard.innerHTML = `
+                <div class="metric-item">
+                    <span>Hit Rate</span>
+                    <span class="metric-value">${hitRateMatch ? hitRateMatch[1] : '0.0'}%</span>
+                </div>
+                <div class="metric-item">
+                    <span>Entradas Válidas</span>
+                    <span class="metric-value">${validEntriesMatch ? validEntriesMatch[1] : '0'}</span>
+                </div>
+                <div class="metric-item">
+                    <span>Tamaño</span>
+                    <span class="metric-value">${sizeMatch ? sizeMatch[1] : '0.0'}MB</span>
+                </div>
+            `;
+        }
+
+        function updateOptimizationMetrics(html) {
+            const optimizationCard = document.getElementById('optimization-metrics');
+            const statusMatch = html.match(/Estado<\/span>\s*<span[^>]*class="[^"]*status-(active|inactive)[^"]*"[^>]*>([^<]+)<\/span>/);
+            const cyclesMatch = html.match(/Ciclos Ejecutados<\/span>\s*<span[^>]*>([^<]+)<\/span>/);
+
+            const status = statusMatch ? statusMatch[2] : 'Inactivo';
+            const statusClass = statusMatch && statusMatch[1] === 'active' ? 'status-active' : 'status-inactive';
+
+            optimizationCard.innerHTML = `
+                <div class="metric-item">
+                    <span>Estado</span>
+                    <span class="metric-value ${statusClass}">${status}</span>
+                </div>
+                <div class="metric-item">
+                    <span>Ciclos Ejecutados</span>
+                    <span class="metric-value">${cyclesMatch ? cyclesMatch[1] : '0'}</span>
+                </div>
+            `;
+        }
+
+        function updateModelsMetrics(html) {
+            const modelsCard = document.getElementById('models-metrics');
+
+            // Extract models from HTML
+            const modelMatches = [...html.matchAll(/<span>([^<]+)<\/span>\s*<span[^>]*class="metric-value">([^<]+)<\/span>/g)];
+
+            let modelsHtml = '';
+            modelMatches.forEach(match => {
+                const modelName = match[1];
+                const priority = match[2];
+                modelsHtml += `
+                    <div class="metric-item">
+                        <span>${modelName}</span>
+                        <span class="metric-value">${priority}</span>
+                    </div>
+                `;
+            });
+
+            modelsCard.innerHTML = modelsHtml || '<div class="metric-item"><span>No hay modelos disponibles</span></div>';
+        }
+
+        function updatePerformanceMetrics() {
+            const performanceCard = document.getElementById('performance-metrics');
+
+            // Mock performance data - in a real implementation, this would come from the API
+            const performance = Math.floor(Math.random() * 40) + 60; // 60-100%
+
+            performanceCard.innerHTML = `
+                <div class="metric-item">
+                    <span>Rendimiento General</span>
+                    <span class="metric-value">${performance}%</span>
+                </div>
+                <div class="performance-bar">
+                    <div class="performance-fill" style="width: ${performance}%"></div>
+                </div>
+                <div class="metric-item">
+                    <span>Latencia Promedio</span>
+                    <span class="metric-value">1.2s</span>
+                </div>
+                <div class="metric-item">
+                    <span>Disponibilidad</span>
+                    <span class="metric-value status-active">99.9%</span>
+                </div>
+            `;
+        }
+
+        function showErrorMetrics() {
+            const metrics = ['system-metrics', 'cache-metrics', 'optimization-metrics', 'models-metrics', 'performance-metrics'];
+
+            metrics.forEach(id => {
+                const element = document.getElementById(id);
+                element.innerHTML = '<div class="metric-item"><span>❌ Error cargando métricas</span></div>';
+            });
+
+            lastUpdate.textContent = 'Error de conexión';
+        }
+    </script>
+</body>
+</html>
