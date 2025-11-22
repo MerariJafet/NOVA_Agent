@@ -94,14 +94,14 @@ def init_db() -> None:
             """
             CREATE TABLE IF NOT EXISTS response_cache (
                 cache_key TEXT PRIMARY KEY,
-                query_hash TEXT NOT NULL,
+                query TEXT NOT NULL,
                 model_name TEXT NOT NULL,
                 response TEXT NOT NULL,
-                created_at REAL NOT NULL,
-                expires_at REAL NOT NULL,
+                metadata TEXT,
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                expires_at TIMESTAMP,
                 hit_count INTEGER DEFAULT 0,
-                last_accessed REAL NOT NULL,
-                metadata TEXT
+                last_accessed TIMESTAMP DEFAULT CURRENT_TIMESTAMP
             )
             """
         )
@@ -162,6 +162,23 @@ def init_db() -> None:
         except Exception as e:
             logger.warning("cache_migration_failed", error=str(e))
 
+        # Tabla optimization_log para auto-optimización
+        c.execute(
+            """
+            CREATE TABLE IF NOT EXISTS optimization_log (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                model_name TEXT NOT NULL,
+                old_priority INTEGER NOT NULL,
+                new_priority INTEGER NOT NULL,
+                change_amount INTEGER NOT NULL,
+                reason TEXT NOT NULL,
+                avg_rating REAL,
+                total_feedback INTEGER,
+                created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+            )
+            """
+        )
+
         # Índices para performance
         try:
             c.execute("CREATE INDEX IF NOT EXISTS idx_messages_session ON messages(session_id)")
@@ -169,9 +186,12 @@ def init_db() -> None:
             c.execute("CREATE INDEX IF NOT EXISTS idx_feedback_message ON feedback(message_id)")
             c.execute("CREATE INDEX IF NOT EXISTS idx_feedback_created ON feedback(created_at)")
             # Índices para caché inteligente
-            c.execute("CREATE INDEX IF NOT EXISTS idx_cache_query_hash ON response_cache(query_hash)")
-            c.execute("CREATE INDEX IF NOT EXISTS idx_cache_expires_at ON response_cache(expires_at)")
-            c.execute("CREATE INDEX IF NOT EXISTS idx_cache_model_name ON response_cache(model_name)")
+            c.execute("CREATE INDEX IF NOT EXISTS idx_response_cache_expires_at ON response_cache(expires_at)")
+            c.execute("CREATE INDEX IF NOT EXISTS idx_response_cache_model ON response_cache(model_name)")
+            c.execute("CREATE INDEX IF NOT EXISTS idx_response_cache_query_model ON response_cache(query, model_name)")
+            # Índices para optimization_log
+            c.execute("CREATE INDEX IF NOT EXISTS idx_optimization_model ON optimization_log(model_name)")
+            c.execute("CREATE INDEX IF NOT EXISTS idx_optimization_created ON optimization_log(created_at)")
         except Exception:
             pass
 

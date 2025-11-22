@@ -29,29 +29,29 @@ class CacheSystem:
             conn.execute("""
                 CREATE TABLE IF NOT EXISTS response_cache (
                     cache_key TEXT PRIMARY KEY,
-                    query_hash TEXT NOT NULL,
+                    query TEXT NOT NULL,
                     model_name TEXT NOT NULL,
                     response TEXT NOT NULL,
-                    created_at REAL NOT NULL,
-                    expires_at REAL NOT NULL,
+                    metadata TEXT,
+                    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                    expires_at TIMESTAMP,
                     hit_count INTEGER DEFAULT 0,
-                    last_accessed REAL NOT NULL,
-                    metadata TEXT  -- JSON con info adicional
+                    last_accessed TIMESTAMP DEFAULT CURRENT_TIMESTAMP
                 )
             """)
 
             # Índices para performance
             conn.execute("""
-                CREATE INDEX IF NOT EXISTS idx_cache_query_hash
-                ON response_cache(query_hash)
-            """)
-            conn.execute("""
-                CREATE INDEX IF NOT EXISTS idx_cache_expires_at
+                CREATE INDEX IF NOT EXISTS idx_response_cache_expires_at
                 ON response_cache(expires_at)
             """)
             conn.execute("""
-                CREATE INDEX IF NOT EXISTS idx_cache_model_name
+                CREATE INDEX IF NOT EXISTS idx_response_cache_model
                 ON response_cache(model_name)
+            """)
+            conn.execute("""
+                CREATE INDEX IF NOT EXISTS idx_response_cache_query_model
+                ON response_cache(query, model_name)
             """)
 
             conn.commit()
@@ -153,18 +153,16 @@ class CacheSystem:
             # Insertar o reemplazar
             conn.execute("""
                 INSERT OR REPLACE INTO response_cache
-                (cache_key, query_hash, model_name, response, created_at, expires_at, hit_count, last_accessed, metadata)
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+                (cache_key, query, model_name, response, metadata, expires_at, hit_count)
+                VALUES (?, ?, ?, ?, ?, ?, ?)
             """, (
                 cache_key,
-                hashlib.md5(query.encode()).hexdigest(),  # Para búsquedas por query
+                query,  # Guardar la query completa
                 model_name,
                 response_json,
-                current_time,
+                metadata_json,
                 expires_at,
-                0,  # hit_count inicia en 0
-                current_time,
-                metadata_json
+                0  # hit_count inicia en 0
             ))
             conn.commit()
 
@@ -175,7 +173,7 @@ class CacheSystem:
         Invalidar entradas del caché
 
         Args:
-            pattern: Patrón para buscar en query_hash (opcional)
+            pattern: Patrón para buscar en query (opcional)
             model_name: Invalidar solo para un modelo específico (opcional)
 
         Returns:
@@ -187,7 +185,7 @@ class CacheSystem:
                 cursor = conn.execute("DELETE FROM response_cache WHERE model_name = ?", (model_name,))
             elif pattern:
                 # Invalidar por patrón en query
-                cursor = conn.execute("DELETE FROM response_cache WHERE query_hash LIKE ?", (f"%{pattern}%",))
+                cursor = conn.execute("DELETE FROM response_cache WHERE query LIKE ?", (f"%{pattern}%",))
             else:
                 # Invalidar todo el caché
                 cursor = conn.execute("DELETE FROM response_cache")
