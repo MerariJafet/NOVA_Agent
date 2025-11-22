@@ -5,6 +5,8 @@ from nova.core.intelligent_router import route as intelligent_route
 from nova.core import llm_router
 from config.settings import settings
 from models import ollama_model
+from nova.core.cache_system import cache_system
+import time
 
 logger = get_logger("core.orquestador")
 
@@ -22,24 +24,75 @@ def route_query(message: str, has_image: bool = False) -> dict:
 
 def generate_response(model: str, prompt: str, history: list = []) -> str:
     logger.info("generate_request", model=model)
+
+    # Limpiar caché expirado periódicamente (cada 100 requests)
+    if hasattr(generate_response, '_request_count'):
+        generate_response._request_count += 1
+    else:
+        generate_response._request_count = 1
+
+    if generate_response._request_count % 100 == 0:
+        expired_count = cache_system.cleanup_expired()
+        if expired_count > 0:
+            logger.info("cache_cleanup", expired_entries=expired_count)
+
+    # 1. Verificar caché primero
+    start_time = time.time()
+    cached_result = cache_system.get_cached_response(prompt, model)
+
+    if cached_result:
+        latency = time.time() - start_time
+        logger.info("cache_hit", model=model, latency_ms=round(latency * 1000, 2),
+                   hit_count=cached_result["hit_count"])
+        return cached_result["response"].get("text", str(cached_result["response"]))
+
+    # 2. Cache miss - generar respuesta normal
     try:
         # Sofía policy: always route Claude requests to Mixtral locally (fallback)
+        original_model = model
         if model == "claude_code_api":
             logger.info("claude_local_fallback_to_mixtral", original_model=model)
             model = "mixtral:8x7b"
-        # Prefer a blocking non-streaming call (the client may be synchronous). If you want streaming,
-        # change to `stream=True` and consume the generator.
+
+        # Generar respuesta
+        generation_start = time.time()
         result = ollama_model.generate(model, prompt, stream=False, timeout=120)
-        # result expected to be a clean string (ollama_model now returns cleaned text)
+        generation_time = time.time() - generation_start
+
+        # Normalizar resultado
         if isinstance(result, str):
-            return result
-        # otherwise, try to coerce generator into a full string
-        if hasattr(result, "__iter__"):
+            response_text = result
+        elif hasattr(result, "__iter__"):
             parts = []
             for chunk in result:
                 parts.append(chunk)
-            return "".join(parts)
+            response_text = "".join(parts)
+        else:
+            response_text = str(result)
+
+        # 3. Guardar en caché
+        metadata = {
+            "generation_time": generation_time,
+            "model_used": model,
+            "original_model": original_model,
+            "cached_at": time.time()
+        }
+
+        cache_key = cache_system.save_to_cache(
+            query=prompt,
+            model_name=model,
+            response={"text": response_text},
+            metadata=metadata
+        )
+
+        total_latency = time.time() - start_time
+        logger.info("cache_miss_saved", model=model, cache_key=cache_key[:8],
+                   generation_ms=round(generation_time * 1000, 2),
+                   total_latency_ms=round(total_latency * 1000, 2))
+
+        return response_text
+
     except Exception as e:
         logger.error("generate_request_failed", error=str(e))
-        # propagate error to caller
+        # No guardar en caché errores
         raise

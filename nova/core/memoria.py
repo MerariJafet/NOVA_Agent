@@ -89,22 +89,78 @@ def init_db() -> None:
             except Exception:
                 pass
 
-        # Tabla response_cache para Sprint 3 Día 3
+        # Tabla response_cache para Sprint 3 Día 3 - Caché Inteligente
         c.execute(
             """
             CREATE TABLE IF NOT EXISTS response_cache (
-                id INTEGER PRIMARY KEY AUTOINCREMENT,
-                query_hash TEXT UNIQUE NOT NULL,
-                query_text TEXT NOT NULL,
-                response_text TEXT NOT NULL,
-                model_used TEXT NOT NULL,
-                confidence INTEGER,
-                created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-                last_accessed DATETIME DEFAULT CURRENT_TIMESTAMP,
-                access_count INTEGER DEFAULT 1
+                cache_key TEXT PRIMARY KEY,
+                query_hash TEXT NOT NULL,
+                model_name TEXT NOT NULL,
+                response TEXT NOT NULL,
+                created_at REAL NOT NULL,
+                expires_at REAL NOT NULL,
+                hit_count INTEGER DEFAULT 0,
+                last_accessed REAL NOT NULL,
+                metadata TEXT
             )
             """
         )
+
+        # Migrar datos de tabla antigua si existe
+        try:
+            c.execute("PRAGMA table_info(response_cache)")
+            cols = [r[1] for r in c.fetchall()]
+
+            # Si tiene la estructura antigua, migrar datos
+            if "query_text" in cols and "cache_key" not in cols:
+                logger.info("migrating_cache_table")
+                # Crear nueva tabla temporal
+                c.execute("""
+                    CREATE TABLE response_cache_new (
+                        cache_key TEXT PRIMARY KEY,
+                        query_hash TEXT NOT NULL,
+                        model_name TEXT NOT NULL,
+                        response TEXT NOT NULL,
+                        created_at REAL NOT NULL,
+                        expires_at REAL NOT NULL,
+                        hit_count INTEGER DEFAULT 0,
+                        last_accessed REAL NOT NULL,
+                        metadata TEXT
+                    )
+                """)
+
+                # Migrar datos existentes
+                import time
+                import hashlib
+                import json
+
+                c.execute("SELECT query_text, response_text, model_used, created_at FROM response_cache")
+                old_rows = c.fetchall()
+
+                for row in old_rows:
+                    query_text, response_text, model_used, created_at = row
+                    # Generar cache_key y otros campos
+                    cache_key = hashlib.sha256(f"{query_text}{model_used}".encode()).hexdigest()
+                    query_hash = hashlib.md5(query_text.encode()).hexdigest()
+                    created_timestamp = time.mktime(time.strptime(created_at, "%Y-%m-%d %H:%M:%S")) if isinstance(created_at, str) else time.time()
+                    expires_at = created_timestamp + (7 * 24 * 60 * 60)  # 7 días TTL
+
+                    response_json = json.dumps({"text": response_text})
+                    metadata_json = json.dumps({"migrated": True, "old_created_at": created_at})
+
+                    c.execute("""
+                        INSERT INTO response_cache_new
+                        (cache_key, query_hash, model_name, response, created_at, expires_at, hit_count, last_accessed, metadata)
+                        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+                    """, (cache_key, query_hash, model_used, response_json, created_timestamp, expires_at, 0, created_timestamp, metadata_json))
+
+                # Reemplazar tabla
+                c.execute("DROP TABLE response_cache")
+                c.execute("ALTER TABLE response_cache_new RENAME TO response_cache")
+                logger.info("cache_migration_completed")
+
+        except Exception as e:
+            logger.warning("cache_migration_failed", error=str(e))
 
         # Índices para performance
         try:
@@ -112,8 +168,10 @@ def init_db() -> None:
             c.execute("CREATE INDEX IF NOT EXISTS idx_messages_created ON messages(created_at)")
             c.execute("CREATE INDEX IF NOT EXISTS idx_feedback_message ON feedback(message_id)")
             c.execute("CREATE INDEX IF NOT EXISTS idx_feedback_created ON feedback(created_at)")
-            c.execute("CREATE INDEX IF NOT EXISTS idx_cache_query ON response_cache(query_hash)")
-            c.execute("CREATE INDEX IF NOT EXISTS idx_cache_accessed ON response_cache(last_accessed)")
+            # Índices para caché inteligente
+            c.execute("CREATE INDEX IF NOT EXISTS idx_cache_query_hash ON response_cache(query_hash)")
+            c.execute("CREATE INDEX IF NOT EXISTS idx_cache_expires_at ON response_cache(expires_at)")
+            c.execute("CREATE INDEX IF NOT EXISTS idx_cache_model_name ON response_cache(model_name)")
         except Exception:
             pass
 
