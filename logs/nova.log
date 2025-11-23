@@ -21146,3 +21146,19 @@ HTTP Request: GET http://testserver/status "HTTP/1.1 200 OK"
 {"event": "WebUI static files mounted at /webui and /nova/webui", "timestamp": "2025-11-23T20:13:01.500141Z"}
 {"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T20:13:01.503643Z"}
 {"event": "app_startup", "timestamp": "2025-11-23T20:13:01.503719Z"}
+{"model": "mixtral:8x7b", "event": "generate_request", "timestamp": "2025-11-23T20:14:06.384611Z"}
+{"model": "mixtral:8x7b", "stream": false, "event": "ollama_generate_called", "timestamp": "2025-11-23T20:14:06.384770Z"}
+{"model": "mixtral:8x7b", "generation_ms": 36908.87, "total_latency_ms": 36908.87, "event": "response_generated", "timestamp": "2025-11-23T20:14:43.293671Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T20:14:43.294389Z"}
+{"session_id": "webui_1763928822610", "role": "user", "message_id": 146, "event": "message_saved", "timestamp": "2025-11-23T20:14:43.299482Z"}
+{"session_id": "webui_1763928822610", "role": "assistant", "message_id": 147, "event": "message_saved", "timestamp": "2025-11-23T20:14:43.301761Z"}
+{"event": "app_shutdown", "timestamp": "2025-11-23T20:17:59.386979Z"}
+{"event": "WebUI path: /home/merari-acero/Escritorio/NOVA_Agent/nova/webui, exists: True", "timestamp": "2025-11-23T20:17:59.793872Z"}
+{"event": "WebUI static files mounted at /webui and /nova/webui", "timestamp": "2025-11-23T20:17:59.794079Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T20:17:59.797104Z"}
+{"event": "app_startup", "timestamp": "2025-11-23T20:17:59.797164Z"}
+{"event": "app_shutdown", "timestamp": "2025-11-23T20:18:04.406596Z"}
+{"event": "WebUI path: /home/merari-acero/Escritorio/NOVA_Agent/nova/webui, exists: True", "timestamp": "2025-11-23T20:18:04.771000Z"}
+{"event": "WebUI static files mounted at /webui and /nova/webui", "timestamp": "2025-11-23T20:18:04.771216Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T20:18:04.774274Z"}
+{"event": "app_startup", "timestamp": "2025-11-23T20:18:04.774337Z"}

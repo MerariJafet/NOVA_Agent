@@ -95,6 +95,28 @@ async def _analyze_image_base64(image_b64: str, prompt: str = "Analiza esta imag
     return await run_in_threadpool(_call_ollama)
 
 
+async def _generate_with_mixtral(prompt: str) -> str:
+    """Generar respuesta con Mixtral directamente (sin routing)."""
+    def _call_mixtral() -> str:
+        payload = {
+            "model": "mixtral:8x7b",
+            "prompt": prompt,
+            "stream": False
+        }
+        r = requests.post(settings.ollama_generate_url, json=payload, timeout=120)
+        r.raise_for_status()
+        try:
+            data = r.json()
+            for key in ("response", "text", "result", "content"):
+                if key in data and data[key]:
+                    return str(data[key])
+        except Exception:
+            pass
+        return r.text.strip()
+
+    return await run_in_threadpool(_call_mixtral)
+
+
 @app.get("/webui/index.html")
 async def webui_index():
     """Servir la interfaz web unificada"""
@@ -179,8 +201,8 @@ Responde de manera útil y directa a la instrucción del usuario."""
 
         # Usar el cerebro principal (Mixtral) en lugar de solo moondream
         try:
-            # Forzar el uso de Mixtral para procesamiento inteligente
-            response = await run_in_threadpool(orquestador.generate_response, "mixtral:8x7b", combined_prompt, None)
+            # Llamar directamente a Mixtral con el prompt inteligente
+            response = await _generate_with_mixtral(combined_prompt)
         except Exception as e:
             logger.error(f"Error procesando imagen con Mixtral: {e}")
             # Fallback a análisis básico con moondream
