@@ -72,8 +72,8 @@ os.makedirs(uploads_path, exist_ok=True)
 app.mount("/uploads", StaticFiles(directory=uploads_path), name="uploads")
 
 
-async def _analyze_image_base64(image_b64: str, prompt: str = "Analiza esta imagen") -> str:
-    """Enviar imagen a LLaVA vision con fallback a moondream."""
+async def _analyze_image_base64(image_b64: str, prompt: str = "Analiza esta imagen") -> tuple[str, str]:
+    """Enviar imagen a LLaVA vision con fallback a moondream. Retorna (response, model_used)"""
     
     def _call_vision_model(model: str, timeout: int) -> str:
         payload = {
@@ -96,12 +96,14 @@ async def _analyze_image_base64(image_b64: str, prompt: str = "Analiza esta imag
     # Try LLaVA first (primary model)
     try:
         logger.info("trying_llava_primary")
-        return await run_in_threadpool(_call_vision_model, "llava:13b", 60)
+        response = await run_in_threadpool(_call_vision_model, "llava:13b", 60)
+        return response, "llava:13b"
     except Exception as e:
         logger.warning(f"llava_failed_fallback_to_moondream", error=str(e))
         # Fallback to moondream
         try:
-            return await run_in_threadpool(_call_vision_model, "moondream:1.8b", 30)
+            response = await run_in_threadpool(_call_vision_model, "moondream:1.8b", 30)
+            return response, "moondream:1.8b"
         except Exception as e2:
             logger.error(f"both_vision_models_failed", llava_error=str(e), moondream_error=str(e2))
             raise e2
@@ -179,17 +181,26 @@ async def upload_image(file: UploadFile = File(...), message: str = Form("Descri
         # Codificar en base64
         image_b64 = base64.b64encode(content).decode("ascii")
 
+        # Construir un prompt claro que incluya la instrucción del usuario
+        vision_prompt = (
+            f"Aquí tienes una imagen y una instrucción del usuario: \"{message}\".\n"
+            "Analiza la imagen y responde exactamente lo que pide la instrucción. "
+            "No digas que no puedes ver la imagen."
+        )
+
         # Usar LLaVA end-to-end con la instrucción del usuario directamente (con fallback)
-        model_used = "llava:13b"  # Default to LLaVA
         try:
-            response = await _analyze_image_base64(
+            response, model_used = await _analyze_image_base64(
                 image_b64,
-                prompt=f"{message}"
+                prompt=vision_prompt
             )
         except Exception as e:
             logger.error(f"Error procesando imagen con vision models: {e}")
             # If both models fail, provide a helpful error message
-            response = f"Error al procesar la imagen con los modelos de visión disponibles. Instrucción recibida: {message}"
+            response = (
+                f"Error al procesar la imagen con los modelos de visión disponibles. "
+                f"Instrucción recibida: {message}"
+            )
             model_used = "error"
 
         # Persistir en DB
