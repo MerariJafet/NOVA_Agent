@@ -20914,3 +20914,235 @@ HTTP Request: GET http://testserver/status "HTTP/1.1 200 OK"
 {"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:47:09.013630Z"}
 {"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:47:09.016681Z"}
 {"event": "app_shutdown", "timestamp": "2025-11-23T19:47:14.688980Z"}
+{"event": "WebUI path: /home/merari-acero/Escritorio/NOVA_Agent/nova/webui, exists: True", "timestamp": "2025-11-23T19:48:08.562393Z"}
+{"event": "WebUI static files mounted at /webui and /nova/webui", "timestamp": "2025-11-23T19:48:08.562616Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:48:08.565396Z"}
+{"event": "app_startup", "timestamp": "2025-11-23T19:48:08.565460Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:48:09.015707Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:48:09.017423Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:48:19.013628Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:48:19.017169Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:48:29.013767Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:48:29.016328Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:48:39.013685Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:48:39.016870Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:48:49.014149Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:48:49.017301Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:48:59.014010Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:48:59.017622Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:49:09.013482Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:49:09.016596Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:49:19.013748Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:49:19.017072Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:49:29.013925Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:49:29.017024Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:49:39.014034Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:49:39.016395Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:49:49.016186Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:49:49.019889Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:49:59.013903Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:49:59.016942Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:50:09.013904Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:50:09.016952Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:50:19.013891Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:50:19.017966Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:50:29.013819Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:50:29.017112Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:50:39.013827Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:50:39.016699Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:50:49.013688Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:50:49.017049Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:50:59.013846Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:50:59.016366Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:51:09.013819Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:51:09.016807Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:51:19.013604Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:51:19.016231Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:51:29.013711Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:51:29.017081Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:51:39.013745Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:51:39.016886Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:51:49.013457Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:51:49.016706Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:51:59.013193Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:51:59.015746Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:52:09.013755Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:52:09.016718Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:52:19.013857Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:52:19.016973Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:52:29.013860Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:52:29.017009Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:52:39.013263Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:52:39.015838Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:52:49.014049Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:52:49.017387Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:52:59.013151Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:52:59.014956Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:53:09.013872Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:53:09.017008Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:53:19.013564Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:53:19.035710Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:53:29.013689Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:53:29.016955Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:53:39.013941Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:53:39.017565Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:53:49.013409Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:53:49.016785Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:53:59.013437Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:53:59.015085Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:54:09.013410Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:54:09.015969Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:54:19.013769Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:54:19.015626Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:54:29.013815Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:54:29.017158Z"}
+{"message": "es una pregunta interesante", "signals": {}, "event": "semantic_signals", "timestamp": "2025-11-23T19:54:36.308039Z"}
+{"model": "dolphin-mistral:7b", "score": 100, "confidence": 100, "alternatives": [{"model": "moondream:1.8b", "score": 100}, {"model": "mixtral:8x7b", "score": 60}], "event": "routing_decision", "timestamp": "2025-11-23T19:54:36.308250Z"}
+{"model": "dolphin-mistral:7b", "event": "generate_request", "timestamp": "2025-11-23T19:54:36.308433Z"}
+{"model": "dolphin-mistral:7b", "stream": false, "event": "ollama_generate_called", "timestamp": "2025-11-23T19:54:36.308515Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:54:39.013197Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:54:39.015651Z"}
+{"model": "dolphin-mistral:7b", "generation_ms": 2899.36, "total_latency_ms": 2899.36, "event": "response_generated", "timestamp": "2025-11-23T19:54:39.207884Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:54:39.208520Z"}
+{"session_id": "webui_1763927652785", "role": "user", "message_id": 128, "event": "message_saved", "timestamp": "2025-11-23T19:54:39.213186Z"}
+{"session_id": "webui_1763927652785", "role": "assistant", "message_id": 129, "event": "message_saved", "timestamp": "2025-11-23T19:54:39.215094Z"}
+{"session_id": "webui_1763927652785", "model": "dolphin-mistral:7b", "event": "chat_handled", "timestamp": "2025-11-23T19:54:39.215176Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:54:49.013690Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:54:49.016756Z"}
+{"message": "es posible que me puedas contestar por voz y qu\u00e9 tanto puedes guardar de este audio", "signals": {}, "event": "semantic_signals", "timestamp": "2025-11-23T19:54:54.010730Z"}
+{"model": "dolphin-mistral:7b", "score": 100, "confidence": 100, "alternatives": [{"model": "moondream:1.8b", "score": 100}, {"model": "mixtral:8x7b", "score": 60}], "event": "routing_decision", "timestamp": "2025-11-23T19:54:54.010895Z"}
+{"model": "dolphin-mistral:7b", "event": "generate_request", "timestamp": "2025-11-23T19:54:54.011022Z"}
+{"model": "dolphin-mistral:7b", "stream": false, "event": "ollama_generate_called", "timestamp": "2025-11-23T19:54:54.011085Z"}
+{"model": "dolphin-mistral:7b", "generation_ms": 1461.91, "total_latency_ms": 1461.91, "event": "response_generated", "timestamp": "2025-11-23T19:54:55.473009Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:54:55.473657Z"}
+{"session_id": "webui_1763927652785", "role": "user", "message_id": 130, "event": "message_saved", "timestamp": "2025-11-23T19:54:55.476205Z"}
+{"session_id": "webui_1763927652785", "role": "assistant", "message_id": 131, "event": "message_saved", "timestamp": "2025-11-23T19:54:55.478072Z"}
+{"session_id": "webui_1763927652785", "model": "dolphin-mistral:7b", "event": "chat_handled", "timestamp": "2025-11-23T19:54:55.478146Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:54:59.013589Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:54:59.016663Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:55:09.013570Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:55:09.016379Z"}
+{"message": "es posible que me puedas contestar por voz y qu\u00e9 tanto puedes guardar de este audio", "signals": {}, "event": "semantic_signals", "timestamp": "2025-11-23T19:55:16.376353Z"}
+{"model": "dolphin-mistral:7b", "score": 100, "confidence": 100, "alternatives": [{"model": "moondream:1.8b", "score": 100}, {"model": "mixtral:8x7b", "score": 60}], "event": "routing_decision", "timestamp": "2025-11-23T19:55:16.376534Z"}
+{"model": "dolphin-mistral:7b", "event": "generate_request", "timestamp": "2025-11-23T19:55:16.376679Z"}
+{"model": "dolphin-mistral:7b", "stream": false, "event": "ollama_generate_called", "timestamp": "2025-11-23T19:55:16.376739Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:55:19.013714Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:55:19.035550Z"}
+{"model": "dolphin-mistral:7b", "generation_ms": 3056.67, "total_latency_ms": 3056.68, "event": "response_generated", "timestamp": "2025-11-23T19:55:19.433429Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:55:19.434065Z"}
+{"session_id": "webui_1763927652785", "role": "user", "message_id": 132, "event": "message_saved", "timestamp": "2025-11-23T19:55:19.439226Z"}
+{"session_id": "webui_1763927652785", "role": "assistant", "message_id": 133, "event": "message_saved", "timestamp": "2025-11-23T19:55:19.441360Z"}
+{"session_id": "webui_1763927652785", "model": "dolphin-mistral:7b", "event": "chat_handled", "timestamp": "2025-11-23T19:55:19.441436Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:55:29.013580Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:55:29.016599Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:55:39.014606Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:55:39.017674Z"}
+{"message": "qu\u00e9 tal no va Me puedes escuchar y me puedes responder por audio", "signals": {"has_question": true}, "event": "semantic_signals", "timestamp": "2025-11-23T19:55:43.319729Z"}
+{"model": "dolphin-mistral:7b", "score": 140, "confidence": 100, "alternatives": [{"model": "moondream:1.8b", "score": 50}, {"model": "mixtral:8x7b", "score": 40}], "event": "routing_decision", "timestamp": "2025-11-23T19:55:43.321163Z"}
+{"model": "dolphin-mistral:7b", "event": "generate_request", "timestamp": "2025-11-23T19:55:43.321319Z"}
+{"model": "dolphin-mistral:7b", "stream": false, "event": "ollama_generate_called", "timestamp": "2025-11-23T19:55:43.321384Z"}
+{"model": "dolphin-mistral:7b", "generation_ms": 1356.97, "total_latency_ms": 1356.97, "event": "response_generated", "timestamp": "2025-11-23T19:55:44.678372Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:55:44.679114Z"}
+{"session_id": "webui_1763927652785", "role": "user", "message_id": 134, "event": "message_saved", "timestamp": "2025-11-23T19:55:44.683932Z"}
+{"session_id": "webui_1763927652785", "role": "assistant", "message_id": 135, "event": "message_saved", "timestamp": "2025-11-23T19:55:44.686260Z"}
+{"session_id": "webui_1763927652785", "model": "dolphin-mistral:7b", "event": "chat_handled", "timestamp": "2025-11-23T19:55:44.686342Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:55:49.013443Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:55:49.015737Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:55:59.013705Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:55:59.016702Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:56:09.013643Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:56:09.016609Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:56:19.013812Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:56:19.015767Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:56:29.013603Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:56:29.016578Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:56:39.013952Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:56:39.017564Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:56:49.013888Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:56:49.016993Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:56:59.013805Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:56:59.016643Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:57:09.013717Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:57:09.015722Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:57:19.013774Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:57:19.016940Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:57:29.013639Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:57:29.016658Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:57:39.013526Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:57:39.016764Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:57:49.013679Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:57:49.016837Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:57:59.013564Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:57:59.015448Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:58:09.013508Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:58:09.016576Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:58:19.014064Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:58:19.017417Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:58:29.013447Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:58:29.016540Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:58:39.013434Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:58:39.015868Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:58:49.014380Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:58:49.016946Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:58:51.091972Z"}
+{"session_id": "upload_b64bdeceec6102f6", "role": "user", "message_id": 136, "event": "message_saved", "timestamp": "2025-11-23T19:58:51.097446Z"}
+{"session_id": "upload_b64bdeceec6102f6", "role": "assistant", "message_id": 137, "event": "message_saved", "timestamp": "2025-11-23T19:58:51.099894Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:58:59.013204Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:58:59.015987Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:59:09.013791Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:59:09.017119Z"}
+{"message": "quitar mi mam\u00e1 me puedes poner el \u00faltimo texto que me enviaste sobre los comentarios de imagen en es", "signals": {"mentions_image": true}, "event": "semantic_signals", "timestamp": "2025-11-23T19:59:13.411177Z"}
+{"model": "moondream:1.8b", "score": 1000, "confidence": 100, "alternatives": [{"model": "dolphin-mistral:7b", "score": 0}, {"model": "mixtral:8x7b", "score": 0}], "event": "routing_decision", "timestamp": "2025-11-23T19:59:13.411411Z"}
+{"model": "moondream:1.8b", "event": "generate_request", "timestamp": "2025-11-23T19:59:13.411733Z"}
+{"model": "moondream:1.8b", "stream": false, "event": "ollama_generate_called", "timestamp": "2025-11-23T19:59:13.411840Z"}
+{"model": "moondream:1.8b", "generation_ms": 1544.66, "total_latency_ms": 1544.67, "event": "response_generated", "timestamp": "2025-11-23T19:59:14.956538Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:59:14.957375Z"}
+{"session_id": "webui_1763927920897", "role": "user", "message_id": 138, "event": "message_saved", "timestamp": "2025-11-23T19:59:14.962228Z"}
+{"session_id": "webui_1763927920897", "role": "assistant", "message_id": 139, "event": "message_saved", "timestamp": "2025-11-23T19:59:14.964235Z"}
+{"session_id": "webui_1763927920897", "model": "moondream:1.8b", "event": "chat_handled", "timestamp": "2025-11-23T19:59:14.964331Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:59:19.013974Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:59:19.017094Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:59:29.013559Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:59:29.016926Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:59:39.013478Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:59:39.016836Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:59:49.013952Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:59:49.017302Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:59:59.013710Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:59:59.016912Z"}
+{"message": "Google me ayudas", "signals": {}, "event": "semantic_signals", "timestamp": "2025-11-23T20:00:02.752764Z"}
+{"message": "Google me ayudas", "event": "needs_clarification", "timestamp": "2025-11-23T20:00:02.752920Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T20:00:09.013841Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T20:00:09.017205Z"}
+{"message": "hola nova puedes hablar solo en espa\u00f1ol?", "signals": {"has_question": true}, "event": "semantic_signals", "timestamp": "2025-11-23T20:00:12.099553Z"}
+{"model": "dolphin-mistral:7b", "score": 140, "confidence": 100, "alternatives": [{"model": "moondream:1.8b", "score": 50}, {"model": "mixtral:8x7b", "score": 40}], "event": "routing_decision", "timestamp": "2025-11-23T20:00:12.099722Z"}
+{"model": "dolphin-mistral:7b", "event": "generate_request", "timestamp": "2025-11-23T20:00:12.099870Z"}
+{"model": "dolphin-mistral:7b", "stream": false, "event": "ollama_generate_called", "timestamp": "2025-11-23T20:00:12.099941Z"}
+{"model": "dolphin-mistral:7b", "generation_ms": 989.69, "total_latency_ms": 989.69, "event": "response_generated", "timestamp": "2025-11-23T20:00:13.089642Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T20:00:13.090287Z"}
+{"session_id": "webui_1763927920897", "role": "user", "message_id": 140, "event": "message_saved", "timestamp": "2025-11-23T20:00:13.100751Z"}
+{"session_id": "webui_1763927920897", "role": "assistant", "message_id": 141, "event": "message_saved", "timestamp": "2025-11-23T20:00:13.102927Z"}
+{"session_id": "webui_1763927920897", "model": "dolphin-mistral:7b", "event": "chat_handled", "timestamp": "2025-11-23T20:00:13.103015Z"}
+{"event": "WebUI path: /home/merari-acero/Escritorio/NOVA_Agent/nova/webui, exists: True", "timestamp": "2025-11-23T20:06:27.051442Z"}
+{"event": "WebUI static files mounted at /webui and /nova/webui", "timestamp": "2025-11-23T20:06:27.051821Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T20:06:27.054374Z"}
+{"event": "app_startup", "timestamp": "2025-11-23T20:06:27.054436Z"}
+{"message": "hola nova dam eun dato curioso del 2024", "signals": {}, "event": "semantic_signals", "timestamp": "2025-11-23T20:06:46.615333Z"}
+{"model": "dolphin-mistral:7b", "score": 100, "confidence": 100, "alternatives": [{"model": "moondream:1.8b", "score": 100}, {"model": "mixtral:8x7b", "score": 60}], "event": "routing_decision", "timestamp": "2025-11-23T20:06:46.615559Z"}
+{"model": "dolphin-mistral:7b", "event": "generate_request", "timestamp": "2025-11-23T20:06:46.615764Z"}
+{"model": "dolphin-mistral:7b", "stream": false, "event": "ollama_generate_called", "timestamp": "2025-11-23T20:06:46.615871Z"}
+{"model": "dolphin-mistral:7b", "generation_ms": 5467.05, "total_latency_ms": 5467.05, "event": "response_generated", "timestamp": "2025-11-23T20:06:52.082929Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T20:06:52.083617Z"}
+{"session_id": "webui_1763928390686", "role": "user", "message_id": 142, "event": "message_saved", "timestamp": "2025-11-23T20:06:52.088399Z"}
+{"session_id": "webui_1763928390686", "role": "assistant", "message_id": 143, "event": "message_saved", "timestamp": "2025-11-23T20:06:52.090303Z"}
+{"session_id": "webui_1763928390686", "model": "dolphin-mistral:7b", "event": "chat_handled", "timestamp": "2025-11-23T20:06:52.090395Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T20:07:14.373987Z"}
+{"session_id": "upload_04273160dab5c432", "role": "user", "message_id": 144, "event": "message_saved", "timestamp": "2025-11-23T20:07:14.378960Z"}
+{"session_id": "upload_04273160dab5c432", "role": "assistant", "message_id": 145, "event": "message_saved", "timestamp": "2025-11-23T20:07:14.381009Z"}
+{"event": "app_shutdown", "timestamp": "2025-11-23T20:12:55.690376Z"}
+{"event": "WebUI path: /home/merari-acero/Escritorio/NOVA_Agent/nova/webui, exists: True", "timestamp": "2025-11-23T20:12:56.045887Z"}
+{"event": "WebUI static files mounted at /webui and /nova/webui", "timestamp": "2025-11-23T20:12:56.046113Z"}
+{"event": "WebUI path: /home/merari-acero/Escritorio/NOVA_Agent/nova/webui, exists: True", "timestamp": "2025-11-23T20:13:01.499915Z"}
+{"event": "WebUI static files mounted at /webui and /nova/webui", "timestamp": "2025-11-23T20:13:01.500141Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T20:13:01.503643Z"}
+{"event": "app_startup", "timestamp": "2025-11-23T20:13:01.503719Z"}

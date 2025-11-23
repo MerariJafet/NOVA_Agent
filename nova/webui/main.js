@@ -1,5 +1,5 @@
 // main.js - chat & UI logic adapted to the new index.html IDs
-const state = { sessionId: 'webui_' + Date.now(), streaming: false };
+const state = { sessionId: 'webui_' + Date.now(), streaming: false, voiceMode: 'push', alwaysListening: false };
 let currentSessionId = state.sessionId;
 
 const els = {
@@ -13,6 +13,8 @@ function setupEventListeners() {
     const input = els.messageInput();
     if (send) send.addEventListener('click', sendMessage);
     if (input) input.addEventListener('keydown', (e) => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); } });
+    setupCameraFlow();
+    setupMicFlow();
 }
 
 async function sendMessage() {
@@ -37,10 +39,10 @@ async function sendMessage() {
         if (!res.ok) throw new Error('HTTP ' + res.status);
         const data = await res.json();
         console.log('Chat response data:', data);
-        contentEl.textContent = data.response || '[sin respuesta]';
+        if (contentEl) contentEl.textContent = data.response || '[sin respuesta]';
     } catch (err) {
         console.error('sendMessage error', err);
-        contentEl.textContent = '❌ Error al enviar mensaje';
+        if (contentEl) contentEl.textContent = '❌ Error al enviar mensaje';
     } finally {
         send.disabled = false; state.streaming = false; scrollToBottom();
     }
@@ -98,87 +100,145 @@ window.onload = () => {
 };
 
 // === CÁMARA → PREVIEW Y ENVÍO ===
-document.getElementById('camera-btn').addEventListener('click', () => {
-  document.getElementById('file-input').click();
-});
+function setupCameraFlow(){
+  const camBtn = document.getElementById('camera-btn');
+  const fileInput = document.getElementById('file-input');
+  const previewModal = document.getElementById('image-preview-modal');
+  const previewImg = document.getElementById('preview-img');
+  const sendImageBtn = document.getElementById('send-image-btn');
+  const cancelImageBtn = document.getElementById('cancel-image-btn');
+  if (!camBtn || !fileInput || !previewModal || !previewImg || !sendImageBtn || !cancelImageBtn) return;
 
-const fileInput = document.getElementById('file-input');
-const previewModal = document.getElementById('image-preview-modal');
-const previewImg = document.getElementById('preview-img');
-const sendImageBtn = document.getElementById('send-image-btn');
-const cancelImageBtn = document.getElementById('cancel-image-btn');
-let selectedFile = null;
+  let selectedFile = null;
+  camBtn.onclick = () => fileInput.click();
 
-fileInput.addEventListener('change', (e) => {
-  selectedFile = e.target.files[0];
-  if (selectedFile) {
-    const reader = new FileReader();
-    reader.onload = (ev) => {
-      previewImg.src = ev.target.result;
-      previewModal.classList.remove('hidden');
-    };
-    reader.readAsDataURL(selectedFile);
-  }
-});
+  fileInput.onchange = (e) => {
+    selectedFile = e.target.files[0];
+    if (selectedFile) {
+      const reader = new FileReader();
+      reader.onload = (ev) => {
+        previewImg.src = ev.target.result;
+        previewModal.classList.remove('hidden');
+      };
+      reader.readAsDataURL(selectedFile);
+    }
+  };
 
-sendImageBtn.addEventListener('click', async () => {
-  if (!selectedFile) return;
-  
-  const formData = new FormData();
-  formData.append('file', selectedFile);
-  formData.append('session_id', currentSessionId || 'default');
-  formData.append('message', 'Analiza esta imagen');
-  
-  addMessage('user', '[Imagen enviada]');
-  previewModal.classList.add('hidden');
-  
-  const response = await fetch('/api/upload', { method: 'POST', body: formData });
-  const data = await response.json();
-  addMessage('assistant', data.response);
-  
-  selectedFile = null;
-  fileInput.value = '';
-});
+  sendImageBtn.onclick = async () => {
+    if (!selectedFile) return;
+    
+    const instruction = document.getElementById('image-instruction').value.trim() || 'Describe esta imagen';
+    
+    const formData = new FormData();
+    formData.append('file', selectedFile);
+    formData.append('session_id', currentSessionId || 'default');
+    formData.append('message', instruction);
 
-cancelImageBtn.addEventListener('click', () => {
-  previewModal.classList.add('hidden');
-  selectedFile = null;
-  fileInput.value = '';
-});
+    addMessage('user', `[Imagen enviada] Instrucción: "${instruction}"`);
+    previewModal.classList.add('hidden');
 
-// === MICRÓFONO → ENVÍO AUTOMÁTICO ===
+    try {
+      const response = await fetch('http://localhost:8000/api/upload', { method: 'POST', body: formData });
+      const data = await response.json();
+      addMessage('assistant', data.analysis || data.response || 'Imagen enviada');
+    } catch (e) {
+      console.error('upload error', e);
+      addMessage('assistant', '❌ Error al subir imagen');
+    }
+
+    selectedFile = null;
+    fileInput.value = '';
+    document.getElementById('image-instruction').value = '';
+  };
+
+  cancelImageBtn.onclick = () => {
+    previewModal.classList.add('hidden');
+    selectedFile = null;
+    fileInput.value = '';
+  };
+}
+
+// === MICRÓFONO: PUSH-TO-TALK Y MODO SIEMPRE ACTIVO ===
 let recognition = null;
 let isRecording = false;
+let autoRestart = false;
 
-if ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window) {
+function setupMicFlow(){
+  const micBtn = document.getElementById('mic-btn');
+  const toggleBtn = document.getElementById('voice-toggle-btn');
   const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if (!SpeechRecognition || !micBtn || !toggleBtn) return;
+
   recognition = new SpeechRecognition();
   recognition.lang = 'es-ES';
   recognition.interimResults = true;
+  recognition.continuous = false;
 
   recognition.onresult = (event) => {
-    const transcript = Array.from(event.results)
-      .map(r => r[0].transcript)
-      .join('');
+    const transcript = Array.from(event.results).map(r => r[0].transcript).join('');
     document.getElementById('message-input').value = transcript;
   };
 
   recognition.onend = () => {
-    document.getElementById('mic-btn').classList.remove('recording');
+    micBtn.classList.remove('recording');
     isRecording = false;
-    // AUTO-ENVIAR al terminar de hablar
-    if (document.getElementById('message-input').value.trim()) {
-      document.getElementById('send-btn').click();
+    const text = document.getElementById('message-input').value.trim();
+    if (text) document.getElementById('send-btn').click();
+    if (autoRestart) {
+      setTimeout(() => { tryStartListening(); }, 300);
     }
   };
 
-  document.getElementById('mic-btn').addEventListener('click', () => {
-    if (isRecording) {
-      recognition.stop();
-    } else {
+  function tryStartListening(){
+    if (!recognition) return;
+    try {
       recognition.start();
-      document.getElementById('mic-btn').classList.add('recording');
+      micBtn.classList.add('recording');
       isRecording = true;
+    } catch(e){
+      console.error('start listening failed', e);
     }
-  });
+  }
+
+  function stopListening(){
+    autoRestart = false;
+    if (recognition && isRecording) recognition.stop();
+  }
+
+  micBtn.onclick = () => {
+    if (state.voiceMode === 'push') {
+      if (isRecording) {
+        stopListening();
+      } else {
+        recognition.continuous = false;
+        autoRestart = false;
+        tryStartListening();
+      }
+    } else {
+      // en modo siempre activo, el botón mic detiene/arranca la escucha continua
+      if (isRecording) {
+        stopListening();
+      } else {
+        recognition.continuous = true;
+        autoRestart = true;
+        tryStartListening();
+      }
+    }
+  };
+
+  toggleBtn.onclick = () => {
+    if (state.voiceMode === 'push') {
+      state.voiceMode = 'always';
+      state.alwaysListening = true;
+      toggleBtn.textContent = 'Voz: Siempre';
+      recognition.continuous = true;
+      autoRestart = true;
+      tryStartListening();
+    } else {
+      state.voiceMode = 'push';
+      state.alwaysListening = false;
+      toggleBtn.textContent = 'Voz: Push';
+      stopListening();
+    }
+  };
 }

@@ -355,6 +355,15 @@ canvas { max-height:200px; margin-top:15px }
   border: 1px solid var(--border-glow);
 }
 
+#preview-img {
+  display: block;
+  margin: 0 auto 20px;
+  max-width: 100%;
+  max-height: 400px;
+  border-radius: 10px;
+  border: 1px solid var(--border-glow);
+}
+
 .send-btn {
   background: linear-gradient(45deg, var(--accent-cyan), var(--accent-magenta));
   border: none;
@@ -379,6 +388,11 @@ canvas { max-height:200px; margin-top:15px }
   background: linear-gradient(45deg, var(--accent-orange), var(--accent-magenta));
   box-shadow: 0 0 20px var(--glow-magenta);
   animation: pulse 1s infinite;
+}
+
+.control-btn.toggle {
+  font-size: 12px;
+  padding: 8px 10px;
 }
 
 @keyframes pulse {

@@ -33,10 +33,12 @@
                 <input id="message-input" class="chat-input" placeholder="Escribe tu mensaje..." />
                 <button id="camera-btn" class="control-btn">📷</button>
                 <button id="mic-btn" class="control-btn">🎤</button>
+                <button id="voice-toggle-btn" class="control-btn toggle">Voz: Push</button>
                 <button id="send-btn" class="send-btn">Enviar</button>
+            </div>
+            <input type="file" id="file-input" accept="image/*" style="display: none;" />
+        </div>
     </div>
-    <input type="file" id="file-input" accept="image/*" style="display: none;" />
-</div>    </div>
 
     <!-- DASHBOARD: cards + charts -->
     <div class="dashboard-section">
@@ -72,19 +74,20 @@
         </div>
     </div>
 
+    <!-- Image Preview Modal -->
+    <div id="image-preview-modal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close" id="cancel-image-btn">&times;</span>
+            <h3>Preview de Imagen</h3>
+            <img id="preview-img" src="" alt="Preview" />
+            <textarea id="image-instruction" placeholder="¿Qué quieres que haga con esta imagen? (ej: 'Cuenta cuántas personas hay', 'Dibújame un diagrama en Mermaid', 'Describe el contenido')" rows="3" style="width: 100%; margin: 15px 0; padding: 10px; border: 2px solid var(--border-glow); border-radius: 10px; background: var(--bg-card); color: var(--text-primary); font-family: 'Orbitron', monospace;"></textarea>
+            <button id="send-image-btn" class="send-btn">Enviar con instrucción</button>
+        </div>
+    </div>
+
     <!-- Scripts -->
     <script src="http://localhost:8000/nova/webui/avatar.js"></script>
     <script src="http://localhost:8000/nova/webui/charts.js"></script>
     <script src="http://localhost:8000/nova/webui/main.js"></script>
 </body>
 </html>
-
-<!-- Image Preview Modal -->
-<div id="image-preview-modal" class="modal hidden">
-    <div class="modal-content">
-        <span class="close" id="cancel-image-btn">&times;</span>
-        <h3>Preview de Imagen</h3>
-        <img id="preview-img" src="" alt="Preview" style="max-width: 100%; max-height: 400px;" />
-        <button id="send-image-btn" class="send-btn">Enviar Imagen</button>
-    </div>
-</div>

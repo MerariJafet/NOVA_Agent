@@ -1,4 +1,4 @@
-from fastapi import FastAPI, HTTPException, File, UploadFile
+from fastapi import FastAPI, HTTPException, File, UploadFile, Form
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import RedirectResponse
 from contextlib import asynccontextmanager
@@ -146,10 +146,10 @@ async def chat(request: ChatRequest):
 
 
 @app.post("/api/upload")
-async def upload_image(file: UploadFile = File(...)):
-    """Subir imagen y analizar con moondream de forma segura (sin bloquear el loop)."""
+async def upload_image(file: UploadFile = File(...), message: str = Form("Describe esta imagen"), session_id: str = Form(None)):
+    """Subir imagen y procesar con instrucción personalizada usando el cerebro principal (Mixtral)."""
     try:
-        session_id = f"upload_{secrets.token_hex(8)}"
+        session_id = session_id or f"upload_{secrets.token_hex(8)}"
 
         content_type = file.content_type or ""
         if not content_type.startswith('image/'):
@@ -163,21 +163,39 @@ async def upload_image(file: UploadFile = File(...)):
         if file_size > 10 * 1024 * 1024:  # 10MB
             raise HTTPException(status_code=400, detail="Archivo demasiado grande (máx 10MB)")
 
-        # Codificar en base64 y evitar escribir a disco (cleanup automático)
+        # Codificar en base64
         image_b64 = base64.b64encode(content).decode("ascii")
-        prompt = "Analiza la imagen proporcionada y describe su contenido con detalle."
 
+        # Crear prompt inteligente que combine análisis de imagen + instrucción del usuario
+        combined_prompt = f"""Aquí tienes una imagen y una instrucción específica del usuario.
+
+INSTRUCCIÓN DEL USUARIO: "{message}"
+
+Para responder correctamente, primero analiza el contenido visual de la imagen y luego ejecuta exactamente lo que pide el usuario. Si pide algo específico (como contar objetos, generar código, describir, etc.), hazlo de manera precisa y completa.
+
+Imagen en base64: data:image/jpeg;base64,{image_b64}
+
+Responde de manera útil y directa a la instrucción del usuario."""
+
+        # Usar el cerebro principal (Mixtral) en lugar de solo moondream
         try:
-            analysis = await _analyze_image_base64(image_b64, prompt=prompt)
+            # Forzar el uso de Mixtral para procesamiento inteligente
+            response = await run_in_threadpool(orquestador.generate_response, "mixtral:8x7b", combined_prompt, None)
         except Exception as e:
-            logger.error(f"Error analizando imagen con moondream: {e}")
-            analysis = "Error al analizar la imagen"
+            logger.error(f"Error procesando imagen con Mixtral: {e}")
+            # Fallback a análisis básico con moondream
+            try:
+                basic_analysis = await _analyze_image_base64(image_b64, prompt=f"Analiza esta imagen y responde: {message}")
+                response = f"Análisis visual: {basic_analysis}"
+            except Exception as e2:
+                logger.error(f"Error en fallback con moondream: {e2}")
+                response = f"Error al procesar la imagen. Instrucción recibida: {message}"
 
         # Persistir en DB
         await run_in_threadpool(init_db)
         safe_filename = Path(file.filename or "imagen").name
-        await run_in_threadpool(save_conversation, session_id, "user", f"[Imagen subida: {safe_filename}]", "moondream:1.8b", "image_upload", 100)
-        await run_in_threadpool(save_conversation, session_id, "assistant", analysis, "moondream:1.8b", "image_analysis", 100)
+        await run_in_threadpool(save_conversation, session_id, "user", f"[Imagen subida: {safe_filename}] Instrucción: {message}", "mixtral:8x7b", "image_processing", 100)
+        await run_in_threadpool(save_conversation, session_id, "assistant", response, "mixtral:8x7b", "image_response", 100)
 
         await file.close()
 
@@ -185,8 +203,9 @@ async def upload_image(file: UploadFile = File(...)):
             "status": "success",
             "filename": safe_filename,
             "size": file_size,
-            "response": analysis,
-            "image_url": None,  # No se expone ruta en disco; cleanup inmediato
+            "response": response,
+            "instruction": message,
+            "model_used": "mixtral:8x7b",
             "session_id": session_id
         }
 
