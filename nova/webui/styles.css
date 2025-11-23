@@ -386,3 +386,8 @@ canvas { max-height:200px; margin-top:15px }
   50% { transform: scale(1.1); }
   100% { transform: scale(1); }
 }
+
+/* Hidden class for modal */
+.hidden {
+  display: none !important;
+}

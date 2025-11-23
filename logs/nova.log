@@ -20846,3 +20846,71 @@ HTTP Request: GET http://testserver/status "HTTP/1.1 200 OK"
 {"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:42:29.013427Z"}
 {"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:42:29.016659Z"}
 {"event": "app_shutdown", "timestamp": "2025-11-23T19:42:38.993311Z"}
+{"event": "WebUI path: /home/merari-acero/Escritorio/NOVA_Agent/nova/webui, exists: True", "timestamp": "2025-11-23T19:42:42.729866Z"}
+{"event": "WebUI static files mounted at /webui and /nova/webui", "timestamp": "2025-11-23T19:42:42.730088Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:42:42.733124Z"}
+{"event": "app_startup", "timestamp": "2025-11-23T19:42:42.733190Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:42:49.017218Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:42:49.020761Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:42:59.014229Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:42:59.017730Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:43:09.013720Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:43:09.016934Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:43:19.013648Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:43:19.015806Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:43:29.013427Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:43:29.015713Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:43:39.013610Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:43:39.016546Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:43:49.013738Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:43:49.016604Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:43:59.014189Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:43:59.017061Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:44:09.013783Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:44:09.016843Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:44:19.013255Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:44:19.016413Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:44:29.014108Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:44:29.017230Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:44:39.013819Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:44:39.017021Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:44:49.013380Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:44:49.014926Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:44:59.014432Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:44:59.017440Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:45:09.013814Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:45:09.016855Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:45:19.013859Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:45:19.017522Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:45:29.013945Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:45:29.016277Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:45:39.013669Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:45:39.016673Z"}
+{"message": "que habilidades debe tener una AGI de IA", "signals": {"has_question": true}, "event": "semantic_signals", "timestamp": "2025-11-23T19:45:47.959858Z"}
+{"model": "dolphin-mistral:7b", "score": 140, "confidence": 100, "alternatives": [{"model": "moondream:1.8b", "score": 50}, {"model": "mixtral:8x7b", "score": 40}], "event": "routing_decision", "timestamp": "2025-11-23T19:45:47.960049Z"}
+{"model": "dolphin-mistral:7b", "event": "generate_request", "timestamp": "2025-11-23T19:45:47.960186Z"}
+{"model": "dolphin-mistral:7b", "stream": false, "event": "ollama_generate_called", "timestamp": "2025-11-23T19:45:47.960254Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:45:49.015942Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:45:49.021209Z"}
+{"model": "dolphin-mistral:7b", "generation_ms": 10057.17, "total_latency_ms": 10057.17, "event": "response_generated", "timestamp": "2025-11-23T19:45:58.017440Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:45:58.018104Z"}
+{"session_id": "webui_1763926973826", "role": "user", "message_id": 126, "event": "message_saved", "timestamp": "2025-11-23T19:45:58.059919Z"}
+{"session_id": "webui_1763926973826", "role": "assistant", "message_id": 127, "event": "message_saved", "timestamp": "2025-11-23T19:45:58.063602Z"}
+{"session_id": "webui_1763926973826", "model": "dolphin-mistral:7b", "event": "chat_handled", "timestamp": "2025-11-23T19:45:58.063742Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:45:59.013216Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:45:59.014793Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:46:09.013622Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:46:09.016568Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:46:19.013594Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:46:19.016480Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:46:29.013799Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:46:29.017074Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:46:39.013874Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:46:39.017083Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:46:49.013630Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:46:49.016538Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:46:59.014037Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:46:59.017490Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:47:09.013630Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:47:09.016681Z"}
+{"event": "app_shutdown", "timestamp": "2025-11-23T19:47:14.688980Z"}

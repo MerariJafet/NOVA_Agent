@@ -1,5 +1,6 @@
 // main.js - chat & UI logic adapted to the new index.html IDs
 const state = { sessionId: 'webui_' + Date.now(), streaming: false };
+let currentSessionId = state.sessionId;
 
 const els = {
     messagesContainer: () => document.getElementById('messages-container'),
@@ -73,104 +74,7 @@ async function refreshMetrics() {
     } catch(e){ console.error('refreshMetrics', e); }
 }
 
-function setupMultimediaListeners(){
-    const imgBtn = document.getElementById('image-btn');
-    if (imgBtn) imgBtn.addEventListener('click', () => {
-        document.getElementById('image-input').click();
-    });
-
-    const imageInput = document.getElementById('image-input');
-    if (imageInput) imageInput.addEventListener('change', (e) => {
-        const file = e.target.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                document.getElementById('image-preview').src = e.target.result;
-                document.getElementById('image-modal').style.display = 'block';
-            };
-            reader.readAsDataURL(file);
-        }
-    });
-
-    const closeModal = document.querySelector('.close');
-    if (closeModal) closeModal.addEventListener('click', () => {
-        document.getElementById('image-modal').style.display = 'none';
-    });
-
-    const sendImageBtn = document.getElementById('send-image-btn');
-    if (sendImageBtn) sendImageBtn.addEventListener('click', async () => {
-        const file = document.getElementById('image-input').files[0];
-        if (file) {
-            await sendImage(file);
-            document.getElementById('image-modal').style.display = 'none';
-        }
-    });
-
-    const micBtn = document.getElementById('mic-btn');
-    if (micBtn) micBtn.addEventListener('click', startVoiceInput);
-
-    const ttsBtn = document.getElementById('tts-btn');
-    if (ttsBtn) ttsBtn.addEventListener('click', ()=>{ /* placeholder */ });
-}
-
-async function sendImage(file) {
-    const formData = new FormData();
-    formData.append('file', file);
-
-    addMessage('user', `📷 Imagen subida: ${file.name}`);
-    const assistantEl = addMessage('assistant', '...');
-    const contentEl = assistantEl.querySelector('.message-content');
-
-    try {
-        console.log('Uploading image to http://localhost:8000/api/upload');
-        const res = await fetch('http://localhost:8000/api/upload', { method: 'POST', body: formData });
-        console.log('Upload response status:', res.status);
-        if (!res.ok) throw new Error('HTTP ' + res.status);
-        const data = await res.json();
-        console.log('Upload response data:', data);
-        contentEl.textContent = data.response || '[sin respuesta]';
-    } catch (err) {
-        console.error('sendImage error', err);
-        contentEl.textContent = '❌ Error al subir imagen';
-    } finally {
-        scrollToBottom();
-    }
-}
-
-function startVoiceInput() {
-    if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
-        alert('Tu navegador no soporta reconocimiento de voz.');
-        return;
-    }
-
-    const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
-    recognition.lang = 'es-ES'; // Spanish
-    recognition.interimResults = false;
-    recognition.maxAlternatives = 1;
-
-    recognition.onstart = () => {
-        document.getElementById('mic-btn').textContent = '🎤 Grabando...';
-    };
-
-    recognition.onresult = (event) => {
-        const transcript = event.results[0][0].transcript;
-        document.getElementById('message-input').value = transcript;
-        sendMessage(); // Auto-send after voice input
-    };
-
-    recognition.onerror = (event) => {
-        console.error('Voice recognition error:', event.error);
-        document.getElementById('mic-btn').textContent = '🎤';
-    };
-
-    recognition.onend = () => {
-        document.getElementById('mic-btn').textContent = '🎤';
-    };
-
-    recognition.start();
-}
-
-document.addEventListener('DOMContentLoaded', () => { setupEventListeners(); setupMultimediaListeners(); refreshMetrics(); setInterval(refreshMetrics, 10000); });
+document.addEventListener('DOMContentLoaded', () => { setupEventListeners(); refreshMetrics(); setInterval(refreshMetrics, 10000); });
 
 // Ensure send button & enter key are wired (explicitly per Sofía's request)
 function ensureSendWiring(){
@@ -193,39 +97,68 @@ window.onload = () => {
     } catch(e){ console.error('initAvatar error', e); }
 };
 
-// === BOTÓN CÁMARA ===
-function handleImageSelect(file) {
-    const reader = new FileReader();
-    reader.onload = (e) => {
-        document.getElementById('image-preview').src = e.target.result;
-        document.getElementById('image-modal').style.display = 'block';
-    };
-    reader.readAsDataURL(file);
-}
-
+// === CÁMARA → PREVIEW Y ENVÍO ===
 document.getElementById('camera-btn').addEventListener('click', () => {
   document.getElementById('file-input').click();
 });
 
-document.getElementById('file-input').addEventListener('change', (e) => {
-  const file = e.target.files[0];
-  if (file) handleImageSelect(file);
+const fileInput = document.getElementById('file-input');
+const previewModal = document.getElementById('image-preview-modal');
+const previewImg = document.getElementById('preview-img');
+const sendImageBtn = document.getElementById('send-image-btn');
+const cancelImageBtn = document.getElementById('cancel-image-btn');
+let selectedFile = null;
+
+fileInput.addEventListener('change', (e) => {
+  selectedFile = e.target.files[0];
+  if (selectedFile) {
+    const reader = new FileReader();
+    reader.onload = (ev) => {
+      previewImg.src = ev.target.result;
+      previewModal.classList.remove('hidden');
+    };
+    reader.readAsDataURL(selectedFile);
+  }
 });
 
-// === BOTÓN MICRÓFONO ===
+sendImageBtn.addEventListener('click', async () => {
+  if (!selectedFile) return;
+  
+  const formData = new FormData();
+  formData.append('file', selectedFile);
+  formData.append('session_id', currentSessionId || 'default');
+  formData.append('message', 'Analiza esta imagen');
+  
+  addMessage('user', '[Imagen enviada]');
+  previewModal.classList.add('hidden');
+  
+  const response = await fetch('/api/upload', { method: 'POST', body: formData });
+  const data = await response.json();
+  addMessage('assistant', data.response);
+  
+  selectedFile = null;
+  fileInput.value = '';
+});
+
+cancelImageBtn.addEventListener('click', () => {
+  previewModal.classList.add('hidden');
+  selectedFile = null;
+  fileInput.value = '';
+});
+
+// === MICRÓFONO → ENVÍO AUTOMÁTICO ===
 let recognition = null;
 let isRecording = false;
 
-if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+if ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window) {
   const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
   recognition = new SpeechRecognition();
-  recognition.continuous = false;
-  recognition.interimResults = true;
   recognition.lang = 'es-ES';
+  recognition.interimResults = true;
 
   recognition.onresult = (event) => {
     const transcript = Array.from(event.results)
-      .map(result => result[0].transcript)
+      .map(r => r[0].transcript)
       .join('');
     document.getElementById('message-input').value = transcript;
   };
@@ -233,6 +166,10 @@ if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
   recognition.onend = () => {
     document.getElementById('mic-btn').classList.remove('recording');
     isRecording = false;
+    // AUTO-ENVIAR al terminar de hablar
+    if (document.getElementById('message-input').value.trim()) {
+      document.getElementById('send-btn').click();
+    }
   };
 
   document.getElementById('mic-btn').addEventListener('click', () => {
@@ -244,20 +181,4 @@ if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
       isRecording = true;
     }
   });
-} else {
-  document.getElementById('mic-btn').style.opacity = '0.5';
-  document.getElementById('mic-btn').title = 'Micrófono no soportado en este navegador';
 }
-
-// === MODAL DE IMAGEN ===
-document.querySelector('.close').addEventListener('click', () => {
-  document.getElementById('image-modal').style.display = 'none';
-});
-
-document.getElementById('send-image-btn').addEventListener('click', async () => {
-  const file = document.getElementById('file-input').files[0];
-  if (file) {
-    await sendImage(file);
-    document.getElementById('image-modal').style.display = 'none';
-  }
-});
