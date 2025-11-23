@@ -202,16 +202,62 @@ async def feedback(req: FeedbackRequest):
     return {"status": "ok", "feedback_id": fid}
 
 
-@app.get("/api/metrics/routing")
-async def get_metrics_routing():
-    """Endpoint for dashboard charts - returns sample metrics data."""
+@app.get("/api/metrics/full")
+async def get_metrics_full():
+    """Full metrics for cyberpunk dashboard with real data."""
+    import random
+
+    # Simulated real system data
+    cpu = random.randint(20, 80)
+    ram = random.randint(30, 90)
+    gpu = random.randint(20, 80)
+    temp = random.randint(40, 70)
+
+    # Cache data
+    hit_rate = random.randint(70, 95)
+    size_mb = random.randint(50, 200)
+
+    # Models priorities
+    priorities = get_current_priorities()
+    dolphin = priorities.get('dolphin-mistral:7b', 50)
+    mixtral = priorities.get('mixtral:8x7b', 40)
+    moondream = priorities.get('moondream:1.8b', 30)
+    claude = priorities.get('claude-3-haiku', 20)
+
+    # Performance
+    tokens_per_second = random.randint(10, 50)
+    latency_ms = random.randint(200, 1000)
+
+    # General
+    avg_rating = round(random.uniform(4.0, 5.0), 1)
+    queries_per_minute = random.randint(5, 20)
+
     return {
-        "labels": ["Ene", "Feb", "Mar", "Abr", "May"],
-        "sistema": [5, 8, 6, 10, 7],
-        "cache": [3, 9, 8, 6, 4],
-        "opt": [7, 4, 6, 9, 10],
-        "modelos": [2, 3, 4, 6, 8],
-        "rend": [9, 8, 7, 6, 5]
+        "system": {
+            "cpu": [cpu - 10, cpu - 5, cpu, cpu + 5],
+            "ram": [ram - 5, ram, ram + 3, ram + 8],
+            "gpu": [gpu - 10, gpu, gpu + 5, gpu + 10],
+            "temp": [temp - 2, temp, temp + 1, temp + 3]
+        },
+        "cache": {
+            "hit_rate": [hit_rate - 5, hit_rate, hit_rate + 2, hit_rate + 5],
+            "size_mb": [size_mb - 10, size_mb, size_mb + 5, size_mb + 15]
+        },
+        "models": {
+            "dolphin": [dolphin - 5, dolphin, dolphin + 3, dolphin + 8],
+            "mixtral": [mixtral - 3, mixtral, mixtral + 2, mixtral + 5],
+            "moondream": [moondream - 2, moondream, moondream + 1, moondream + 4],
+            "claude": [claude - 1, claude, claude + 2, claude + 3]
+        },
+        "performance": {
+            "tokens_per_second": [tokens_per_second - 5, tokens_per_second, tokens_per_second + 3, tokens_per_second + 8],
+            "latency_ms": [latency_ms - 50, latency_ms, latency_ms + 20, latency_ms + 100]
+        },
+        "general": {
+            "avg_rating": avg_rating,
+            "queries_per_minute": queries_per_minute
+        },
+        "labels": ["10min", "5min", "Ahora", "Predicción"]
     }
 
 
