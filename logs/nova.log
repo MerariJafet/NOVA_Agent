@@ -21162,3 +21162,39 @@ HTTP Request: GET http://testserver/status "HTTP/1.1 200 OK"
 {"event": "WebUI static files mounted at /webui and /nova/webui", "timestamp": "2025-11-23T20:18:04.771216Z"}
 {"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T20:18:04.774274Z"}
 {"event": "app_startup", "timestamp": "2025-11-23T20:18:04.774337Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T20:20:03.282970Z"}
+{"session_id": "webui_1763929098394", "role": "user", "message_id": 148, "event": "message_saved", "timestamp": "2025-11-23T20:20:03.287924Z"}
+{"session_id": "webui_1763929098394", "role": "assistant", "message_id": 149, "event": "message_saved", "timestamp": "2025-11-23T20:20:03.289873Z"}
+{"event": "app_shutdown", "timestamp": "2025-11-23T20:25:15.973350Z"}
+{"event": "WebUI path: /home/merari-acero/Escritorio/NOVA_Agent/nova/webui, exists: True", "timestamp": "2025-11-23T20:25:16.392977Z"}
+{"event": "WebUI static files mounted at /webui and /nova/webui", "timestamp": "2025-11-23T20:25:16.393188Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T20:25:16.396266Z"}
+{"event": "app_startup", "timestamp": "2025-11-23T20:25:16.396327Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T20:27:44.367272Z"}
+{"session_id": "webui_1763929606753", "role": "user", "message_id": 150, "event": "message_saved", "timestamp": "2025-11-23T20:27:44.372521Z"}
+{"session_id": "webui_1763929606753", "role": "assistant", "message_id": 151, "event": "message_saved", "timestamp": "2025-11-23T20:27:44.374594Z"}
+{"event": "app_shutdown", "timestamp": "2025-11-23T20:50:20.312295Z"}
+{"event": "WebUI path: /home/merari-acero/Escritorio/NOVA_Agent/nova/webui, exists: True", "timestamp": "2025-11-23T20:50:20.697711Z"}
+{"event": "WebUI static files mounted at /webui and /nova/webui", "timestamp": "2025-11-23T20:50:20.697922Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T20:50:20.701155Z"}
+{"event": "app_startup", "timestamp": "2025-11-23T20:50:20.701228Z"}
+{"event": "app_shutdown", "timestamp": "2025-11-23T20:50:24.107333Z"}
+{"event": "WebUI path: /home/merari-acero/Escritorio/NOVA_Agent/nova/webui, exists: True", "timestamp": "2025-11-23T20:50:24.479269Z"}
+{"event": "WebUI static files mounted at /webui and /nova/webui", "timestamp": "2025-11-23T20:50:24.479483Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T20:50:24.482504Z"}
+{"event": "app_startup", "timestamp": "2025-11-23T20:50:24.482575Z"}
+{"event": "app_shutdown", "timestamp": "2025-11-23T20:50:28.989666Z"}
+{"event": "WebUI path: /home/merari-acero/Escritorio/NOVA_Agent/nova/webui, exists: True", "timestamp": "2025-11-23T20:50:29.344407Z"}
+{"event": "WebUI static files mounted at /webui and /nova/webui", "timestamp": "2025-11-23T20:50:29.344620Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T20:50:29.347666Z"}
+{"event": "app_startup", "timestamp": "2025-11-23T20:50:29.347732Z"}
+{"event": "app_shutdown", "timestamp": "2025-11-23T20:50:37.562609Z"}
+{"event": "WebUI path: /home/merari-acero/Escritorio/NOVA_Agent/nova/webui, exists: True", "timestamp": "2025-11-23T20:50:37.939141Z"}
+{"event": "WebUI static files mounted at /webui and /nova/webui", "timestamp": "2025-11-23T20:50:37.939381Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T20:50:37.942443Z"}
+{"event": "app_startup", "timestamp": "2025-11-23T20:50:37.942517Z"}
+{"event": "app_shutdown", "timestamp": "2025-11-23T20:50:43.051265Z"}
+{"event": "WebUI path: /home/merari-acero/Escritorio/NOVA_Agent/nova/webui, exists: True", "timestamp": "2025-11-23T20:50:43.413391Z"}
+{"event": "WebUI static files mounted at /webui and /nova/webui", "timestamp": "2025-11-23T20:50:43.413601Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T20:50:43.416867Z"}
+{"event": "app_startup", "timestamp": "2025-11-23T20:50:43.416932Z"}

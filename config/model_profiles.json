@@ -46,11 +46,11 @@
     ]
   },
   "moondream:1.8b": {
-    "name": "Moondream Vision 1.8B",
+    "name": "Moondream Vision 1.8B (Deprecated)",
     "type": "vision",
-    "status": "loaded",
+    "status": "deprecated",
     "tier": 3,
-    "priority": 100,
+    "priority": 10,
     "capabilities": [
       "vision",
       "image_analysis",
@@ -62,6 +62,29 @@
     "weak_at": [
       "text",
       "code"
+    ]
+  },
+  "llava:13b": {
+    "name": "LLaVA Vision 13B",
+    "type": "vision",
+    "status": "loaded",
+    "tier": 3,
+    "priority": 100,
+    "capabilities": [
+      "vision",
+      "image_analysis",
+      "ocr",
+      "complex_reasoning",
+      "text"
+    ],
+    "strong_at": [
+      "vision",
+      "ocr",
+      "diagrams",
+      "end_to_end_vision"
+    ],
+    "weak_at": [
+      "code_generation"
     ]
   },
   "claude_code_api": {

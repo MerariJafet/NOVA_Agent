@@ -73,15 +73,15 @@ app.mount("/uploads", StaticFiles(directory=uploads_path), name="uploads")
 
 
 async def _analyze_image_base64(image_b64: str, prompt: str = "Analiza esta imagen") -> str:
-    """Enviar imagen en base64 a Ollama vision sin bloquear el event loop."""
-    def _call_ollama() -> str:
+    """Enviar imagen en base64 a LLaVA vision para análisis end-to-end."""
+    def _call_llava() -> str:
         payload = {
-            "model": "moondream:1.8b",
+            "model": "llava:13b",
             "prompt": prompt,
             "images": [image_b64],
             "stream": False
         }
-        r = requests.post(settings.ollama_generate_url, json=payload, timeout=120)
+        r = requests.post(settings.ollama_generate_url, json=payload, timeout=60)  # LLaVA más rápido
         r.raise_for_status()
         try:
             data = r.json()
@@ -92,29 +92,8 @@ async def _analyze_image_base64(image_b64: str, prompt: str = "Analiza esta imag
             pass
         return r.text.strip()
 
-    return await run_in_threadpool(_call_ollama)
+    return await run_in_threadpool(_call_llava)
 
-
-async def _generate_with_mixtral(prompt: str) -> str:
-    """Generar respuesta con Mixtral directamente (sin routing)."""
-    def _call_mixtral() -> str:
-        payload = {
-            "model": "mixtral:8x7b",
-            "prompt": prompt,
-            "stream": False
-        }
-        r = requests.post(settings.ollama_generate_url, json=payload, timeout=120)
-        r.raise_for_status()
-        try:
-            data = r.json()
-            for key in ("response", "text", "result", "content"):
-                if key in data and data[key]:
-                    return str(data[key])
-        except Exception:
-            pass
-        return r.text.strip()
-
-    return await run_in_threadpool(_call_mixtral)
 
 
 @app.get("/webui/index.html")
@@ -169,7 +148,7 @@ async def chat(request: ChatRequest):
 
 @app.post("/api/upload")
 async def upload_image(file: UploadFile = File(...), message: str = Form("Describe esta imagen"), session_id: str = Form(None)):
-    """Subir imagen y procesar con instrucción personalizada usando el cerebro principal (Mixtral)."""
+    """Subir imagen y procesar con LLaVA end-to-end para análisis inteligente."""
     try:
         session_id = session_id or f"upload_{secrets.token_hex(8)}"
 
@@ -188,36 +167,21 @@ async def upload_image(file: UploadFile = File(...), message: str = Form("Descri
         # Codificar en base64
         image_b64 = base64.b64encode(content).decode("ascii")
 
-        # Crear prompt inteligente que combine análisis de imagen + instrucción del usuario
-        combined_prompt = f"""Aquí tienes una imagen y una instrucción específica del usuario.
-
-INSTRUCCIÓN DEL USUARIO: "{message}"
-
-Para responder correctamente, primero analiza el contenido visual de la imagen y luego ejecuta exactamente lo que pide el usuario. Si pide algo específico (como contar objetos, generar código, describir, etc.), hazlo de manera precisa y completa.
-
-Imagen en base64: data:image/jpeg;base64,{image_b64}
-
-Responde de manera útil y directa a la instrucción del usuario."""
-
-        # Usar el cerebro principal (Mixtral) en lugar de solo moondream
+        # Usar LLaVA end-to-end con la instrucción del usuario directamente
         try:
-            # Llamar directamente a Mixtral con el prompt inteligente
-            response = await _generate_with_mixtral(combined_prompt)
+            response = await _analyze_image_base64(
+                image_b64,
+                prompt=f"{message}"
+            )
         except Exception as e:
-            logger.error(f"Error procesando imagen con Mixtral: {e}")
-            # Fallback a análisis básico con moondream
-            try:
-                basic_analysis = await _analyze_image_base64(image_b64, prompt=f"Analiza esta imagen y responde: {message}")
-                response = f"Análisis visual: {basic_analysis}"
-            except Exception as e2:
-                logger.error(f"Error en fallback con moondream: {e2}")
-                response = f"Error al procesar la imagen. Instrucción recibida: {message}"
+            logger.error(f"Error procesando imagen con LLaVA: {e}")
+            response = f"Error al procesar la imagen. Instrucción recibida: {message}"
 
         # Persistir en DB
         await run_in_threadpool(init_db)
         safe_filename = Path(file.filename or "imagen").name
-        await run_in_threadpool(save_conversation, session_id, "user", f"[Imagen subida: {safe_filename}] Instrucción: {message}", "mixtral:8x7b", "image_processing", 100)
-        await run_in_threadpool(save_conversation, session_id, "assistant", response, "mixtral:8x7b", "image_response", 100)
+        await run_in_threadpool(save_conversation, session_id, "user", f"[Imagen subida: {safe_filename}] Instrucción: {message}", "llava:13b", "vision_processing", 100)
+        await run_in_threadpool(save_conversation, session_id, "assistant", response, "llava:13b", "vision_response", 100)
 
         await file.close()
 
@@ -227,7 +191,7 @@ Responde de manera útil y directa a la instrucción del usuario."""
             "size": file_size,
             "response": response,
             "instruction": message,
-            "model_used": "mixtral:8x7b",
+            "model_used": "llava:13b",
             "session_id": session_id
         }
 
