@@ -39,18 +39,36 @@
             datasets: [{
               label: chart.title,
               data: series,
-              borderColor: '#00eaff',
-              backgroundColor: 'rgba(0,234,255,0.08)',
-              tension: 0.35
+              borderColor: 'linear-gradient(90deg, #00f5ff, #ff00ff, #ff9500)',
+              backgroundColor: 'rgba(0,245,255,0.08)',
+              tension: 0.35,
+              borderWidth: 3,
+              pointBackgroundColor: '#00f5ff',
+              pointBorderColor: '#ff00ff',
+              pointRadius: 5,
+              pointHoverRadius: 8
             }]
           },
           options: {
             responsive: true,
             maintainAspectRatio: false,
-            plugins: { legend: { labels: { color: '#ffffff' } } },
+            plugins: { 
+              legend: { labels: { color: '#ffffff' } },
+              tooltip: {
+                backgroundColor: 'rgba(0,0,0,0.8)',
+                titleColor: '#00f5ff',
+                bodyColor: '#ffffff'
+              }
+            },
             scales: {
-              x: { ticks: { color: '#ffffff' } },
-              y: { ticks: { color: '#ffffff' } }
+              x: { 
+                ticks: { color: '#ffffff' },
+                grid: { color: 'rgba(0,245,255,0.2)' }
+              },
+              y: { 
+                ticks: { color: '#ffffff' },
+                grid: { color: 'rgba(255,0,255,0.2)' }
+              }
             }
           }
         });

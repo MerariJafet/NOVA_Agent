@@ -6,27 +6,29 @@
 }
 
 :root {
-  --bg-primary: #0a0e1a;
-  --bg-secondary: #0f1420;
-  --bg-card: #141824;
-  --accent-cyan: #00d9ff;
-  --accent-orange: #ff6b35;
-  --accent-magenta: #ff006e;
+  --bg-primary: #000000;
+  --bg-secondary: #0a0a0a;
+  --bg-card: rgba(20, 20, 40, 0.8);
+  --accent-cyan: #00f5ff;
+  --accent-magenta: #ff00ff;
+  --accent-orange: #ff9500;
   --accent-purple: #8338ec;
-  --text-primary: #e0f4ff;
-  --text-secondary: #8b9dc3;
-  --border-glow: rgba(0, 217, 255, 0.3);
-  --glow-cyan: rgba(0, 217, 255, 0.6);
+  --text-primary: #ffffff;
+  --text-secondary: #cccccc;
+  --border-glow: rgba(0, 245, 255, 0.5);
+  --glow-cyan: rgba(0, 245, 255, 0.8);
+  --glow-magenta: rgba(255, 0, 255, 0.8);
 }
 
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
 
 body {
-  font-family: 'Courier New', monospace;
-  background: linear-gradient(135deg, var(--bg-primary) 0%, #000814 100%);
+  font-family: 'Orbitron', monospace;
+  background: #000000;
   color: var(--text-primary);
   min-height: 100vh;
   overflow-x: hidden;
+  position: relative;
 }
 
 body::before {
@@ -36,9 +38,38 @@ body::before {
   left: 0;
   width: 100%;
   height: 100%;
-  background: radial-gradient(circle at 20% 50%, rgba(0, 217, 255, 0.1) 0%, transparent 50%), radial-gradient(circle at 80% 80%, rgba(255, 107, 53, 0.1) 0%, transparent 50%);
+  background: 
+    radial-gradient(circle at 20% 50%, rgba(0, 245, 255, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(255, 0, 255, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 40% 20%, rgba(255, 149, 0, 0.1) 0%, transparent 50%);
   pointer-events: none;
   z-index: 0;
+}
+
+/* Animated stars */
+body::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    radial-gradient(2px 2px at 20px 30px, #fff, transparent),
+    radial-gradient(2px 2px at 40px 70px, #00f5ff, transparent),
+    radial-gradient(1px 1px at 90px 40px, #ff00ff, transparent),
+    radial-gradient(1px 1px at 130px 80px, #ff9500, transparent),
+    radial-gradient(2px 2px at 160px 30px, #fff, transparent);
+  background-repeat: repeat;
+  background-size: 200px 100px;
+  animation: twinkle 4s ease-in-out infinite alternate;
+  pointer-events: none;
+  z-index: 0;
+}
+
+@keyframes twinkle {
+  0% { opacity: 0.3; }
+  100% { opacity: 1; }
 }
 
 .container {
@@ -64,7 +95,7 @@ body::before {
 .title {
   font-size: 2.5em;
   font-weight: bold;
-  background: linear-gradient(90deg, var(--accent-cyan), var(--accent-magenta));
+  background: linear-gradient(90deg, var(--accent-cyan), var(--accent-magenta), var(--accent-orange));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -144,7 +175,20 @@ body::before {
 .metric-card { background:var(--bg-card); border:1px solid var(--border-glow); border-radius:15px; padding:20px; box-shadow:0 0 20px rgba(0,217,255,0.2); transition:all 0.3s ease }
 .metric-card:hover { transform:translateY(-5px); box-shadow:0 0 30px var(--glow-cyan) }
 .metric-card.wide { grid-column: span 2 }
-.card-title { display:flex; align-items:center; gap:10px; color:var(--accent-cyan); font-size:1em; margin-bottom:15px; text-transform:uppercase; letter-spacing:1px }
+.card-title { 
+  display:flex; 
+  align-items:center; 
+  gap:10px; 
+  color:var(--accent-cyan); 
+  font-size:1em; 
+  margin-bottom:15px; 
+  text-transform:uppercase; 
+  letter-spacing:1px;
+  background: linear-gradient(90deg, var(--accent-cyan), var(--accent-magenta));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
 .icon { font-size:1.3em }
 canvas { max-height:200px; margin-top:15px }
 #system-status,#cache-stats,#optimization-status { font-size:0.9em; line-height:1.8; color:var(--text-secondary) }
@@ -168,6 +212,31 @@ canvas { max-height:200px; margin-top:15px }
 .dashboard-section { margin-top:22px; }
 .dashboard-title { color:var(--accent-cyan); margin-bottom:6px }
 .dashboard-sub { color:var(--text-secondary); margin-bottom:12px }
+
+.auto-optimize-btn {
+  background: linear-gradient(90deg, #ff0000, #ff9500);
+  border: none;
+  border-radius: 10px;
+  padding: 15px 30px;
+  color: white;
+  font-size: 1.2em;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  cursor: pointer;
+  box-shadow: 0 0 20px #ff0000, 0 0 40px #ff9500;
+  animation: pulse-red 2s infinite;
+  margin-bottom: 20px;
+}
+
+@keyframes pulse-red {
+  0%, 100% { box-shadow: 0 0 20px #ff0000, 0 0 40px #ff9500; }
+  50% { box-shadow: 0 0 30px #ff0000, 0 0 60px #ff9500; }
+}
+
+.auto-optimize-btn:hover {
+  animation-duration: 0.5s;
+}
 /* Additional futuristic styles (see replacement full CSS in UI plan) */
 
 /* FORCE visible dashboard layout (Sofía's critical fixes) */
@@ -187,11 +256,42 @@ canvas { max-height:200px; margin-top:15px }
 }
 
 .metric-card {
-  background: rgba(0, 20, 40, 0.45);
-  border: 1px solid #00eaff;
-  padding: 20px;
+  background: rgba(20, 20, 40, 0.8);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--border-glow);
   border-radius: 20px;
-  box-shadow: 0 0 25px #00eaff55;
+  padding: 20px;
+  box-shadow: 
+    0 0 30px var(--glow-cyan),
+    0 0 60px var(--glow-magenta),
+    inset 0 0 30px rgba(0, 245, 255, 0.1);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
 }
 
-.metric-card canvas { width: 100% !important; min-height: 230px !important; height: 230px !important; }
+.metric-card::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(45deg, var(--accent-cyan), var(--accent-magenta), var(--accent-orange));
+  border-radius: 20px;
+  opacity: 0;
+  z-index: -1;
+  transition: opacity 0.3s ease;
+}
+
+.metric-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 
+    0 0 40px var(--glow-cyan),
+    0 0 80px var(--glow-magenta),
+    inset 0 0 40px rgba(0, 245, 255, 0.2);
+}
+
+.metric-card:hover::before {
+  opacity: 0.3;
+}
