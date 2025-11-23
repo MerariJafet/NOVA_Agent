@@ -192,3 +192,72 @@ window.onload = () => {
         if (window.initAvatar) window.initAvatar();
     } catch(e){ console.error('initAvatar error', e); }
 };
+
+// === BOTÓN CÁMARA ===
+function handleImageSelect(file) {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+        document.getElementById('image-preview').src = e.target.result;
+        document.getElementById('image-modal').style.display = 'block';
+    };
+    reader.readAsDataURL(file);
+}
+
+document.getElementById('camera-btn').addEventListener('click', () => {
+  document.getElementById('file-input').click();
+});
+
+document.getElementById('file-input').addEventListener('change', (e) => {
+  const file = e.target.files[0];
+  if (file) handleImageSelect(file);
+});
+
+// === BOTÓN MICRÓFONO ===
+let recognition = null;
+let isRecording = false;
+
+if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  recognition = new SpeechRecognition();
+  recognition.continuous = false;
+  recognition.interimResults = true;
+  recognition.lang = 'es-ES';
+
+  recognition.onresult = (event) => {
+    const transcript = Array.from(event.results)
+      .map(result => result[0].transcript)
+      .join('');
+    document.getElementById('message-input').value = transcript;
+  };
+
+  recognition.onend = () => {
+    document.getElementById('mic-btn').classList.remove('recording');
+    isRecording = false;
+  };
+
+  document.getElementById('mic-btn').addEventListener('click', () => {
+    if (isRecording) {
+      recognition.stop();
+    } else {
+      recognition.start();
+      document.getElementById('mic-btn').classList.add('recording');
+      isRecording = true;
+    }
+  });
+} else {
+  document.getElementById('mic-btn').style.opacity = '0.5';
+  document.getElementById('mic-btn').title = 'Micrófono no soportado en este navegador';
+}
+
+// === MODAL DE IMAGEN ===
+document.querySelector('.close').addEventListener('click', () => {
+  document.getElementById('image-modal').style.display = 'none';
+});
+
+document.getElementById('send-image-btn').addEventListener('click', async () => {
+  const file = document.getElementById('file-input').files[0];
+  if (file) {
+    await sendImage(file);
+    document.getElementById('image-modal').style.display = 'none';
+  }
+});

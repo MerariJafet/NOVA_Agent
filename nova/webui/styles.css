@@ -373,3 +373,16 @@ canvas { max-height:200px; margin-top:15px }
   box-shadow: 0 0 20px var(--glow-cyan);
   transform: scale(1.05);
 }
+
+/* Recording state for microphone */
+.control-btn.recording {
+  background: linear-gradient(45deg, var(--accent-orange), var(--accent-magenta));
+  box-shadow: 0 0 20px var(--glow-magenta);
+  animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
