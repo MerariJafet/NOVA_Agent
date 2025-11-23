@@ -68,12 +68,9 @@ function addCopyButton(messageDiv, text) {
 function scrollToBottom(){ const c = els.messagesContainer(); if (c) c.scrollTop = c.scrollHeight; }
 
 async function refreshMetrics() {
-    try {
-        // charts.js handles its own refresh; we just call it by re-running init
-        if (window.NOVACharts && typeof window.NOVACharts.initFromData === 'function') window.NOVACharts.initFromData();
-        // also call charts loader
-        if (window.__chartsInit) window.__chartsInit();
-    } catch(e){ console.error('refreshMetrics', e); }
+    // charts.js handles its own refresh via setInterval
+    // No need to call anything here to avoid conflicts
+    console.log('Metrics refresh handled by charts.js');
 }
 
 document.addEventListener('DOMContentLoaded', () => { setupEventListeners(); refreshMetrics(); setInterval(refreshMetrics, 10000); });
