@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🧠 NOVA - Dashboard Unificado</title>
+    <!-- External styles and libs -->
+    <link rel="stylesheet" href="/nova/webui/styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+<body>
+    <!-- TOP: Avatar + Chat -->
+    <div class="top-section">
+
+        <!-- AVATAR 3D -->
+        <div id="ai-avatar-container">
+            <canvas id="avatar-canvas"></canvas>
+        </div>
+
+        <!-- CHAT -->
+        <div class="chat-box chat-section">
+            <div class="chat-header">
+                <h2>💬 Chat con NOVA</h2>
+                <p>Tu asistente inteligente</p>
+            </div>
+
+            <div id="messages-container" class="messages-container">
+                <div class="message-ai">¡Hola! Soy NOVA, tu asistente inteligente. ¿En qué puedo ayudarte hoy?</div>
+            </div>
+
+            <div class="chat-input-area">
+                <input id="message-input" class="chat-input" placeholder="Escribe tu mensaje..." />
+                <button id="send-btn" class="send-btn">Enviar</button>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- DASHBOARD: cards + charts -->
+    <div class="dashboard-section">
+        <h1 class="dashboard-title">🧠 NOVA Dashboard</h1>
+        <p class="dashboard-sub">Auto-refresh cada 10s | Cargando métricas...</p>
+
+        <div class="metrics-grid">
+            <div class="metric-card">
+                <h3>📊 Sistema General</h3>
+                <canvas id="chart-sistema"></canvas>
+            </div>
+
+            <div class="metric-card">
+                <h3>⚡ Caché Inteligente</h3>
+                <canvas id="chart-cache"></canvas>
+            </div>
+
+            <div class="metric-card">
+                <h3>🎯 Auto-Optimización</h3>
+                <canvas id="chart-opt"></canvas>
+            </div>
+
+            <div class="metric-card">
+                <h3>🤖 Modelos y Rendimiento</h3>
+                <canvas id="chart-modelos"></canvas>
+            </div>
+
+            <div class="metric-card">
+                <h3>📈 Rendimiento General</h3>
+                <canvas id="chart-rend"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="/nova/webui/avatar.js"></script>
+    <script src="/nova/webui/charts.js"></script>
+    <script src="/nova/webui/main.js"></script>
+</body>
+</html>

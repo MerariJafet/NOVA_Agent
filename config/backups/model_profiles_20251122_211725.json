@@ -1,0 +1,89 @@
+{
+  "dolphin-mistral:7b": {
+    "name": "Dolphin Mistral 7B",
+    "type": "llm",
+    "status": "loaded",
+    "tier": 1,
+    "priority": 70,
+    "capabilities": [
+      "text",
+      "code",
+      "reasoning",
+      "general"
+    ],
+    "strong_at": [
+      "code",
+      "debugging",
+      "quick_tasks"
+    ],
+    "weak_at": [
+      "vision",
+      "complex_architecture"
+    ]
+  },
+  "mixtral:8x7b": {
+    "name": "Mixtral 8x7B",
+    "type": "llm",
+    "status": "loaded",
+    "tier": 2,
+    "priority": 60,
+    "capabilities": [
+      "text",
+      "code",
+      "reasoning",
+      "complex_analysis",
+      "architecture"
+    ],
+    "strong_at": [
+      "architecture",
+      "strategy",
+      "complex_reasoning",
+      "analysis"
+    ],
+    "weak_at": [
+      "vision",
+      "simple_queries"
+    ]
+  },
+  "moondream:1.8b": {
+    "name": "Moondream Vision 1.8B",
+    "type": "vision",
+    "status": "loaded",
+    "tier": 3,
+    "priority": 100,
+    "capabilities": [
+      "vision",
+      "image_analysis",
+      "ocr"
+    ],
+    "strong_at": [
+      "vision"
+    ],
+    "weak_at": [
+      "text",
+      "code"
+    ]
+  },
+  "claude_code_api": {
+    "name": "Claude Sonnet 4 (API)",
+    "type": "llm",
+    "status": "available",
+    "tier": 4,
+    "priority": 20,
+    "capabilities": [
+      "code",
+      "reasoning",
+      "complex_analysis",
+      "massive_context"
+    ],
+    "strong_at": [
+      "massive_codebase",
+      "enterprise_architecture"
+    ],
+    "weak_at": [
+      "vision",
+      "simple_queries"
+    ],
+    "is_external": true
+  }
+}

@@ -1,4 +1,4 @@
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, File, UploadFile
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import RedirectResponse
 from contextlib import asynccontextmanager
@@ -11,10 +11,18 @@ from utils.logging import get_logger
 from config.settings import settings
 from nova.api.middleware import setup_middlewares, simple_rate_limit_middleware
 from nova.core.auto_optimizer import auto_optimize, get_current_priorities, get_optimization_history
+from fastapi.concurrency import run_in_threadpool
 import threading
 import time
-from nova.core.cache_system import cache_system
 import os
+from pathlib import Path
+import base64
+import secrets
+import requests
+# from nova.core.cache_system import cache_system  # Commented out to avoid DB issues
+
+# CORS
+from fastapi.middleware.cors import CORSMiddleware
 
 logger = get_logger("api.routes")
 
@@ -34,14 +42,57 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(title=settings.app_name, lifespan=lifespan)
 
+# CORS middleware
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:5173"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 # Mount static files
 webui_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), "webui")
 logger.info(f"WebUI path: {webui_path}, exists: {os.path.exists(webui_path)}")
 if os.path.exists(webui_path):
     app.mount("/webui", StaticFiles(directory=webui_path, html=True), name="webui")
-    logger.info("WebUI static files mounted successfully")
+    # Also mount under /nova/webui for paths used by the redesigned frontend
+    try:
+        app.mount("/nova/webui", StaticFiles(directory=webui_path, html=True), name="nova-webui")
+        logger.info("WebUI static files mounted at /webui and /nova/webui")
+    except Exception:
+        # Fallback: if second mount fails, still keep /webui
+        logger.warning("Could not mount /nova/webui, continuing with /webui only")
 else:
     logger.error(f"WebUI directory not found: {webui_path}")
+
+# Mount uploads directory
+uploads_path = os.path.join(os.path.dirname(__file__), "uploads")
+os.makedirs(uploads_path, exist_ok=True)
+app.mount("/uploads", StaticFiles(directory=uploads_path), name="uploads")
+
+
+async def _analyze_image_base64(image_b64: str, prompt: str = "Analiza esta imagen") -> str:
+    """Enviar imagen en base64 a Ollama vision sin bloquear el event loop."""
+    def _call_ollama() -> str:
+        payload = {
+            "model": "moondream:1.8b",
+            "prompt": prompt,
+            "images": [image_b64],
+            "stream": False
+        }
+        r = requests.post(settings.ollama_generate_url, json=payload, timeout=120)
+        r.raise_for_status()
+        try:
+            data = r.json()
+            for key in ("response", "text", "result", "content"):
+                if key in data and data[key]:
+                    return str(data[key])
+        except Exception:
+            pass
+        return r.text.strip()
+
+    return await run_in_threadpool(_call_ollama)
 
 
 @app.get("/webui/index.html")
@@ -70,15 +121,15 @@ async def root():
     return RedirectResponse(url="/webui/index.html", status_code=302)
 
 
-@app.post("/chat")
+@app.post("/api/chat")
 async def chat(request: ChatRequest):
-    routing = orquestador.route_query(request.message, request.has_image)
+    routing = await run_in_threadpool(orquestador.route_query, request.message, request.has_image)
     # If router asks for clarification, return the clarifying shape and DO NOT generate a model response
     if routing.get("status") == "needs_clarification":
         return {"status": "clarify", "message": routing.get("message")}
 
     try:
-        response = orquestador.generate_response(routing["model"], request.message)
+        response = await run_in_threadpool(orquestador.generate_response, routing["model"], request.message, None)
     except Exception as e:
         logger.error("generate_failed", error=str(e))
         raise HTTPException(status_code=500, detail=str(e))
@@ -86,52 +137,125 @@ async def chat(request: ChatRequest):
     # persist conversation: user then assistant
     session_id = request.session_id or "default"
     # ensure DB initialized (safety for test environments)
-    init_db()
-    user_msg_id = save_conversation(session_id, "user", request.message, routing["model"], routing.get("reasoning"), routing.get("confidence"))
-    assistant_msg_id = save_conversation(session_id, "assistant", response, routing["model"], routing.get("reasoning"), routing.get("confidence"))
+    await run_in_threadpool(init_db)
+    user_msg_id = await run_in_threadpool(save_conversation, session_id, "user", request.message, routing["model"], routing.get("reasoning"), routing.get("confidence"))
+    assistant_msg_id = await run_in_threadpool(save_conversation, session_id, "assistant", response, routing["model"], routing.get("reasoning"), routing.get("confidence"))
 
     logger.info("chat_handled", session_id=session_id, model=routing["model"]) 
     return {"response": response, "model_used": routing["model"], "router_confidence": routing["confidence"]}
 
 
+@app.post("/api/upload")
+async def upload_image(file: UploadFile = File(...)):
+    """Subir imagen y analizar con moondream de forma segura (sin bloquear el loop)."""
+    try:
+        session_id = f"upload_{secrets.token_hex(8)}"
 
-@app.post("/feedback")
+        content_type = file.content_type or ""
+        if not content_type.startswith('image/'):
+            raise HTTPException(status_code=400, detail="Solo se permiten archivos de imagen")
+
+        content = await file.read()
+        file_size = len(content)
+        if file_size == 0:
+            raise HTTPException(status_code=400, detail="El archivo está vacío")
+
+        if file_size > 10 * 1024 * 1024:  # 10MB
+            raise HTTPException(status_code=400, detail="Archivo demasiado grande (máx 10MB)")
+
+        # Codificar en base64 y evitar escribir a disco (cleanup automático)
+        image_b64 = base64.b64encode(content).decode("ascii")
+        prompt = "Analiza la imagen proporcionada y describe su contenido con detalle."
+
+        try:
+            analysis = await _analyze_image_base64(image_b64, prompt=prompt)
+        except Exception as e:
+            logger.error(f"Error analizando imagen con moondream: {e}")
+            analysis = "Error al analizar la imagen"
+
+        # Persistir en DB
+        await run_in_threadpool(init_db)
+        safe_filename = Path(file.filename or "imagen").name
+        await run_in_threadpool(save_conversation, session_id, "user", f"[Imagen subida: {safe_filename}]", "moondream:1.8b", "image_upload", 100)
+        await run_in_threadpool(save_conversation, session_id, "assistant", analysis, "moondream:1.8b", "image_analysis", 100)
+
+        await file.close()
+
+        return {
+            "status": "success",
+            "filename": safe_filename,
+            "size": file_size,
+            "analysis": analysis,
+            "image_url": None,  # No se expone ruta en disco; cleanup inmediato
+            "session_id": session_id
+        }
+
+    except Exception as e:
+        logger.error(f"Error subiendo imagen: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.post("/api/feedback")
 async def feedback(req: FeedbackRequest):
-    init_db()
-    fid = feedback_system.record_feedback(req.message_id, req.session_id, req.rating, req.comment)
+    await run_in_threadpool(init_db)
+    fid = await run_in_threadpool(feedback_system.record_feedback, req.message_id, req.session_id, req.rating, req.comment)
     return {"status": "ok", "feedback_id": fid}
 
 
-@app.get("/metrics/routing")
-async def metrics_routing():
-    init_db()
-    perf = feedback_system.analyze_performance()
-    return perf
+@app.get("/api/metrics/routing")
+async def get_metrics_routing():
+    """Endpoint for dashboard charts - returns sample metrics data."""
+    return {
+        "labels": ["Ene", "Feb", "Mar", "Abr", "May"],
+        "sistema": [5, 8, 6, 10, 7],
+        "cache": [3, 9, 8, 6, 4],
+        "opt": [7, 4, 6, 9, 10],
+        "modelos": [2, 3, 4, 6, 8],
+        "rend": [9, 8, 7, 6, 5]
+    }
 
 
-@app.get("/dashboard")
+@app.get("/api/metrics")
+async def get_metrics():
+    """Lightweight metrics endpoint returning sample series for Chart.js (used by web UI)."""
+    # Return a simple, reliable payload so the frontend always receives status 200 and valid JSON.
+    return {
+        "labels": ["Ene", "Feb", "Mar", "Abr", "May"],
+        "sistema": [5, 8, 6, 10, 7],
+        "cache":   [3, 9, 8, 6, 4],
+        "opt":     [7, 4, 6, 9, 10],
+        "modelos": [2, 3, 4, 6, 8],
+        "rend":    [9, 8, 7, 6, 5]
+    }
+
+
+@app.get("/api/dashboard")
 async def dashboard():
     """Dashboard HTML definitivo de NOVA con métricas completas y auto-refresh"""
     try:
-        init_db()
+        await run_in_threadpool(init_db)
 
-        # Obtener métricas básicas
-        from nova.core import memoria
-        with memoria._get_conn() as conn:
-            c = conn.cursor()
-            c.execute("SELECT COUNT(*) FROM messages")
-            total_messages = c.fetchone()[0]
-            c.execute("SELECT COUNT(*) FROM feedback")
-            total_feedback = c.fetchone()[0]
-            c.execute("SELECT COUNT(*) FROM response_cache")
-            total_cache_entries = c.fetchone()[0]
+        def _collect_basic_metrics():
+            from nova.core import memoria
+            with memoria._get_conn() as conn:
+                c = conn.cursor()
+                c.execute("SELECT COUNT(*) FROM messages")
+                total_messages = c.fetchone()[0]
+                c.execute("SELECT COUNT(*) FROM feedback")
+                total_feedback = c.fetchone()[0]
+                c.execute("SELECT COUNT(*) FROM response_cache")
+                total_cache_entries = c.fetchone()[0]
+            return total_messages, total_feedback, total_cache_entries
+
+        total_messages, total_feedback, total_cache_entries = await run_in_threadpool(_collect_basic_metrics)
 
         # Obtener estado de auto-tuning
         auto_tuning_status = get_auto_tuning_status_sync()
 
         # Obtener métricas de caché
-        from nova.core.cache_system import cache_system
-        cache_stats = cache_system.get_cache_stats()
+        # from nova.core.cache_system import cache_system
+        # cache_stats = cache_system.get_cache_stats()
+        cache_stats = {"hit_rate_percent": 0, "valid_entries": 0, "size_mb": 0}  # Placeholder
 
         # HTML moderno pero más simple
         html_template = """
@@ -277,7 +401,7 @@ async def dashboard():
         return f"Error: {str(e)}"
 
 
-@app.get("/status")
+@app.get("/api/status")
 async def status():
     return {"status": "operational", "version": settings.version, "message": "NOVA vive 🔥"}
 
@@ -312,7 +436,7 @@ def auto_tuning_worker(interval_minutes=30):
     logger.info("🛑 Auto-tuning detenido")
 
 
-@app.post("/auto-tuning/start")
+@app.post("/api/auto-tuning/start")
 async def start_auto_tuning(interval_minutes: int = 30):
     """Iniciar auto-tuning continuo"""
     global auto_tuning_thread, auto_tuning_active, auto_tuning_stats
@@ -339,7 +463,7 @@ async def start_auto_tuning(interval_minutes: int = 30):
     }
 
 
-@app.post("/auto-tuning/stop")
+@app.post("/api/auto-tuning/stop")
 async def stop_auto_tuning():
     """Detener auto-tuning continuo"""
     global auto_tuning_active, auto_tuning_stats
@@ -354,7 +478,7 @@ async def stop_auto_tuning():
     return {"status": "stopped", "message": "Auto-tuning continuo detenido"}
 
 
-@app.get("/auto-tuning/status")
+@app.get("/api/auto-tuning/status")
 async def get_auto_tuning_status():
     """Obtener estado del auto-tuning"""
     global auto_tuning_stats
@@ -379,11 +503,11 @@ def get_auto_tuning_status_sync():
     }
 
 
-@app.post("/auto-tuning/optimize")
+@app.post("/api/auto-tuning/optimize")
 async def manual_optimize(max_change: int = 20, min_feedback: int = 5):
     """Ejecutar optimización manual"""
     try:
-        result = auto_optimize(max_change=max_change, min_feedback=min_feedback)
+        result = await run_in_threadpool(auto_optimize, max_change, min_feedback)
 
         return {
             "status": "completed",

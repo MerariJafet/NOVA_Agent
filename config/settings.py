@@ -12,6 +12,7 @@ class Settings(BaseSettings):
     logs_path: str = "logs/nova.log"
     db_path: str = "data/nova_memory.db"
     model_profiles_path: str = "config/model_profiles.json"
+    pid_path: str = "data/nova_launcher.pid"
     # LLM Brain toggle and router URL for external LLM-based routing (timeout fallback)
     USE_LLM_BRAIN: bool = False
     llm_router_url: str = "http://localhost:11435/api/llm_route"

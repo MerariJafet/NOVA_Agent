@@ -6,3 +6,4 @@ pydantic
 pydantic-settings
 pytest
 starlette
+xdg-open http://localhost:8000/webui/index.htmlxdg-open http://localhost:8000/webui/index.html

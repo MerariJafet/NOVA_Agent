@@ -1,0 +1,404 @@
+nohup: no se tendrá en cuenta la entrada
+
+> nova-webui@0.0.0 dev
+> vite
+
+Port 5173 is in use, trying another one...
+
+  VITE v7.2.4  ready in 153 ms
+
+  ➜  Local:   http://localhost:11:00:43 [vite] http proxy error: /api/dash11:08:04 [vite] vite.config.js changed, restarting server...
+11:08:04 [vite] server restarted.
+11:09:48 [vite] vite.config.js changed, restarting server...
+11:09:48 [vite] server restarted.
+54 [vite] (client) hmr update /src/App.jsx, /src/index.css
+11:03:58 [vite] (client) hmr update /src/App.jsx, /src/index.css
+11:04:03 [vite] (client) hmr update /src/App.jsx, /src/index.css
+11:04:03 [vite] Internal server error: /home/merari-acero/Escritorio/NOVA_Agent/nova-webui/src/App.jsx: Unterminated JSX contents. (743:10)
+
+  741 |         </div>
+  742 |       </div>
+> 743 |     </div>
+      |           ^
+  744 |   )
+  745 | }
+  746 |
+  Plugin: vite:react-babel
+  File: /home/merari-acero/Escritorio/NOVA_Agent/nova-webui/src/App.jsx:743:10
+  741 |          </div>
+  742 |        </div>
+  743 |      </div>
+      |            ^
+  744 |    )
+  745 |  }
+      at constructor (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:367:19)
+      at JSXParserMixin.raise (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:6624:19)
+      at JSXParserMixin.jsxReadToken (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:4477:20)
+      at JSXParserMixin.getTokenFromCode (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:4803:12)
+      at JSXParserMixin.nextToken (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:5807:10)
+      at JSXParserMixin.next (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:5717:10)
+      at JSXParserMixin.eat (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:5721:12)
+      at JSXParserMixin.expect (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:6923:15)
+      at JSXParserMixin.jsxParseClosingElementAt (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:4709:10)
+      at JSXParserMixin.jsxParseElementAt (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:4724:37)
+      at JSXParserMixin.jsxParseElementAt (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:4727:32)
+      at JSXParserMixin.jsxParseElement (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:4778:17)
+      at JSXParserMixin.parseExprAtom (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:4788:19)
+      at JSXParserMixin.parseExprSubscripts (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:11145:23)
+      at JSXParserMixin.parseUpdate (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:11130:21)
+      at JSXParserMixin.parseMaybeUnary (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:11110:23)
+      at JSXParserMixin.parseMaybeUnaryOrPrivate (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:10963:61)
+      at JSXParserMixin.parseExprOps (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:10968:23)
+      at JSXParserMixin.parseMaybeConditional (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:10945:23)
+      at JSXParserMixin.parseMaybeAssign (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:10895:21)
+      at /home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:10864:39
+      at JSXParserMixin.allowInAnd (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:12500:12)
+      at JSXParserMixin.parseMaybeAssignAllowIn (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:10864:17)
+      at JSXParserMixin.parseMaybeAssignAllowInOrVoidPattern (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:12567:17)
+      at JSXParserMixin.parseParenAndDistinguishExpression (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:11747:28)
+      at JSXParserMixin.parseExprAtom (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:11395:23)
+      at JSXParserMixin.parseExprAtom (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:4793:20)
+      at JSXParserMixin.parseExprSubscripts (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:11145:23)
+      at JSXParserMixin.parseUpdate (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:11130:21)
+      at JSXParserMixin.parseMaybeUnary (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:11110:23)
+      at JSXParserMixin.parseMaybeUnaryOrPrivate (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:10963:61)
+      at JSXParserMixin.parseExprOps (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:10968:23)
+      at JSXParserMixin.parseMaybeConditional (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:10945:23)
+      at JSXParserMixin.parseMaybeAssign (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:10895:21)
+      at JSXParserMixin.parseExpressionBase (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:10848:23)
+      at /home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:10844:39
+      at JSXParserMixin.allowInAnd (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:12495:16)
+      at JSXParserMixin.parseExpression (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:10844:17)
+      at JSXParserMixin.parseReturnStatement (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:13218:28)
+      at JSXParserMixin.parseStatementContent (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:12874:21)
+      at JSXParserMixin.parseStatementLike (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:12843:17)
+      at JSXParserMixin.parseStatementListItem (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:12823:17)
+      at JSXParserMixin.parseBlockOrModuleBlockBody (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:13392:61)
+      at JSXParserMixin.parseBlockBody (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:13385:10)
+      at JSXParserMixin.parseBlock (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:13373:10)
+      at JSXParserMixin.parseFunctionBody (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:12174:24)
+      at JSXParserMixin.parseFunctionBodyAndFinish (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:12160:10)
+      at /home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:13521:12
+      at JSXParserMixin.withSmartMixTopicForbiddingContext (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:12477:14)
+      at JSXParserMixin.parseFunction (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:13520:10)
+11:04:10 [vite] (client) hmr update /src/App.jsx, /src/index.css
+11:04:10 [vite] Internal server error: /home/merari-acero/Escritorio/NOVA_Agent/nova-webui/src/App.jsx: Unterminated JSX contents. (743:7)
+
+  741 |         </div>
+  742 |       </div>
+> 743 |     </>
+      |        ^
+  744 |   )
+  745 | }
+  746 |
+  Plugin: vite:react-babel
+  File: /home/merari-acero/Escritorio/NOVA_Agent/nova-webui/src/App.jsx:743:7
+  741 |          </div>
+  742 |        </div>
+  743 |      </>
+      |         ^
+  744 |    )
+  745 |  }
+      at constructor (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:367:19)
+      at JSXParserMixin.raise (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:6624:19)
+      at JSXParserMixin.jsxReadToken (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:4477:20)
+      at JSXParserMixin.getTokenFromCode (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:4803:12)
+      at JSXParserMixin.nextToken (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:5807:10)
+      at JSXParserMixin.next (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:5717:10)
+      at JSXParserMixin.eat (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:5721:12)
+      at JSXParserMixin.jsxParseClosingElementAt (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:4705:14)
+      at JSXParserMixin.jsxParseElementAt (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:4724:37)
+      at JSXParserMixin.jsxParseElementAt (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:4727:32)
+      at JSXParserMixin.jsxParseElement (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:4778:17)
+      at JSXParserMixin.parseExprAtom (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:4788:19)
+      at JSXParserMixin.parseExprSubscripts (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:11145:23)
+      at JSXParserMixin.parseUpdate (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:11130:21)
+      at JSXParserMixin.parseMaybeUnary (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:11110:23)
+      at JSXParserMixin.parseMaybeUnaryOrPrivate (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:10963:61)
+      at JSXParserMixin.parseExprOps (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:10968:23)
+      at JSXParserMixin.parseMaybeConditional (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:10945:23)
+      at JSXParserMixin.parseMaybeAssign (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:10895:21)
+      at /home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:10864:39
+      at JSXParserMixin.allowInAnd (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:12500:12)
+      at JSXParserMixin.parseMaybeAssignAllowIn (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:10864:17)
+      at JSXParserMixin.parseMaybeAssignAllowInOrVoidPattern (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:12567:17)
+      at JSXParserMixin.parseParenAndDistinguishExpression (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:11747:28)
+      at JSXParserMixin.parseExprAtom (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:11395:23)
+      at JSXParserMixin.parseExprAtom (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:4793:20)
+      at JSXParserMixin.parseExprSubscripts (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:11145:23)
+      at JSXParserMixin.parseUpdate (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:11130:21)
+      at JSXParserMixin.parseMaybeUnary (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:11110:23)
+      at JSXParserMixin.parseMaybeUnaryOrPrivate (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:10963:61)
+      at JSXParserMixin.parseExprOps (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:10968:23)
+      at JSXParserMixin.parseMaybeConditional (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:10945:23)
+      at JSXParserMixin.parseMaybeAssign (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:10895:21)
+      at JSXParserMixin.parseExpressionBase (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:10848:23)
+      at /home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:10844:39
+      at JSXParserMixin.allowInAnd (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:12495:16)
+      at JSXParserMixin.parseExpression (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:10844:17)
+      at JSXParserMixin.parseReturnStatement (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:13218:28)
+      at JSXParserMixin.parseStatementContent (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:12874:21)
+      at JSXParserMixin.parseStatementLike (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:12843:17)
+      at JSXParserMixin.parseStatementListItem (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:12823:17)
+      at JSXParserMixin.parseBlockOrModuleBlockBody (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:13392:61)
+      at JSXParserMixin.parseBlockBody (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:13385:10)
+      at JSXParserMixin.parseBlock (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:13373:10)
+      at JSXParserMixin.parseFunctionBody (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:12174:24)
+      at JSXParserMixin.parseFunctionBodyAndFinish (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:12160:10)
+      at /home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:13521:12
+      at JSXParserMixin.withSmartMixTopicForbiddingContext (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:12477:14)
+      at JSXParserMixin.parseFunction (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:13520:10)
+      at JSXParserMixin.parseFunctionStatement (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:13201:17)
+11:07:37 [vite] (client) Pre-transform error: /home/merari-acero/Escritorio/NOVA_Agent/nova-webui/src/App.jsx: Unterminated JSX contents. (743:7)
+
+  741 |         </div>
+  742 |       </div>
+> 743 |     </>
+      |        ^
+  744 |   )
+  745 | }
+  746 |
+  Plugin: vite:react-babel
+  File: /home/merari-acero/Escritorio/NOVA_Agent/nova-webui/src/App.jsx:743:7
+  741 |          </div>
+  742 |        </div>
+  743 |      </>
+      |         ^
+  744 |    )
+  745 |  }
+11:07:37 [vite] Internal server error: /home/merari-acero/Escritorio/NOVA_Agent/nova-webui/src/App.jsx: Unterminated JSX contents. (743:7)
+
+  741 |         </div>
+  742 |       </div>
+> 743 |     </>
+      |        ^
+  744 |   )
+  745 | }
+  746 |
+  Plugin: vite:react-babel
+  File: /home/merari-acero/Escritorio/NOVA_Agent/nova-webui/src/App.jsx:743:7
+  741 |          </div>
+  742 |        </div>
+  743 |      </>
+      |         ^
+  744 |    )
+  745 |  }
+      at constructor (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:367:19)
+      at JSXParserMixin.raise (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:6624:19)
+      at JSXParserMixin.jsxReadToken (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:4477:20)
+      at JSXParserMixin.getTokenFromCode (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:4803:12)
+      at JSXParserMixin.nextToken (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:5807:10)
+      at JSXParserMixin.next (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:5717:10)
+      at JSXParserMixin.eat (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:5721:12)
+      at JSXParserMixin.jsxParseClosingElementAt (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:4705:14)
+      at JSXParserMixin.jsxParseElementAt (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:4724:37)
+      at JSXParserMixin.jsxParseElementAt (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:4727:32)
+      at JSXParserMixin.jsxParseElement (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:4778:17)
+      at JSXParserMixin.parseExprAtom (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:4788:19)
+      at JSXParserMixin.parseExprSubscripts (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:11145:23)
+      at JSXParserMixin.parseUpdate (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:11130:21)
+      at JSXParserMixin.parseMaybeUnary (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:11110:23)
+      at JSXParserMixin.parseMaybeUnaryOrPrivate (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:10963:61)
+      at JSXParserMixin.parseExprOps (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:10968:23)
+      at JSXParserMixin.parseMaybeConditional (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:10945:23)
+      at JSXParserMixin.parseMaybeAssign (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:10895:21)
+      at /home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:10864:39
+      at JSXParserMixin.allowInAnd (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:12500:12)
+      at JSXParserMixin.parseMaybeAssignAllowIn (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:10864:17)
+      at JSXParserMixin.parseMaybeAssignAllowInOrVoidPattern (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:12567:17)
+      at JSXParserMixin.parseParenAndDistinguishExpression (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:11747:28)
+      at JSXParserMixin.parseExprAtom (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:11395:23)
+      at JSXParserMixin.parseExprAtom (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:4793:20)
+      at JSXParserMixin.parseExprSubscripts (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:11145:23)
+      at JSXParserMixin.parseUpdate (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:11130:21)
+      at JSXParserMixin.parseMaybeUnary (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:11110:23)
+      at JSXParserMixin.parseMaybeUnaryOrPrivate (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:10963:61)
+      at JSXParserMixin.parseExprOps (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:10968:23)
+      at JSXParserMixin.parseMaybeConditional (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:10945:23)
+      at JSXParserMixin.parseMaybeAssign (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:10895:21)
+      at JSXParserMixin.parseExpressionBase (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:10848:23)
+      at /home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:10844:39
+      at JSXParserMixin.allowInAnd (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:12495:16)
+      at JSXParserMixin.parseExpression (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:10844:17)
+      at JSXParserMixin.parseReturnStatement (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:13218:28)
+      at JSXParserMixin.parseStatementContent (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:12874:21)
+      at JSXParserMixin.parseStatementLike (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:12843:17)
+      at JSXParserMixin.parseStatementListItem (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:12823:17)
+      at JSXParserMixin.parseBlockOrModuleBlockBody (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:13392:61)
+      at JSXParserMixin.parseBlockBody (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:13385:10)
+      at JSXParserMixin.parseBlock (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:13373:10)
+      at JSXParserMixin.parseFunctionBody (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:12174:24)
+      at JSXParserMixin.parseFunctionBodyAndFinish (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:12160:10)
+      at /home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:13521:12
+      at JSXParserMixin.withSmartMixTopicForbiddingContext (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:12477:14)
+      at JSXParserMixin.parseFunction (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:13520:10)
+      at JSXParserMixin.parseFunctionStatement (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:13201:17)
+11:07:46 [vite] Internal server error: /home/merari-acero/Escritorio/NOVA_Agent/nova-webui/src/App.jsx: Unterminated JSX contents. (743:7)
+
+  741 |         </div>
+  742 |       </div>
+> 743 |     </>
+      |        ^
+  744 |   )
+  745 | }
+  746 |
+  Plugin: vite:react-babel
+  File: /home/merari-acero/Escritorio/NOVA_Agent/nova-webui/src/App.jsx:743:7
+  741 |          </div>
+  742 |        </div>
+  743 |      </>
+      |         ^
+  744 |    )
+  745 |  }
+      at constructor (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:367:19)
+      at JSXParserMixin.raise (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:6624:19)
+      at JSXParserMixin.jsxReadToken (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:4477:20)
+      at JSXParserMixin.getTokenFromCode (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:4803:12)
+      at JSXParserMixin.nextToken (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:5807:10)
+      at JSXParserMixin.next (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:5717:10)
+      at JSXParserMixin.eat (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:5721:12)
+      at JSXParserMixin.jsxParseClosingElementAt (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:4705:14)
+      at JSXParserMixin.jsxParseElementAt (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:4724:37)
+      at JSXParserMixin.jsxParseElementAt (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:4727:32)
+      at JSXParserMixin.jsxParseElement (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:4778:17)
+      at JSXParserMixin.parseExprAtom (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:4788:19)
+      at JSXParserMixin.parseExprSubscripts (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:11145:23)
+      at JSXParserMixin.parseUpdate (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:11130:21)
+      at JSXParserMixin.parseMaybeUnary (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:11110:23)
+      at JSXParserMixin.parseMaybeUnaryOrPrivate (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:10963:61)
+      at JSXParserMixin.parseExprOps (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:10968:23)
+      at JSXParserMixin.parseMaybeConditional (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:10945:23)
+      at JSXParserMixin.parseMaybeAssign (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:10895:21)
+      at /home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:10864:39
+      at JSXParserMixin.allowInAnd (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:12500:12)
+      at JSXParserMixin.parseMaybeAssignAllowIn (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:10864:17)
+      at JSXParserMixin.parseMaybeAssignAllowInOrVoidPattern (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:12567:17)
+      at JSXParserMixin.parseParenAndDistinguishExpression (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:11747:28)
+      at JSXParserMixin.parseExprAtom (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:11395:23)
+      at JSXParserMixin.parseExprAtom (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:4793:20)
+      at JSXParserMixin.parseExprSubscripts (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:11145:23)
+      at JSXParserMixin.parseUpdate (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:11130:21)
+      at JSXParserMixin.parseMaybeUnary (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:11110:23)
+      at JSXParserMixin.parseMaybeUnaryOrPrivate (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:10963:61)
+      at JSXParserMixin.parseExprOps (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:10968:23)
+      at JSXParserMixin.parseMaybeConditional (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:10945:23)
+      at JSXParserMixin.parseMaybeAssign (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:10895:21)
+      at JSXParserMixin.parseExpressionBase (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:10848:23)
+      at /home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:10844:39
+      at JSXParserMixin.allowInAnd (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:12495:16)
+      at JSXParserMixin.parseExpression (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:10844:17)
+      at JSXParserMixin.parseReturnStatement (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:13218:28)
+      at JSXParserMixin.parseStatementContent (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:12874:21)
+      at JSXParserMixin.parseStatementLike (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:12843:17)
+      at JSXParserMixin.parseStatementListItem (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:12823:17)
+      at JSXParserMixin.parseBlockOrModuleBlockBody (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:13392:61)
+      at JSXParserMixin.parseBlockBody (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:13385:10)
+      at JSXParserMixin.parseBlock (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:13373:10)
+      at JSXParserMixin.parseFunctionBody (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:12174:24)
+      at JSXParserMixin.parseFunctionBodyAndFinish (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:12160:10)
+      at /home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:13521:12
+      at JSXParserMixin.withSmartMixTopicForbiddingContext (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:12477:14)
+      at JSXParserMixin.parseFunction (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:13520:10)
+      at JSXParserMixin.parseFunctionStatement (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:13201:17)
+11:07:55 [vite] Internal server error: /home/merari-acero/Escritorio/NOVA_Agent/nova-webui/src/App.jsx: Unterminated JSX contents. (743:7)
+
+  741 |         </div>
+  742 |       </div>
+> 743 |     </>
+      |        ^
+  744 |   )
+  745 | }
+  746 |
+  Plugin: vite:react-babel
+  File: /home/merari-acero/Escritorio/NOVA_Agent/nova-webui/src/App.jsx:743:7
+  741 |          </div>
+  742 |        </div>
+  743 |      </>
+      |         ^
+  744 |    )
+  745 |  }
+      at constructor (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:367:19)
+      at JSXParserMixin.raise (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:6624:19)
+      at JSXParserMixin.jsxReadToken (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:4477:20)
+      at JSXParserMixin.getTokenFromCode (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:4803:12)
+      at JSXParserMixin.nextToken (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:5807:10)
+      at JSXParserMixin.next (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:5717:10)
+      at JSXParserMixin.eat (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:5721:12)
+      at JSXParserMixin.jsxParseClosingElementAt (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:4705:14)
+      at JSXParserMixin.jsxParseElementAt (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:4724:37)
+      at JSXParserMixin.jsxParseElementAt (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:4727:32)
+      at JSXParserMixin.jsxParseElement (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:4778:17)
+      at JSXParserMixin.parseExprAtom (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:4788:19)
+      at JSXParserMixin.parseExprSubscripts (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:11145:23)
+      at JSXParserMixin.parseUpdate (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:11130:21)
+      at JSXParserMixin.parseMaybeUnary (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:11110:23)
+      at JSXParserMixin.parseMaybeUnaryOrPrivate (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:10963:61)
+      at JSXParserMixin.parseExprOps (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:10968:23)
+      at JSXParserMixin.parseMaybeConditional (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:10945:23)
+      at JSXParserMixin.parseMaybeAssign (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:10895:21)
+      at /home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:10864:39
+      at JSXParserMixin.allowInAnd (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:12500:12)
+      at JSXParserMixin.parseMaybeAssignAllowIn (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:10864:17)
+      at JSXParserMixin.parseMaybeAssignAllowInOrVoidPattern (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:12567:17)
+      at JSXParserMixin.parseParenAndDistinguishExpression (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:11747:28)
+      at JSXParserMixin.parseExprAtom (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:11395:23)
+      at JSXParserMixin.parseExprAtom (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:4793:20)
+      at JSXParserMixin.parseExprSubscripts (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:11145:23)
+      at JSXParserMixin.parseUpdate (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:11130:21)
+      at JSXParserMixin.parseMaybeUnary (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:11110:23)
+      at JSXParserMixin.parseMaybeUnaryOrPrivate (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:10963:61)
+      at JSXParserMixin.parseExprOps (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:10968:23)
+      at JSXParserMixin.parseMaybeConditional (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:10945:23)
+      at JSXParserMixin.parseMaybeAssign (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:10895:21)
+      at JSXParserMixin.parseExpressionBase (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:10848:23)
+      at /home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:10844:39
+      at JSXParserMixin.allowInAnd (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:12495:16)
+      at JSXParserMixin.parseExpression (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:10844:17)
+      at JSXParserMixin.parseReturnStatement (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:13218:28)
+      at JSXParserMixin.parseStatementContent (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:12874:21)
+      at JSXParserMixin.parseStatementLike (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:12843:17)
+      at JSXParserMixin.parseStatementListItem (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:12823:17)
+      at JSXParserMixin.parseBlockOrModuleBlockBody (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:13392:61)
+      at JSXParserMixin.parseBlockBody (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:13385:10)
+      at JSXParserMixin.parseBlock (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:13373:10)
+      at JSXParserMixin.parseFunctionBody (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:12174:24)
+      at JSXParserMixin.parseFunctionBodyAndFinish (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:12160:10)
+      at /home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:13521:12
+      at JSXParserMixin.withSmartMixTopicForbiddingContext (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:12477:14)
+      at JSXParserMixin.parseFunction (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:13520:10)
+      at JSXParserMixin.parseFunctionStatement (/home/merari-acero/Escritorio/NOVA_Agent/nova-webui/node_modules/@babel/parser/lib/index.js:13201:17)
+11:08:04 [vite] (client) hmr update /src/index.css
+11:08:04 [vite] (client) hmr update /src/index.css
+11:08:04 [vite] (client) hmr update /src/index.css
+11:08:04 [vite] (client) hmr update /src/App.jsx, /src/index.css
+11:08:04 [vite] vite.config.js changed, restarting server...
+11:08:04 [vite] server restarted.
+11:09:48 [vite] vite.config.js changed, restarting server...
+11:09:48 [vite] server restarted.
+11:11:31 [vite] http proxy error: /api/dashboard
+Error: connect ECONNREFUSED 127.0.0.1:8000
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1611:16)
+11:11:31 [vite] http proxy error: /api/dashboard
+Error: connect ECONNREFUSED 127.0.0.1:8000
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1611:16)
+11:12:55 [vite] (client) hmr update /src/App.jsx
+11:12:55 [vite] http proxy error: /api/dashboard
+Error: connect ECONNREFUSED 127.0.0.1:8000
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1611:16)
+11:13:07 [vite] (client) hmr update /src/index.css
+11:16:15 [vite] (client) hmr update /src/App.jsx
+11:17:18 [vite] (client) hmr update /src/App.jsx
+11:41:31 [vite] http proxy error: /api/dashboard
+Error: connect ECONNREFUSED 127.0.0.1:8000
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1611:16)
+11:41:31 [vite] http proxy error: /api/dashboard
+Error: connect ECONNREFUSED 127.0.0.1:8000
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1611:16)
+11:41:40 [vite] http proxy error: /api/dashboard
+Error: connect ECONNREFUSED 127.0.0.1:8000
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1611:16)
+11:41:40 [vite] http proxy error: /api/dashboard
+Error: connect ECONNREFUSED 127.0.0.1:8000
+    at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1611:16)
+11:42:42 [vite] (client) hmr update /src/App.jsx
+11:42:51 [vite] (client) hmr update /src/App.jsx

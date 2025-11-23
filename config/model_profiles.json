@@ -4,7 +4,7 @@
     "type": "llm",
     "status": "loaded",
     "tier": 1,
-    "priority": 70,
+    "priority": 100,
     "capabilities": [
       "text",
       "code",
@@ -69,7 +69,7 @@
     "type": "llm",
     "status": "available",
     "tier": 4,
-    "priority": 20,
+    "priority": 1,
     "capabilities": [
       "code",
       "reasoning",
