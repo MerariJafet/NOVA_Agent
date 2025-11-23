@@ -73,15 +73,16 @@ app.mount("/uploads", StaticFiles(directory=uploads_path), name="uploads")
 
 
 async def _analyze_image_base64(image_b64: str, prompt: str = "Analiza esta imagen") -> str:
-    """Enviar imagen en base64 a LLaVA vision para análisis end-to-end."""
-    def _call_llava() -> str:
+    """Enviar imagen a LLaVA vision con fallback a moondream."""
+    
+    def _call_vision_model(model: str, timeout: int) -> str:
         payload = {
-            "model": "llava:13b",
+            "model": model,
             "prompt": prompt,
             "images": [image_b64],
             "stream": False
         }
-        r = requests.post(settings.ollama_generate_url, json=payload, timeout=60)  # LLaVA más rápido
+        r = requests.post(settings.ollama_generate_url, json=payload, timeout=timeout)
         r.raise_for_status()
         try:
             data = r.json()
@@ -92,7 +93,18 @@ async def _analyze_image_base64(image_b64: str, prompt: str = "Analiza esta imag
             pass
         return r.text.strip()
 
-    return await run_in_threadpool(_call_llava)
+    # Try LLaVA first (primary model)
+    try:
+        logger.info("trying_llava_primary")
+        return await run_in_threadpool(_call_vision_model, "llava:13b", 60)
+    except Exception as e:
+        logger.warning(f"llava_failed_fallback_to_moondream", error=str(e))
+        # Fallback to moondream
+        try:
+            return await run_in_threadpool(_call_vision_model, "moondream:1.8b", 30)
+        except Exception as e2:
+            logger.error(f"both_vision_models_failed", llava_error=str(e), moondream_error=str(e2))
+            raise e2
 
 
 
@@ -167,21 +179,24 @@ async def upload_image(file: UploadFile = File(...), message: str = Form("Descri
         # Codificar en base64
         image_b64 = base64.b64encode(content).decode("ascii")
 
-        # Usar LLaVA end-to-end con la instrucción del usuario directamente
+        # Usar LLaVA end-to-end con la instrucción del usuario directamente (con fallback)
+        model_used = "llava:13b"  # Default to LLaVA
         try:
             response = await _analyze_image_base64(
                 image_b64,
                 prompt=f"{message}"
             )
         except Exception as e:
-            logger.error(f"Error procesando imagen con LLaVA: {e}")
-            response = f"Error al procesar la imagen. Instrucción recibida: {message}"
+            logger.error(f"Error procesando imagen con vision models: {e}")
+            # If both models fail, provide a helpful error message
+            response = f"Error al procesar la imagen con los modelos de visión disponibles. Instrucción recibida: {message}"
+            model_used = "error"
 
         # Persistir en DB
         await run_in_threadpool(init_db)
         safe_filename = Path(file.filename or "imagen").name
-        await run_in_threadpool(save_conversation, session_id, "user", f"[Imagen subida: {safe_filename}] Instrucción: {message}", "llava:13b", "vision_processing", 100)
-        await run_in_threadpool(save_conversation, session_id, "assistant", response, "llava:13b", "vision_response", 100)
+        await run_in_threadpool(save_conversation, session_id, "user", f"[Imagen subida: {safe_filename}] Instrucción: {message}", model_used, "vision_processing", 100)
+        await run_in_threadpool(save_conversation, session_id, "assistant", response, model_used, "vision_response", 100)
 
         await file.close()
 
@@ -191,7 +206,7 @@ async def upload_image(file: UploadFile = File(...), message: str = Form("Descri
             "size": file_size,
             "response": response,
             "instruction": message,
-            "model_used": "llava:13b",
+            "model_used": model_used,
             "session_id": session_id
         }
 

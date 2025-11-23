@@ -21198,3 +21198,14 @@ HTTP Request: GET http://testserver/status "HTTP/1.1 200 OK"
 {"event": "WebUI static files mounted at /webui and /nova/webui", "timestamp": "2025-11-23T20:50:43.413601Z"}
 {"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T20:50:43.416867Z"}
 {"event": "app_startup", "timestamp": "2025-11-23T20:50:43.416932Z"}
+{"event": "app_shutdown", "timestamp": "2025-11-23T20:51:06.954739Z"}
+{"event": "WebUI path: /home/merari-acero/Escritorio/NOVA_Agent/nova/webui, exists: True", "timestamp": "2025-11-23T20:51:09.756602Z"}
+{"event": "WebUI static files mounted at /webui and /nova/webui", "timestamp": "2025-11-23T20:51:09.756853Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T20:51:09.760093Z"}
+{"event": "app_startup", "timestamp": "2025-11-23T20:51:09.760158Z"}
+{"event": "app_shutdown", "timestamp": "2025-11-23T20:51:56.840512Z"}
+{"event": "WebUI path: /home/merari-acero/Escritorio/NOVA_Agent/nova/webui, exists: True", "timestamp": "2025-11-23T20:51:59.110884Z"}
+{"event": "WebUI static files mounted at /webui and /nova/webui", "timestamp": "2025-11-23T20:51:59.111124Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T20:51:59.114497Z"}
+{"event": "app_startup", "timestamp": "2025-11-23T20:51:59.114565Z"}
+{"event": "app_shutdown", "timestamp": "2025-11-23T20:52:12.835035Z"}
