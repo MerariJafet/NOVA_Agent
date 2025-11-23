@@ -31,11 +31,12 @@
 
             <div class="chat-input-area">
                 <input id="message-input" class="chat-input" placeholder="Escribe tu mensaje..." />
-                <button id="send-btn" class="send-btn">Enviar</button>
-            </div>
-        </div>
-
+                <button id="image-btn" class="control-btn">📷</button>
+                <button id="mic-btn" class="control-btn">🎤</button>
+        <button id="send-btn" class="send-btn">Enviar</button>
     </div>
+    <input type="file" id="image-input" accept="image/*" style="display: none;" />
+</div>    </div>
 
     <!-- DASHBOARD: cards + charts -->
     <div class="dashboard-section">
@@ -77,3 +78,13 @@
     <script src="http://localhost:8000/nova/webui/main.js"></script>
 </body>
 </html>
+
+<!-- Image Preview Modal -->
+<div id="image-modal" class="modal" style="display: none;">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h3>Preview de Imagen</h3>
+        <img id="image-preview" src="" alt="Preview" style="max-width: 100%; max-height: 400px;" />
+        <button id="send-image-btn" class="send-btn">Enviar Imagen</button>
+    </div>
+</div>

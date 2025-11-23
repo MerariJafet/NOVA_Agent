@@ -20558,3 +20558,250 @@ HTTP Request: GET http://testserver/status "HTTP/1.1 200 OK"
 {"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:21:39.016766Z"}
 {"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:21:49.013968Z"}
 {"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:21:49.016960Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:21:59.013504Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:21:59.015807Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:22:09.013468Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:22:09.015148Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:22:19.013574Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:22:19.016467Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:22:29.013444Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:22:29.016644Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:22:39.013505Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:22:39.016391Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:22:49.013814Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:22:49.016904Z"}
+{"message": "Que es un elefante?", "signals": {"has_question": true}, "event": "semantic_signals", "timestamp": "2025-11-23T19:22:50.976834Z"}
+{"model": "dolphin-mistral:7b", "score": 140, "confidence": 100, "alternatives": [{"model": "moondream:1.8b", "score": 50}, {"model": "mixtral:8x7b", "score": 40}], "event": "routing_decision", "timestamp": "2025-11-23T19:22:50.977018Z"}
+{"model": "dolphin-mistral:7b", "event": "generate_request", "timestamp": "2025-11-23T19:22:50.977186Z"}
+{"model": "dolphin-mistral:7b", "stream": false, "event": "ollama_generate_called", "timestamp": "2025-11-23T19:22:50.977257Z"}
+{"model": "dolphin-mistral:7b", "generation_ms": 5959.44, "total_latency_ms": 5959.44, "event": "response_generated", "timestamp": "2025-11-23T19:22:56.936709Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:22:56.937403Z"}
+{"session_id": "webui_1763925752571", "role": "user", "message_id": 122, "event": "message_saved", "timestamp": "2025-11-23T19:22:56.978776Z"}
+{"session_id": "webui_1763925752571", "role": "assistant", "message_id": 123, "event": "message_saved", "timestamp": "2025-11-23T19:22:56.982356Z"}
+{"session_id": "webui_1763925752571", "model": "dolphin-mistral:7b", "event": "chat_handled", "timestamp": "2025-11-23T19:22:56.982489Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:22:59.013915Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:22:59.017149Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:23:09.013620Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:23:09.016650Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:23:19.013742Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:23:19.016775Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:23:29.013942Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:23:29.016981Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:23:39.013620Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:23:39.016782Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:23:49.013909Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:23:49.017013Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:23:59.013174Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:23:59.015464Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:24:09.013722Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:24:09.017095Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:24:19.013605Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:24:19.016696Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:24:29.013685Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:24:29.017405Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:24:39.013239Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:24:39.015829Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:24:49.013891Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:24:49.016469Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:24:59.013071Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:24:59.015247Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:25:09.013482Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:25:09.016578Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:25:19.013426Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:25:19.016408Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:25:29.013637Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:25:29.016620Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:25:39.013513Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:25:39.016412Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:25:49.014000Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:25:49.015954Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:25:59.013668Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:25:59.016811Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:26:09.013602Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:26:09.016618Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:26:19.013692Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:26:19.016576Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:26:29.013651Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:26:29.016560Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:26:39.013483Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:26:39.016848Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:26:49.013584Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:26:49.016955Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:26:59.013729Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:26:59.017446Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:27:09.014049Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:27:09.016085Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:27:19.014023Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:27:19.017106Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:27:29.013760Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:27:29.016797Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:27:39.013425Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:27:39.015578Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:27:49.014029Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:27:49.017137Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:27:59.013635Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:27:59.015372Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:28:09.013728Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:28:09.016469Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:28:19.013656Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:28:19.016772Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:28:29.013548Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:28:29.015144Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:28:39.013456Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:28:39.015475Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:28:49.013635Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:28:49.016850Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:28:59.013429Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:28:59.016667Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:29:09.013639Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:29:09.016828Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:29:19.013630Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:29:19.017040Z"}
+{"message": "tu motor d epensamiento que tan potente es?", "signals": {"has_question": true}, "event": "semantic_signals", "timestamp": "2025-11-23T19:29:23.840177Z"}
+{"model": "dolphin-mistral:7b", "score": 140, "confidence": 100, "alternatives": [{"model": "moondream:1.8b", "score": 50}, {"model": "mixtral:8x7b", "score": 40}], "event": "routing_decision", "timestamp": "2025-11-23T19:29:23.840376Z"}
+{"model": "dolphin-mistral:7b", "event": "generate_request", "timestamp": "2025-11-23T19:29:23.840506Z"}
+{"model": "dolphin-mistral:7b", "stream": false, "event": "ollama_generate_called", "timestamp": "2025-11-23T19:29:23.840559Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:29:29.013645Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:29:29.016954Z"}
+{"model": "dolphin-mistral:7b", "generation_ms": 6520.9, "total_latency_ms": 6520.9, "event": "response_generated", "timestamp": "2025-11-23T19:29:30.361474Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:29:30.362111Z"}
+{"session_id": "webui_1763925973303", "role": "user", "message_id": 124, "event": "message_saved", "timestamp": "2025-11-23T19:29:30.382126Z"}
+{"session_id": "webui_1763925973303", "role": "assistant", "message_id": 125, "event": "message_saved", "timestamp": "2025-11-23T19:29:30.384189Z"}
+{"session_id": "webui_1763925973303", "model": "dolphin-mistral:7b", "event": "chat_handled", "timestamp": "2025-11-23T19:29:30.384291Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:29:39.013625Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:29:39.016012Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:29:49.013823Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:29:49.016877Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:29:59.013794Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:29:59.016805Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:30:09.013892Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:30:09.016862Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:30:19.013578Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:30:19.016714Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:30:29.013712Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:30:29.015780Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:30:39.013738Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:30:39.016951Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:30:49.013717Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:30:49.017163Z"}
+{"event": "app_shutdown", "timestamp": "2025-11-23T19:30:51.682642Z"}
+{"event": "WebUI path: /home/merari-acero/Escritorio/NOVA_Agent/nova/webui, exists: True", "timestamp": "2025-11-23T19:30:52.054679Z"}
+{"event": "WebUI static files mounted at /webui and /nova/webui", "timestamp": "2025-11-23T19:30:52.054917Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:30:52.057941Z"}
+{"event": "app_startup", "timestamp": "2025-11-23T19:30:52.058002Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:30:59.014319Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:30:59.017692Z"}
+{"event": "app_shutdown", "timestamp": "2025-11-23T19:31:00.470212Z"}
+{"event": "WebUI path: /home/merari-acero/Escritorio/NOVA_Agent/nova/webui, exists: True", "timestamp": "2025-11-23T19:31:00.819249Z"}
+{"event": "WebUI static files mounted at /webui and /nova/webui", "timestamp": "2025-11-23T19:31:00.819484Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:31:00.822388Z"}
+{"event": "app_startup", "timestamp": "2025-11-23T19:31:00.822450Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:31:09.014231Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:31:09.017581Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:31:19.013477Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:31:19.015849Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:31:29.013160Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:31:29.015467Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:31:39.013654Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:31:39.016912Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:31:49.013978Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:31:49.017383Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:31:59.013736Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:31:59.015753Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:32:09.013680Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:32:09.016590Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:32:19.013543Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:32:19.016894Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:32:29.014251Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:32:29.017248Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:32:39.013350Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:32:39.015906Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:32:49.013722Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:32:49.016973Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:32:59.013540Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:32:59.016618Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:33:09.013641Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:33:09.015986Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:33:19.014409Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:33:19.017427Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:33:29.013695Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:33:29.015992Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:33:39.013483Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:33:39.016766Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:33:49.013860Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:33:49.016837Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:33:59.013422Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:33:59.016267Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:34:09.013659Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:34:09.016181Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:34:19.013476Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:34:19.016156Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:34:29.013768Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:34:29.015938Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:34:39.013380Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:34:39.015620Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:34:49.013895Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:34:49.016519Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:34:59.013903Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:34:59.015568Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:35:09.014138Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:35:09.016763Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:35:19.014318Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:35:19.016506Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:35:29.013646Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:35:29.015924Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:35:39.013485Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:35:39.015535Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:35:49.014149Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:35:49.017528Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:35:59.013952Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:35:59.015802Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:36:09.013489Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:36:09.016743Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:36:19.013575Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:36:19.016259Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:36:29.013833Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:36:29.016433Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:36:39.013718Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:36:39.016857Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:36:49.013802Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:36:49.015917Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:36:59.013964Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:36:59.016910Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:37:09.013585Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:37:09.016650Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:37:19.013350Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:37:19.015907Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:37:29.013622Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:37:29.016849Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:37:39.013606Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:37:39.016779Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:37:49.013697Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:37:49.016579Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:37:59.013459Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:37:59.015779Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:38:09.013402Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:38:09.015471Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:38:19.013451Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:38:19.016437Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:38:29.013562Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:38:29.016578Z"}
+{"event": "app_shutdown", "timestamp": "2025-11-23T19:38:29.375277Z"}
+{"event": "WebUI path: /home/merari-acero/Escritorio/NOVA_Agent/nova/webui, exists: True", "timestamp": "2025-11-23T19:38:47.530533Z"}
+{"event": "WebUI static files mounted at /webui and /nova/webui", "timestamp": "2025-11-23T19:38:47.530748Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:38:47.533578Z"}
+{"event": "app_startup", "timestamp": "2025-11-23T19:38:47.533642Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:38:49.016539Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:38:49.020065Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:38:59.013223Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:38:59.016031Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:39:09.013786Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:39:09.017251Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:39:19.013511Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:39:19.016966Z"}
+{"event": "app_shutdown", "timestamp": "2025-11-23T19:39:20.287153Z"}
+{"event": "WebUI path: /home/merari-acero/Escritorio/NOVA_Agent/nova/webui, exists: True", "timestamp": "2025-11-23T19:39:20.630820Z"}
+{"event": "WebUI static files mounted at /webui and /nova/webui", "timestamp": "2025-11-23T19:39:20.631029Z"}
+{"path": "data/nova_memory.db", "event": "db_initialized", "timestamp": "2025-11-23T19:39:20.634071Z"}
+{"event": "app_startup", "timestamp": "2025-11-23T19:39:20.634134Z"}
+{"event": "app_shutdown", "timestamp": "2025-11-23T19:39:24.641704Z"}

@@ -74,9 +74,100 @@ async function refreshMetrics() {
 }
 
 function setupMultimediaListeners(){
-    const imgBtn = document.getElementById('image-btn'); if (imgBtn) imgBtn.addEventListener('click', ()=>{ document.getElementById('message-input').focus(); });
-    const micBtn = document.getElementById('mic-btn'); if (micBtn) micBtn.addEventListener('click', ()=>{ /* placeholder */ });
-    const ttsBtn = document.getElementById('tts-btn'); if (ttsBtn) ttsBtn.addEventListener('click', ()=>{ /* placeholder */ });
+    const imgBtn = document.getElementById('image-btn');
+    if (imgBtn) imgBtn.addEventListener('click', () => {
+        document.getElementById('image-input').click();
+    });
+
+    const imageInput = document.getElementById('image-input');
+    if (imageInput) imageInput.addEventListener('change', (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                document.getElementById('image-preview').src = e.target.result;
+                document.getElementById('image-modal').style.display = 'block';
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+
+    const closeModal = document.querySelector('.close');
+    if (closeModal) closeModal.addEventListener('click', () => {
+        document.getElementById('image-modal').style.display = 'none';
+    });
+
+    const sendImageBtn = document.getElementById('send-image-btn');
+    if (sendImageBtn) sendImageBtn.addEventListener('click', async () => {
+        const file = document.getElementById('image-input').files[0];
+        if (file) {
+            await sendImage(file);
+            document.getElementById('image-modal').style.display = 'none';
+        }
+    });
+
+    const micBtn = document.getElementById('mic-btn');
+    if (micBtn) micBtn.addEventListener('click', startVoiceInput);
+
+    const ttsBtn = document.getElementById('tts-btn');
+    if (ttsBtn) ttsBtn.addEventListener('click', ()=>{ /* placeholder */ });
+}
+
+async function sendImage(file) {
+    const formData = new FormData();
+    formData.append('file', file);
+
+    addMessage('user', `📷 Imagen subida: ${file.name}`);
+    const assistantEl = addMessage('assistant', '...');
+    const contentEl = assistantEl.querySelector('.message-content');
+
+    try {
+        console.log('Uploading image to http://localhost:8000/api/upload');
+        const res = await fetch('http://localhost:8000/api/upload', { method: 'POST', body: formData });
+        console.log('Upload response status:', res.status);
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        const data = await res.json();
+        console.log('Upload response data:', data);
+        contentEl.textContent = data.response || '[sin respuesta]';
+    } catch (err) {
+        console.error('sendImage error', err);
+        contentEl.textContent = '❌ Error al subir imagen';
+    } finally {
+        scrollToBottom();
+    }
+}
+
+function startVoiceInput() {
+    if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
+        alert('Tu navegador no soporta reconocimiento de voz.');
+        return;
+    }
+
+    const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+    recognition.lang = 'es-ES'; // Spanish
+    recognition.interimResults = false;
+    recognition.maxAlternatives = 1;
+
+    recognition.onstart = () => {
+        document.getElementById('mic-btn').textContent = '🎤 Grabando...';
+    };
+
+    recognition.onresult = (event) => {
+        const transcript = event.results[0][0].transcript;
+        document.getElementById('message-input').value = transcript;
+        sendMessage(); // Auto-send after voice input
+    };
+
+    recognition.onerror = (event) => {
+        console.error('Voice recognition error:', event.error);
+        document.getElementById('mic-btn').textContent = '🎤';
+    };
+
+    recognition.onend = () => {
+        document.getElementById('mic-btn').textContent = '🎤';
+    };
+
+    recognition.start();
 }
 
 document.addEventListener('DOMContentLoaded', () => { setupEventListeners(); setupMultimediaListeners(); refreshMetrics(); setInterval(refreshMetrics, 10000); });

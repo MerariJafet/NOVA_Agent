@@ -185,7 +185,7 @@ async def upload_image(file: UploadFile = File(...)):
             "status": "success",
             "filename": safe_filename,
             "size": file_size,
-            "analysis": analysis,
+            "response": analysis,
             "image_url": None,  # No se expone ruta en disco; cleanup inmediato
             "session_id": session_id
         }
