@@ -30,8 +30,16 @@
             </div>
 
             <div class="chat-input-area">
-                <input id="message-input" class="chat-input" placeholder="Escribe tu mensaje..." />
-                <button id="send-btn" class="send-btn">Enviar</button>
+                <div id="voice-status" class="voice-status hidden">🎤 Escuchando...</div>
+                <div id="loading-status" class="loading-status hidden">⌛ NOVA está pensando...</div>
+                <input id="message-input" class="chat-input" placeholder="Escribe tu mensaje o usa voz..." />
+                <div class="input-controls">
+                    <button id="send-btn" class="send-btn">Enviar</button>
+                    <button id="camera-btn" class="camera-btn" title="Subir imagen">📷</button>
+                    <button id="mic-btn" class="mic-btn" title="Mantén presionado para hablar">🎤</button>
+                    <button id="voice-toggle-btn" class="voice-toggle-btn" title="Modo voz activa">🔇</button>
+                </div>
+                <input type="file" id="file-input" accept="image/*" style="display: none;" />
             </div>
         </div>
 
@@ -66,6 +74,22 @@
             <div class="metric-card">
                 <h3>📈 Rendimiento General</h3>
                 <canvas id="chart-rend"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <!-- Image Preview Modal -->
+    <div id="image-preview-modal" class="image-preview-modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">📷 Preview de Imagen</h3>
+                <button id="close-modal-btn" class="close-btn" title="Cerrar">&times;</button>
+            </div>
+            <img id="preview-img" class="preview-img" src="" alt="Preview" />
+            <textarea id="image-instruction" class="image-instruction" placeholder="Describe esta imagen, analiza su contenido, extrae texto, etc." rows="3"></textarea>
+            <div class="modal-buttons">
+                <button id="cancel-image-btn" class="cancel-btn">Cancelar</button>
+                <button id="send-image-btn" class="upload-btn">Enviar a NOVA</button>
             </div>
         </div>
     </div>

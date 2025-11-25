@@ -4,8 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>🧠 NOVA - Dashboard Unificado</title>
+    <!-- Favicon opcional: si favicon.ico existe en /webui, el 404 desaparece. -->
+    <link rel="icon" href="/nova/webui/favicon.ico" />
     <!-- External styles and libs -->
-    <link rel="stylesheet" href="http://localhost:8000/nova/webui/styles.css">
+    <link rel="stylesheet" href="/nova/webui/styles.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 </head>
@@ -31,10 +33,12 @@
 
             <div class="chat-input-area">
                 <input id="message-input" class="chat-input" placeholder="Escribe tu mensaje..." />
-                <button id="camera-btn" class="control-btn">📷</button>
-                <button id="mic-btn" class="control-btn">🎤</button>
-                <button id="voice-toggle-btn" class="control-btn toggle">Voz: Push</button>
-                <button id="send-btn" class="send-btn">Enviar</button>
+                <div class="input-controls">
+                    <button id="camera-btn" class="control-btn">📷</button>
+                    <button id="mic-btn" class="control-btn">🎤</button>
+                    <button id="voice-mode-btn" class="control-btn toggle">Voz: Push</button>
+                    <button id="send-btn" class="send-btn">Enviar</button>
+                </div>
             </div>
             <input type="file" id="file-input" accept="image/*" style="display: none;" />
         </div>
@@ -85,9 +89,19 @@
         </div>
     </div>
 
+    <!-- Voice State Modal -->
+    <div id="voice-modal" class="modal voice-modal hidden">
+        <div class="modal-content voice-modal-content voice-modal-card">
+            <h2 id="voice-status-label">LISTO</h2>
+            <div id="voice-text-label" class="voice-text-label"></div>
+            <div id="voice-live-transcript" class="voice-live-transcript voice-modal-text"></div>
+            <button id="voice-stop-btn" class="voice-stop-btn">DETENER VOZ</button>
+        </div>
+    </div>
+
     <!-- Scripts -->
-    <script src="http://localhost:8000/nova/webui/avatar.js"></script>
-    <script src="http://localhost:8000/nova/webui/charts.js"></script>
-    <script src="http://localhost:8000/nova/webui/main.js"></script>
+    <script src="/nova/webui/avatar.js"></script>
+    <script src="/nova/webui/charts.js"></script>
+    <script src="/nova/webui/main.js"></script>
 </body>
 </html>

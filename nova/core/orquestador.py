@@ -26,6 +26,10 @@ def generate_response(model: str, prompt: str, history: list | None = None) -> s
     logger.info("generate_request", model=model)
     history = history or []
 
+    # Agregar instrucción de idioma español al prompt
+    spanish_instruction = "IMPORTANTE: Responde ÚNICAMENTE en español neutro de América Latina. NO uses italiano, portugués, inglés u otros idiomas. Si el usuario pregunta en otro idioma, responde en español. "
+    full_prompt = spanish_instruction + prompt
+
     # Limpiar caché expirado periódicamente (cada 100 requests) - commented out
     # if hasattr(generate_response, '_request_count'):
     #     generate_response._request_count += 1
@@ -39,7 +43,7 @@ def generate_response(model: str, prompt: str, history: list | None = None) -> s
 
     # 1. Verificar caché primero - commented out
     # start_time = time.time()
-    # cached_result = cache_system.get_cached_response(prompt, model)
+    # cached_result = cache_system.get_cached_response(full_prompt, model)
     # 
     # if cached_result:
     #     latency = time.time() - start_time
@@ -58,7 +62,7 @@ def generate_response(model: str, prompt: str, history: list | None = None) -> s
         # Generar respuesta
         start_time = time.time()
         generation_start = time.time()
-        result = ollama_model.generate(model, prompt, stream=False, timeout=120)
+        result = ollama_model.generate(model, full_prompt, stream=False, timeout=120)
         generation_time = time.time() - generation_start
 
         # Normalizar resultado
@@ -81,7 +85,7 @@ def generate_response(model: str, prompt: str, history: list | None = None) -> s
         # }
         # 
         # cache_key = cache_system.save_to_cache(
-        #     query=prompt,
+        #     query=full_prompt,
         #     model_name=model,
         #     response={"text": response_text},
         #     metadata=metadata

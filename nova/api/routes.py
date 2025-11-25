@@ -84,22 +84,17 @@ async def _analyze_image_base64(image_b64: str, prompt: str = "Analiza esta imag
         }
         r = requests.post(settings.ollama_generate_url, json=payload, timeout=timeout)
         r.raise_for_status()
-        try:
-            data = r.json()
-            for key in ("response", "text", "result", "content"):
-                if key in data and data[key]:
-                    return str(data[key])
-        except Exception:
-            pass
-        return r.text.strip()
+        data = r.json()
+        # Extraer solo el texto de respuesta
+        return data.get("response", "").strip()
 
-    # Try LLaVA first (primary model)
+    # Try LLaVA 7B first (primary model)
     try:
-        logger.info("trying_llava_primary")
-        response = await run_in_threadpool(_call_vision_model, "llava:13b", 60)
-        return response, "llava:13b"
+        logger.info("trying_llava_7b_primary")
+        response = await run_in_threadpool(_call_vision_model, "llava:7b", 60)
+        return response, "llava:7b"
     except Exception as e:
-        logger.warning(f"llava_failed_fallback_to_moondream", error=str(e))
+        logger.warning(f"llava_7b_failed_fallback_to_moondream", error=str(e))
         # Fallback to moondream
         try:
             response = await run_in_threadpool(_call_vision_model, "moondream:1.8b", 30)
@@ -160,6 +155,26 @@ async def chat(request: ChatRequest):
     return {"response": response, "model_used": routing["model"], "router_confidence": routing["confidence"]}
 
 
+@app.post("/api/tts")
+async def text_to_speech(text: str):
+    """Convertir texto a voz usando Web Speech API del navegador (placeholder para futura integración)"""
+    try:
+        logger.info("tts_requested", text_length=len(text))
+        
+        # Por ahora, devolver un indicador de que TTS está disponible
+        # En el futuro, integrar con servicios como Azure TTS, Google TTS, etc.
+        return {
+            "status": "tts_available",
+            "message": "TTS disponible - usar Web Speech API del navegador",
+            "text_length": len(text),
+            "note": "El TTS se maneja en el frontend usando speechSynthesis"
+        }
+        
+    except Exception as e:
+        logger.error(f"TTS error: {e}")
+        raise HTTPException(status_code=500, detail=f"TTS error: {str(e)}")
+
+
 @app.post("/api/upload")
 async def upload_image(file: UploadFile = File(...), message: str = Form("Describe esta imagen"), session_id: str = Form(None)):
     """Subir imagen y procesar con LLaVA end-to-end para análisis inteligente."""
@@ -183,9 +198,11 @@ async def upload_image(file: UploadFile = File(...), message: str = Form("Descri
 
         # Construir un prompt claro que incluya la instrucción del usuario
         vision_prompt = (
-            f"Aquí tienes una imagen y una instrucción del usuario: \"{message}\".\n"
-            "Analiza la imagen y responde exactamente lo que pide la instrucción. "
-            "No digas que no puedes ver la imagen."
+            "Eres un asistente experto analizando dashboards y capturas de pantalla. "
+            "Analiza la imagen y responde SOLO a la instrucción del usuario.\n\n"
+            f"Instrucción del usuario: {message}\n\n"
+            "Si la instrucción habla de gráficas, identifica los tipos de gráficas y "
+            "explica cuál corresponde a 'Rendimiento General'."
         )
 
         # Usar LLaVA end-to-end con la instrucción del usuario directamente (con fallback)

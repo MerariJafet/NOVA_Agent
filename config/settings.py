@@ -6,8 +6,8 @@ class Settings(BaseSettings):
     version: str = "1.0.0-sprint1-mvp"
     ollama_health_url: str = "http://localhost:11434/api/tags"
     ollama_generate_url: str = "http://localhost:11434/api/generate"
-    models: list[str] = ["dolphin-mistral:7b", "moondream:1.8b"]
-    web_port_start: int = 8000
+    models: list[str] = ["llava:7b", "moondream:1.8b", "dolphin-mistral:7b"]
+    web_port_start: int = 8003
     web_port_end: int = 8010
     logs_path: str = "logs/nova.log"
     db_path: str = "data/nova_memory.db"

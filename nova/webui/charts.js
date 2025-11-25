@@ -55,9 +55,9 @@
   ];
 
   window.loadCharts = async function(){
-    console.log('Loading/updating cyberpunk charts from http://localhost:8000/api/metrics/full...');
+    console.log('Loading/updating cyberpunk charts from /api/metrics/full...');
     try {
-      const response = await fetch('http://localhost:8000/api/metrics/full');
+      const response = await fetch('/api/metrics/full');
       console.log('Metrics response status:', response.status);
       if (!response.ok) throw new Error('HTTP ' + response.status);
       const data = await response.json();
