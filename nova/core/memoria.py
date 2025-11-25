@@ -179,6 +179,25 @@ def init_db() -> None:
             """
         )
 
+        # Tabla facts para memoria episódica (Sprint 5 Fase 1)
+        c.execute(
+            """
+            CREATE TABLE IF NOT EXISTS facts (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                session_id TEXT NOT NULL,
+                user_id TEXT,
+                fact_type TEXT NOT NULL,
+                fact_key TEXT NOT NULL,
+                fact_value TEXT NOT NULL,
+                source_message_id INTEGER,
+                confidence REAL DEFAULT 1.0,
+                created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+                updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+                FOREIGN KEY(source_message_id) REFERENCES messages(id)
+            )
+            """
+        )
+
         # Índices para performance
         try:
             c.execute("CREATE INDEX IF NOT EXISTS idx_messages_session ON messages(session_id)")
@@ -192,6 +211,10 @@ def init_db() -> None:
             # Índices para optimization_log
             c.execute("CREATE INDEX IF NOT EXISTS idx_optimization_model ON optimization_log(model_name)")
             c.execute("CREATE INDEX IF NOT EXISTS idx_optimization_created ON optimization_log(created_at)")
+            # Índices para facts (memoria episódica)
+            c.execute("CREATE INDEX IF NOT EXISTS idx_facts_session ON facts(session_id)")
+            c.execute("CREATE INDEX IF NOT EXISTS idx_facts_type ON facts(fact_type)")
+            c.execute("CREATE INDEX IF NOT EXISTS idx_facts_key ON facts(fact_key)")
         except Exception:
             pass
 

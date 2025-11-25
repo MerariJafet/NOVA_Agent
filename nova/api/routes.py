@@ -20,6 +20,7 @@ import base64
 import secrets
 import requests
 # from nova.core.cache_system import cache_system  # Commented out to avoid DB issues
+from nova.core.episodic_memory import episodic_memory
 
 # CORS
 from fastapi.middleware.cors import CORSMiddleware
@@ -133,26 +134,60 @@ async def root():
 
 @app.post("/api/chat")
 async def chat(request: ChatRequest):
+    # Obtener session_id temprano para memoria episódica
+    session_id = request.session_id or "default"
+
+    # Extraer y guardar hechos de memoria episódica (no intrusivo)
+    facts_extracted = 0
+    try:
+        # Extraer hechos del mensaje del usuario
+        extracted_facts = await run_in_threadpool(episodic_memory.extract_facts, request.message)
+        facts_extracted = len(extracted_facts)
+
+        # Guardar cada hecho extraído
+        for fact in extracted_facts:
+            await run_in_threadpool(episodic_memory.save_fact, session_id, fact)
+    except Exception as e:
+        # Loggear error pero NO romper el chat
+        logger.error("episodic_memory_error", error=str(e), session_id=session_id)
+
     routing = await run_in_threadpool(orquestador.route_query, request.message, request.has_image)
     # If router asks for clarification, return the clarifying shape and DO NOT generate a model response
     if routing.get("status") == "needs_clarification":
         return {"status": "clarify", "message": routing.get("message")}
 
     try:
-        response = await run_in_threadpool(orquestador.generate_response, routing["model"], request.message, None)
+        # Obtener contexto de hechos para el prompt
+        facts_context = ""
+        try:
+            facts_context = await run_in_threadpool(episodic_memory.format_facts_for_prompt, session_id)
+        except Exception as e:
+            logger.error("facts_context_error", error=str(e), session_id=session_id)
+
+        # Construir mensaje enhanced con contexto de hechos
+        if facts_context:
+            enhanced_message = f"{facts_context}\n\nUsuario: {request.message}"
+        else:
+            enhanced_message = request.message
+
+        response = await run_in_threadpool(orquestador.generate_response, routing["model"], enhanced_message, None)
     except Exception as e:
         logger.error("generate_failed", error=str(e))
         raise HTTPException(status_code=500, detail=str(e))
 
     # persist conversation: user then assistant
-    session_id = request.session_id or "default"
     # ensure DB initialized (safety for test environments)
     await run_in_threadpool(init_db)
     user_msg_id = await run_in_threadpool(save_conversation, session_id, "user", request.message, routing["model"], routing.get("reasoning"), routing.get("confidence"))
     assistant_msg_id = await run_in_threadpool(save_conversation, session_id, "assistant", response, routing["model"], routing.get("reasoning"), routing.get("confidence"))
 
-    logger.info("chat_handled", session_id=session_id, model=routing["model"]) 
-    return {"response": response, "model_used": routing["model"], "router_confidence": routing["confidence"]}
+    logger.info("chat_handled", session_id=session_id, model=routing["model"], facts_extracted=facts_extracted)
+    return {
+        "response": response,
+        "model_used": routing["model"],
+        "router_confidence": routing["confidence"],
+        "facts_extracted": facts_extracted
+    }
 
 
 @app.post("/api/tts")
@@ -498,6 +533,71 @@ async def dashboard():
 @app.get("/api/status")
 async def status():
     return {"status": "operational", "version": settings.version, "message": "NOVA vive 🔥"}
+
+
+# Endpoints de memoria episódica (Sprint 5 Fase 1)
+@app.get("/api/facts")
+async def get_facts(session_id: str, fact_type: str = None):
+    """Obtener hechos de memoria episódica para una sesión."""
+    try:
+        facts = await run_in_threadpool(episodic_memory.get_facts, session_id, fact_type)
+        return {
+            "facts": facts,
+            "count": len(facts),
+            "session_id": session_id
+        }
+    except Exception as e:
+        logger.error("facts_get_error", error=str(e), session_id=session_id)
+        raise HTTPException(status_code=500, detail=f"Error retrieving facts: {str(e)}")
+
+
+@app.delete("/api/facts/{fact_id}")
+async def delete_fact(fact_id: int):
+    """Eliminar un hecho de memoria episódica."""
+    try:
+        deleted = await run_in_threadpool(episodic_memory.delete_fact, fact_id)
+        if not deleted:
+            raise HTTPException(status_code=404, detail="Fact not found")
+        return {"status": "deleted", "fact_id": fact_id}
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error("fact_delete_error", error=str(e), fact_id=fact_id)
+        raise HTTPException(status_code=500, detail=f"Error deleting fact: {str(e)}")
+
+
+@app.post("/api/facts")
+async def create_fact(session_id: str, fact_type: str, fact_key: str, fact_value: str):
+    """Crear un nuevo hecho en memoria episódica."""
+    try:
+        fact = {
+            'fact_type': fact_type,
+            'fact_key': fact_key,
+            'fact_value': fact_value,
+            'confidence': 1.0
+        }
+        saved = await run_in_threadpool(episodic_memory.save_fact, session_id, fact)
+        if not saved:
+            raise HTTPException(status_code=500, detail="Failed to save fact")
+
+        # Obtener el ID del hecho guardado
+        facts = await run_in_threadpool(episodic_memory.get_facts, session_id, fact_type)
+        fact_id = None
+        for f in facts:
+            if f['fact_key'] == fact_key:
+                fact_id = f['id']
+                break
+
+        return {
+            "status": "saved",
+            "fact_id": fact_id,
+            "fact": fact
+        }
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error("fact_create_error", error=str(e), session_id=session_id)
+        raise HTTPException(status_code=500, detail=f"Error creating fact: {str(e)}")
 
 
 # Auto-tuning background function
