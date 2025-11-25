@@ -874,3 +874,73 @@ canvas { max-height:200px; margin-top:15px }
   max-height: 80vh;
   overflow: hidden;
 }
+
+/* === EPISODIC MEMORY STYLES === */
+.episodic-memory-list {
+  max-height: 200px;
+  overflow-y: auto;
+  margin-bottom: 15px;
+}
+
+.memory-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+  margin-bottom: 8px;
+  background: rgba(0, 245, 255, 0.1);
+  border: 1px solid rgba(0, 245, 255, 0.3);
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.memory-item:hover {
+  background: rgba(0, 245, 255, 0.2);
+  border-color: rgba(0, 245, 255, 0.5);
+  transform: translateX(5px);
+}
+
+.memory-item.loading {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.3);
+  animation: pulse 2s infinite;
+}
+
+.memory-fact {
+  flex: 1;
+  font-size: 0.9em;
+  color: var(--text-primary);
+  line-height: 1.4;
+  word-wrap: break-word;
+}
+
+.memory-timestamp {
+  font-size: 0.8em;
+  color: var(--text-secondary);
+  margin-left: 10px;
+  white-space: nowrap;
+}
+
+.refresh-memory-btn {
+  width: 100%;
+  padding: 8px 15px;
+  background: linear-gradient(45deg, var(--accent-cyan), var(--accent-magenta));
+  border: none;
+  border-radius: 8px;
+  color: var(--text-primary);
+  font-size: 0.9em;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.refresh-memory-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 15px var(--glow-cyan);
+}
+
+.refresh-memory-btn:active {
+  transform: translateY(0);
+}

@@ -50,6 +50,9 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
 
+    // Initialize episodic memory
+    initEpisodicMemory();
+
     setupEventListeners();
 });
 
@@ -801,5 +804,137 @@ function setupMicFlow(){
         sendBtn.click();
       }
     };
+  }
+}
+
+// === EPISODIC MEMORY SYSTEM ===
+
+// Función para inicializar el sistema de memoria episódica
+function initEpisodicMemory() {
+  const refreshBtn = document.getElementById('refresh-memory-btn');
+  if (refreshBtn) {
+    refreshBtn.addEventListener('click', loadEpisodicMemory);
+  }
+
+  // Cargar memoria inicial
+  loadEpisodicMemory();
+}
+
+// Función para cargar y mostrar la memoria episódica
+async function loadEpisodicMemory() {
+  const memoryList = document.getElementById('episodic-memory-list');
+  const refreshBtn = document.getElementById('refresh-memory-btn');
+
+  if (!memoryList) return;
+
+  // Mostrar loading
+  memoryList.innerHTML = `
+    <div class="memory-item loading">
+      <span class="memory-fact">Cargando hechos aprendidos...</span>
+      <span class="memory-timestamp">---</span>
+    </div>
+  `;
+
+  if (refreshBtn) {
+    refreshBtn.disabled = true;
+    refreshBtn.textContent = '⏳ Cargando...';
+  }
+
+  try {
+    // Intentar cargar desde el endpoint (disponible en fases posteriores)
+    const response = await fetch(`/api/facts?session_id=${currentSessionId || 'default'}`);
+
+    if (response.ok) {
+      const facts = await response.json();
+
+      if (facts && facts.length > 0) {
+        displayEpisodicMemory(facts);
+      } else {
+        displayEmptyMemory();
+      }
+    } else {
+      // Si el endpoint no existe aún, mostrar mensaje informativo
+      displayComingSoonMemory();
+    }
+  } catch (error) {
+    console.log('[MEMORY] Endpoint no disponible aún, mostrando placeholder');
+    displayComingSoonMemory();
+  } finally {
+    if (refreshBtn) {
+      refreshBtn.disabled = false;
+      refreshBtn.textContent = '🔄 Actualizar';
+    }
+  }
+}
+
+// Función para mostrar hechos de memoria
+function displayEpisodicMemory(facts) {
+  const memoryList = document.getElementById('episodic-memory-list');
+
+  if (!memoryList) return;
+
+  const memoryHtml = facts.map(fact => `
+    <div class="memory-item">
+      <span class="memory-fact">${escapeHtml(fact.fact || fact.content || 'Hecho aprendido')}</span>
+      <span class="memory-timestamp">${formatTimestamp(fact.created_at || fact.timestamp)}</span>
+    </div>
+  `).join('');
+
+  memoryList.innerHTML = memoryHtml;
+}
+
+// Función para mostrar mensaje cuando no hay hechos
+function displayEmptyMemory() {
+  const memoryList = document.getElementById('episodic-memory-list');
+
+  if (!memoryList) return;
+
+  memoryList.innerHTML = `
+    <div class="memory-item">
+      <span class="memory-fact">Aún no he aprendido hechos sobre ti. ¡Hablemos más!</span>
+      <span class="memory-timestamp">---</span>
+    </div>
+  `;
+}
+
+// Función para mostrar mensaje de "próximamente"
+function displayComingSoonMemory() {
+  const memoryList = document.getElementById('episodic-memory-list');
+
+  if (!memoryList) return;
+
+  memoryList.innerHTML = `
+    <div class="memory-item">
+      <span class="memory-fact">🧠 Memoria Episódica - Próximamente en Sprint 5</span>
+      <span class="memory-timestamp">---</span>
+    </div>
+    <div class="memory-item">
+      <span class="memory-fact">Sistema de consenso multiagente en desarrollo</span>
+      <span class="memory-timestamp">---</span>
+    </div>
+  `;
+}
+
+// Función auxiliar para escapar HTML
+function escapeHtml(text) {
+  const div = document.createElement('div');
+  div.textContent = text;
+  return div.innerHTML;
+}
+
+// Función auxiliar para formatear timestamps
+function formatTimestamp(timestamp) {
+  if (!timestamp) return '---';
+
+  try {
+    const date = new Date(timestamp);
+    return date.toLocaleDateString('es-ES', {
+      month: 'short',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit'
+    });
+  } catch (e) {
+    return '---';
   }
 }
