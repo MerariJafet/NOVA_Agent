@@ -16,12 +16,12 @@ import threading
 import time
 import os
 from pathlib import Path
+from nova.core.semantic_memory import get_semantic_memory
+from nova.core.episodic_memory import episodic_memory
 import base64
 import secrets
+from pathlib import Path
 import requests
-# from nova.core.cache_system import cache_system  # Commented out to avoid DB issues
-from nova.core.episodic_memory import episodic_memory
-from nova.core.semantic_memory import get_semantic_memory
 
 # Importar sistema de agentes (Sprint 5 Fase 3)
 from nova.core.agents import AgentRegistry, BusinessAgent, ProgrammingAgent, MathAgent
@@ -128,6 +128,35 @@ async def webui_index():
 
 setup_middlewares(app)
 simple_rate_limit_middleware(app)
+
+
+async def _analyze_image_base64(image_b64: str, prompt: str = "Analiza esta imagen") -> tuple[str, str]:
+    """Enviar imagen a LLaVA vision con fallback a moondream. Retorna (response, model_used)"""
+    
+    def _call_vision_model(model: str, timeout: int) -> str:
+        payload = {
+            "model": model,
+            "prompt": prompt,
+            "images": [image_b64],
+            "stream": False
+        }
+        r = requests.post(settings.ollama_generate_url, json=payload, timeout=timeout)
+        r.raise_for_status()
+        data = r.json()
+        return data.get("response", "").strip()
+
+    try:
+        logger.info("trying_llava_7b_primary")
+        response = await run_in_threadpool(_call_vision_model, "llava:7b", 60)
+        return response, "llava:7b"
+    except Exception as e:
+        logger.warning(f"llava_7b_failed_fallback_to_moondream", error=str(e))
+        try:
+            response = await run_in_threadpool(_call_vision_model, "moondream:1.8b", 30)
+            return response, "moondream:1.8b"
+        except Exception as e2:
+            logger.error(f"both_vision_models_failed", llava_error=str(e), moondream_error=str(e2))
+            raise e2
 
 
 @app.get("/")
@@ -282,6 +311,8 @@ async def chat(request: ChatRequest):
             "confidence": confidence
         }
     }
+
+
 
 
 @app.post("/api/tts")

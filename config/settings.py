@@ -3,7 +3,7 @@ from pydantic_settings import BaseSettings
 
 class Settings(BaseSettings):
     app_name: str = "NOVA Core"
-    version: str = "1.0.0-sprint1-mvp"
+    version: str = "1.0.0"
     ollama_health_url: str = "http://localhost:11434/api/tags"
     ollama_generate_url: str = "http://localhost:11434/api/generate"
     models: list[str] = ["llava:7b", "moondream:1.8b", "dolphin-mistral:7b"]

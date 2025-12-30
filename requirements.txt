@@ -9,3 +9,5 @@ aiohttp>=3.9.0
 chromadb>=0.4.22
 sentence-transformers>=2.3.0
 python-multipart>=0.0.9
+ruff>=0.3.0
+black>=24.2.0

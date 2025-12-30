@@ -67,14 +67,16 @@ def init_db() -> None:
     logger.info("db_initialized", path=settings.db_path)
 
 
-def save_conversation(session_id: str, role: str, content: str, model_used: Optional[str] = None, routing_decision: Optional[str] = None) -> None:
+def save_conversation(session_id: str, role: str, content: str, model_used: Optional[str] = None, routing_decision: Optional[str] = None) -> int:
     with _get_conn() as conn:
         c = conn.cursor()
         c.execute(
             "INSERT INTO messages (session_id, role, content, model_used, routing_decision) VALUES (?, ?, ?, ?, ?)",
             (session_id, role, content, model_used, routing_decision),
         )
-    logger.info("message_saved", session_id=session_id, role=role)
+        msg_id = c.lastrowid
+    logger.info("message_saved", session_id=session_id, role=role, id=msg_id)
+    return msg_id
 
 
 def get_conversation(session_id: str, limit: int = 20) -> List[Dict]:
