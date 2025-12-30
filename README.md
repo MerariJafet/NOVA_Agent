@@ -4,7 +4,14 @@
 
 NOVA is a portfolio-ready demonstration of a local AI agent system that dynamically selects the best LLM for a given task ("Cerebral Routing"), manages episodic memory, and provides a polished React/Vite UI.
 
-![NOVA UI Demo](https://via.placeholder.com/800x400?text=NOVA+Agent+UI+Demo)
+## Demo
+
+![NOVA Agent Demo](docs/demo.png)
+
+## Architecture
+
+A high-level overview of the system architecture is available here:
+[ARCHITECTURE.md](ARCHITECTURE.md)
 
 ## 🚀 Key Features
 - **Cerebral Routing**: Automatically routes queries to the most efficient model (e.g., Mixtral for complex logic, Dolphin for speed/code, Moondream for vision).
