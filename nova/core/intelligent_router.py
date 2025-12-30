@@ -32,8 +32,10 @@ def score_model_for_query(model_name: str, signals: Dict[str, Any]) -> int:
     # REGLA 1: IMAGEN (prioridad máxima)
     # ==========================================
     if signals.get("mentions_image"):
-        if "vision" in caps:
-            return 1000  # moondream gana siempre
+        if "vision" in caps and model_name == "llava:7b":
+            return 1000  # LLaVA 7B es el modelo de visión primario
+        elif "vision" in caps and model_name == "moondream:1.8b":
+            return 500  # moondream como fallback
         else:
             return 0  # otros modelos descartados
     
@@ -119,9 +121,9 @@ def route(message: str, has_image: bool = False) -> Dict[str, Any]:
     if has_image:
         logger.info("routing_image", message=message[:100])
         return {
-            "model": "moondream:1.8b",
+            "model": "llava:7b",
             "confidence": 100,
-            "reasoning": "Imagen adjunta",
+            "reasoning": "Imagen adjunta - usando LLaVA 7B end-to-end",
             "alternatives": []
         }
     

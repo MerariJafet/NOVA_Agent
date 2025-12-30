@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        .modal { display: flex; }
+        .modal.hidden { display: none; }
+    </style>
+</head>
+<body>
+    <div id="image-preview-modal" class="modal hidden">MODAL CONTENT</div>
+    <script>
+        console.log('Modal display:', getComputedStyle(document.getElementById('image-preview-modal')).display);
+        console.log('Modal classes:', document.getElementById('image-preview-modal').className);
+    </script>
+</body>
+</html>

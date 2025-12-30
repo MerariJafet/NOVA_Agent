@@ -1,5 +1,8 @@
 // charts.js - cyberpunk crossed graphs with neon gradients
 (function(){
+  // Store chart instances to avoid recreating them
+  const chartInstances = {};
+
   const chartConfigs = [
     {
       id: 'chart-sistema',
@@ -52,9 +55,9 @@
   ];
 
   window.loadCharts = async function(){
-    console.log('Loading cyberpunk charts from http://localhost:8000/api/metrics/full...');
+    console.log('Loading/updating cyberpunk charts from /api/metrics/full...');
     try {
-      const response = await fetch('http://localhost:8000/api/metrics/full');
+      const response = await fetch('/api/metrics/full');
       console.log('Metrics response status:', response.status);
       if (!response.ok) throw new Error('HTTP ' + response.status);
       const data = await response.json();
@@ -75,25 +78,33 @@
             data.general.avg_rating * 20, // Scale to 100
             data.general.queries_per_minute
           ];
-          new Chart(ctx, {
-            type: 'doughnut',
-            data: {
-              labels: config.labels,
-              datasets: [{
-                data: chartData,
-                backgroundColor: config.colors,
-                borderColor: config.colors.map(c => c.replace(')', ',0.8)').replace('rgb', 'rgba')),
-                borderWidth: 2
-              }]
-            },
-            options: {
-              responsive: true,
-              maintainAspectRatio: false,
-              plugins: {
-                legend: { labels: { color: '#ffffff' } }
+
+          if (chartInstances[config.id]) {
+            // Update existing chart
+            chartInstances[config.id].data.datasets[0].data = chartData;
+            chartInstances[config.id].update('none'); // 'none' for no animation
+          } else {
+            // Create new chart
+            chartInstances[config.id] = new Chart(ctx, {
+              type: 'doughnut',
+              data: {
+                labels: config.labels,
+                datasets: [{
+                  data: chartData,
+                  backgroundColor: config.colors,
+                  borderColor: config.colors.map(c => c.replace(')', ',0.8)').replace('rgb', 'rgba')),
+                  borderWidth: 2
+                }]
+              },
+              options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                  legend: { labels: { color: '#ffffff' } }
+                }
               }
-            }
-          });
+            });
+          }
         } else {
           // Line charts with gradients
           const datasets = config.datasets.map(ds => {
@@ -127,41 +138,49 @@
             };
           });
 
-          new Chart(ctx, {
-            type: 'line',
-            data: {
-              labels: data.labels,
-              datasets: datasets
-            },
-            options: {
-              responsive: true,
-              maintainAspectRatio: false,
-              animation: {
-                duration: 2000,
-                easing: 'easeInOutQuart'
+          if (chartInstances[config.id]) {
+            // Update existing chart
+            chartInstances[config.id].data.labels = data.labels;
+            chartInstances[config.id].data.datasets = datasets;
+            chartInstances[config.id].update('none'); // 'none' for no animation
+          } else {
+            // Create new chart
+            chartInstances[config.id] = new Chart(ctx, {
+              type: 'line',
+              data: {
+                labels: data.labels,
+                datasets: datasets
               },
-              plugins: {
-                legend: { labels: { color: '#ffffff' } },
-                tooltip: {
-                  backgroundColor: 'rgba(0,0,0,0.8)',
-                  titleColor: '#00f5ff',
-                  bodyColor: '#ffffff'
-                }
-              },
-              scales: {
-                x: {
-                  ticks: { color: '#ffffff' },
-                  grid: { color: 'rgba(0,245,255,0.2)' }
+              options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                animation: {
+                  duration: 2000,
+                  easing: 'easeInOutQuart'
                 },
-                y: {
-                  ticks: { color: '#ffffff' },
-                  grid: { color: 'rgba(255,0,255,0.2)' }
+                plugins: {
+                  legend: { labels: { color: '#ffffff' } },
+                  tooltip: {
+                    backgroundColor: 'rgba(0,0,0,0.8)',
+                    titleColor: '#00f5ff',
+                    bodyColor: '#ffffff'
+                  }
+                },
+                scales: {
+                  x: {
+                    ticks: { color: '#ffffff' },
+                    grid: { color: 'rgba(0,245,255,0.2)' }
+                  },
+                  y: {
+                    ticks: { color: '#ffffff' },
+                    grid: { color: 'rgba(255,0,255,0.2)' }
+                  }
                 }
               }
-            }
-          });
+            });
+          }
         }
-        console.log('Rendered cyberpunk chart:', config.id);
+        console.log('Rendered/updated cyberpunk chart:', config.id);
       });
     } catch (error) {
       console.error('Error loading cyberpunk charts:', error);

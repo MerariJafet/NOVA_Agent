@@ -4,8 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>🧠 NOVA - Dashboard Unificado</title>
+    <!-- Favicon opcional: si favicon.ico existe en /webui, el 404 desaparece. -->
+    <link rel="icon" href="/nova/webui/favicon.ico" />
     <!-- External styles and libs -->
-    <link rel="stylesheet" href="http://localhost:8000/nova/webui/styles.css">
+    <link rel="stylesheet" href="/nova/webui/styles.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 </head>
@@ -31,12 +33,16 @@
 
             <div class="chat-input-area">
                 <input id="message-input" class="chat-input" placeholder="Escribe tu mensaje..." />
-                <button id="image-btn" class="control-btn">📷</button>
-                <button id="mic-btn" class="control-btn">🎤</button>
-        <button id="send-btn" class="send-btn">Enviar</button>
+                <div class="input-controls">
+                    <button id="camera-btn" class="control-btn">📷</button>
+                    <button id="mic-btn" class="control-btn">🎤</button>
+                    <button id="voice-mode-btn" class="control-btn toggle">Voz: Push</button>
+                    <button id="send-btn" class="send-btn">Enviar</button>
+                </div>
+            </div>
+            <input type="file" id="file-input" accept="image/*" style="display: none;" />
+        </div>
     </div>
-    <input type="file" id="image-input" accept="image/*" style="display: none;" />
-</div>    </div>
 
     <!-- DASHBOARD: cards + charts -->
     <div class="dashboard-section">
@@ -72,19 +78,30 @@
         </div>
     </div>
 
+    <!-- Image Preview Modal -->
+    <div id="image-preview-modal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close" id="cancel-image-btn">&times;</span>
+            <h3>Preview de Imagen</h3>
+            <img id="preview-img" src="" alt="Preview" />
+            <textarea id="image-instruction" placeholder="¿Qué quieres que haga con esta imagen? (ej: 'Cuenta cuántas personas hay', 'Dibújame un diagrama en Mermaid', 'Describe el contenido')" rows="3" style="width: 100%; margin: 15px 0; padding: 10px; border: 2px solid var(--border-glow); border-radius: 10px; background: var(--bg-card); color: var(--text-primary); font-family: 'Orbitron', monospace;"></textarea>
+            <button id="send-image-btn" class="send-btn">Enviar con instrucción</button>
+        </div>
+    </div>
+
+    <!-- Voice State Modal -->
+    <div id="voice-modal" class="modal voice-modal hidden">
+        <div class="modal-content voice-modal-content voice-modal-card">
+            <h2 id="voice-status-label">LISTO</h2>
+            <div id="voice-text-label" class="voice-text-label"></div>
+            <div id="voice-live-transcript" class="voice-live-transcript voice-modal-text"></div>
+            <button id="voice-stop-btn" class="voice-stop-btn">DETENER VOZ</button>
+        </div>
+    </div>
+
     <!-- Scripts -->
-    <script src="http://localhost:8000/nova/webui/avatar.js"></script>
-    <script src="http://localhost:8000/nova/webui/charts.js"></script>
-    <script src="http://localhost:8000/nova/webui/main.js"></script>
+    <script src="/nova/webui/avatar.js"></script>
+    <script src="/nova/webui/charts.js"></script>
+    <script src="/nova/webui/main.js"></script>
 </body>
 </html>
-
-<!-- Image Preview Modal -->
-<div id="image-modal" class="modal" style="display: none;">
-    <div class="modal-content">
-        <span class="close">&times;</span>
-        <h3>Preview de Imagen</h3>
-        <img id="image-preview" src="" alt="Preview" style="max-width: 100%; max-height: 400px;" />
-        <button id="send-image-btn" class="send-btn">Enviar Imagen</button>
-    </div>
-</div>

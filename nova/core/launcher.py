@@ -60,10 +60,16 @@ def _find_free_port(start: int = 8000, end: int = 8010) -> Optional[int]:
     return None
 
 
-def start(port: int = 8000) -> None:
+def start(port: int = 8000) -> dict:
     """Start NOVA system: ensure ollama, pull models, healthcheck, find port and start uvicorn.
 
-    This function is intended to return after launching the uvicorn process.
+    Returns:
+        {
+            "port": int,
+            "uvicorn_pid": int,
+            "ollama_pid": Optional[int],
+            "ollama_managed": bool
+        }
     """
     logger.info("system_startup_attempt")
 
@@ -120,8 +126,16 @@ def start(port: int = 8000) -> None:
     # Launch uvicorn in background
     try:
         uvicorn_cmd = [sys.executable, "-m", "uvicorn", "nova.api.routes:app", "--host", "0.0.0.0", "--port", str(free_port)]
-        subprocess.Popen(uvicorn_cmd)
-        logger.info("uvicorn_started", port=free_port)
+        uvicorn_proc = subprocess.Popen(uvicorn_cmd)
+        logger.info("uvicorn_started", port=free_port, pid=uvicorn_proc.pid)
+        
+        # Return system information for testing and control
+        return {
+            "port": free_port,
+            "uvicorn_pid": uvicorn_proc.pid,
+            "ollama_pid": None, # Non-managed for now in this simplification
+            "ollama_managed": False
+        }
     except Exception as e:
         logger.error("uvicorn_start_failed", error=str(e))
         raise

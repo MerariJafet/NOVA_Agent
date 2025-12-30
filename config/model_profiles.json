@@ -50,7 +50,7 @@
     "type": "vision",
     "status": "loaded",
     "tier": 3,
-    "priority": 100,
+    "priority": 5,
     "capabilities": [
       "vision",
       "image_analysis",
@@ -62,6 +62,29 @@
     "weak_at": [
       "text",
       "code"
+    ]
+  },
+  "llava:7b": {
+    "name": "LLaVA Vision 7B",
+    "type": "vision",
+    "status": "loaded",
+    "tier": 3,
+    "priority": 10,
+    "capabilities": [
+      "vision",
+      "image_analysis",
+      "ocr",
+      "complex_reasoning",
+      "text"
+    ],
+    "strong_at": [
+      "vision",
+      "ocr",
+      "diagrams",
+      "end_to_end_vision"
+    ],
+    "weak_at": [
+      "code_generation"
     ]
   },
   "claude_code_api": {
