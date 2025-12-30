@@ -25,7 +25,7 @@ def simple_rate_limit_middleware(app):
         window = limits.get(ip, [])
         # keep requests in last 60s
         window = [t for t in window if ts - t < 60]
-        if len(window) > 30:
+        if len(window) > 100:  # Increased from 30 to 100 requests per minute
             return Response(status_code=429, content="Too Many Requests")
         window.append(ts)
         limits[ip] = window

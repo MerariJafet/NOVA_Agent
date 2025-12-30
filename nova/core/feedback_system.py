@@ -2,7 +2,7 @@
 Feedback System - Sprint 3
 Sistema de retroalimentación humana para que NOVA aprenda y mejore automáticamente.
 """
-from typing import Dict, Any, List, Optional
+from typing import Dict, Any, List
 from datetime import datetime, timedelta
 import sqlite3
 from nova.core.memoria import _get_conn
@@ -154,9 +154,8 @@ def _analyze_error_patterns(conn: sqlite3.Connection, cutoff_date: datetime) -> 
     analysis = {}
 
     for error_type, keywords in error_patterns.items():
-        # Crear placeholders para cada keyword
         placeholders = " OR ".join(["f.comment LIKE ?" for _ in keywords])
-        
+
         c.execute(f"""
             SELECT f.model_used, COUNT(*) as count
             FROM feedback f
@@ -173,7 +172,7 @@ def _analyze_error_patterns(conn: sqlite3.Connection, cutoff_date: datetime) -> 
 
 def _generate_suggestions(model_stats: Dict[str, Any], error_analysis: Dict[str, Any]) -> List[str]:
     """Genera sugerencias de mejora basadas en el análisis."""
-    suggestions = []
+    suggestions: List[str] = []
 
     if not model_stats:
         return ["No hay suficiente feedback para generar sugerencias."]
@@ -237,44 +236,3 @@ def get_recent_feedback(limit: int = 10) -> List[Dict[str, Any]]:
             })
 
         return feedback_list
-
-
-def auto_optimize() -> Dict[str, Any]:
-    """
-    Función de auto-optimización que ajusta automáticamente los perfiles de modelos
-    basado en feedback humano (Sprint 3 Día 2).
-    """
-    logger.info("auto_optimize_start")
-
-    # Analizar rendimiento reciente
-    performance = analyze_performance(days=7)
-
-    if not performance["model_performance"]:
-        logger.warning("auto_optimize_no_data")
-        return {"status": "no_data", "message": "No hay suficiente feedback para optimizar"}
-
-    # Calcular nuevos priorities basados en ratings
-    updates = {}
-    base_priority = 50
-
-    for model, stats in performance["model_performance"].items():
-        if stats["total_feedback"] >= 5:  # Mínimo 5 evaluaciones
-            # Ajustar priority basado en rating (3.0 = base, cada 0.5 puntos = ±10 priority)
-            rating_adjustment = (stats["avg_rating"] - 3.0) * 20
-            new_priority = max(10, min(100, base_priority + rating_adjustment))
-
-            updates[model] = {
-                "old_priority": base_priority,  # TODO: Leer del archivo actual
-                "new_priority": int(new_priority),
-                "reason": f"Rating promedio: {stats['avg_rating']} ({stats['total_feedback']} evaluaciones)"
-            }
-
-    # TODO: En Sprint 3 Día 2 - escribir en model_profiles.json
-    # Por ahora solo loggear
-    logger.info("auto_optimize_calculated", updates=updates)
-
-    return {
-        "status": "calculated",
-        "updates": updates,
-        "performance_summary": performance["summary"]
-    }

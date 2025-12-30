@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🧠 NOVA - Dashboard Unificado</title>
+    <!-- External styles and libs -->
+    <link rel="stylesheet" href="http://localhost:8000/nova/webui/styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+<body>
+    <!-- TOP: Avatar + Chat -->
+    <div class="top-section">
+
+        <!-- AVATAR 3D -->
+        <div id="ai-avatar-container">
+            <canvas id="avatar-canvas"></canvas>
+        </div>
+
+        <!-- CHAT -->
+        <div class="chat-box chat-section">
+            <div class="chat-header">
+                <h2>💬 Chat con NOVA</h2>
+                <p>Tu asistente inteligente</p>
+                <div id="engine-status" class="engine-status offline">Motores: desconocido</div>
+            </div>
+
+            <div id="messages-container" class="messages-container">
+                <div class="message-ai">¡Hola! Soy NOVA, tu asistente inteligente. ¿En qué puedo ayudarte hoy?</div>
+            </div>
+
+            <div class="chat-input-area">
+                <input id="message-input" class="chat-input" placeholder="Escribe tu mensaje..." />
+                <button id="image-btn" class="control-btn">📷</button>
+                <button id="mic-btn" class="control-btn">🎤</button>
+        <button id="send-btn" class="send-btn">Enviar</button>
+    </div>
+    <input type="file" id="image-input" accept="image/*" style="display: none;" />
+</div>    </div>
+
+    <!-- DASHBOARD: cards + charts -->
+    <div class="dashboard-section">
+        <h1 class="dashboard-title">🧠 NOVA Dashboard</h1>
+        <p class="dashboard-sub">Auto-refresh cada 3s | Cargando métricas...</p>
+        <div class="dashboard-actions">
+            <button id="auto-optimize-btn" class="auto-optimize-btn">🚀 AUTO-OPTIMIZE</button>
+            <button id="voice-push-btn" class="auto-optimize-btn voice-btn">🎙️ Push Voz</button>
+            <button id="ai-advice-btn" class="auto-optimize-btn voice-btn">🤖 Consejo IA</button>
+        </div>
+
+        <div class="metrics-grid">
+            <div class="metric-card">
+                <h3>📊 Sistema General</h3>
+                <canvas id="chart-sistema"></canvas>
+            </div>
+
+            <div class="metric-card">
+                <h3>⚡ Caché Inteligente</h3>
+                <canvas id="chart-cache"></canvas>
+            </div>
+
+            <div class="metric-card">
+                <h3>🎯 Auto-Optimización</h3>
+                <canvas id="chart-opt"></canvas>
+            </div>
+
+            <div class="metric-card">
+                <h3>🤖 Modelos y Rendimiento</h3>
+                <canvas id="chart-modelos"></canvas>
+            </div>
+
+            <div class="metric-card">
+                <h3>📈 Rendimiento General</h3>
+                <canvas id="chart-rend"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="http://localhost:8000/nova/webui/avatar.js"></script>
+    <script src="http://localhost:8000/nova/webui/charts.js"></script>
+    <script src="http://localhost:8000/nova/webui/main.js"></script>
+</body>
+</html>
+
+<!-- Image Preview Modal -->
+<div id="image-modal" class="modal" style="display: none;">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h3>Preview de Imagen</h3>
+        <img id="image-preview" src="" alt="Preview" style="max-width: 100%; max-height: 400px;" />
+        <textarea id="image-instruction" placeholder="Describe qué quieres saber de esta imagen..." rows="3" style="width: 100%; margin: 10px 0;"></textarea>
+        <button id="send-image-btn" class="send-btn">Enviar Imagen</button>
+    </div>
+</div>

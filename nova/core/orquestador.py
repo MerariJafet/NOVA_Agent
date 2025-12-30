@@ -1,100 +1,94 @@
-from typing import Dict, Any
+from typing import Dict, List
 
+import json
+import requests
 from utils.logging import get_logger
-from nova.core.intelligent_router import route as intelligent_route
-from nova.core import llm_router
-from config.settings import settings
-from models import ollama_model
-# from nova.core.cache_system import cache_system  # Commented out to avoid DB issues
-import time
 
 logger = get_logger("core.orquestador")
 
+with open("config/routing_rules.json", "r", encoding="utf-8") as f:
+    ROUTING_RULES = json.load(f)
+
+
+def _tokenize(text: str) -> List[str]:
+    return [t.strip() for t in text.lower().replace("?", " ").replace("¿", " ").split() if t.strip()]
+
 
 def route_query(message: str, has_image: bool = False) -> dict:
-    """Delegate routing to intelligent router; keep compatibility shape."""
-    # If LLM brain toggle is active, prefer LLM router (it will fallback to heuristics on timeout)
-    result = llm_router.route_with_llm(message, has_image) if settings.USE_LLM_BRAIN else intelligent_route(message, has_image)
-    # If router asks for clarification, return that shape directly
-    if result.get("status") == "needs_clarification":
-        return result
-    # Normalize to expected keys
-    return {"model": result.get("model"), "confidence": result.get("confidence", 70), "reasoning": result.get("reasoning", "")}
+    """Route a model based on keywords and image presence.
+
+    Returns dict: {model: str, confidence: int, reasoning: str}
+    """
+    if has_image:
+        logger.info("routing_image_detected")
+        return {"model": "moondream:1.8b", "confidence": 100, "reasoning": "Imagen adjunta"}
+
+    msg = message.lower()
+    tokens = _tokenize(message)
+
+    # Exact token match -> 100
+    for rule, cfg in ROUTING_RULES.items():
+        triggers = cfg.get("triggers", [])
+        for t in triggers:
+            if t in tokens:
+                logger.info("routing_exact_match", rule=rule, trigger=t)
+                return {"model": cfg["model"], "confidence": 100, "reasoning": f"Trigger exacto: {t}"}
+
+    # Substring match -> 90
+    for rule, cfg in ROUTING_RULES.items():
+        triggers = cfg.get("triggers", [])
+        for t in triggers:
+            if t in msg:
+                logger.info("routing_partial_match", rule=rule, trigger=t)
+                return {"model": cfg["model"], "confidence": 90, "reasoning": f"Trigger parcial: {t}"}
+
+    # Default
+    default_model = ROUTING_RULES["default"]["model"]
+    logger.info("routing_default", model=default_model)
+    return {"model": default_model, "confidence": 70, "reasoning": "Default routing"}
 
 
-def generate_response(model: str, prompt: str, history: list | None = None) -> str:
+from config.settings import settings
+
+
+def generate_response(model: str, prompt: str, history: list = []) -> str:
     logger.info("generate_request", model=model)
-    history = history or []
-
-    # Limpiar caché expirado periódicamente (cada 100 requests) - commented out
-    # if hasattr(generate_response, '_request_count'):
-    #     generate_response._request_count += 1
-    # else:
-    #     generate_response._request_count = 1
-    # 
-    # if generate_response._request_count % 100 == 0:
-    #     expired_count = cache_system.cleanup_expired()
-    #     if expired_count > 0:
-    #         logger.info("cache_cleanup", expired_entries=expired_count)
-
-    # 1. Verificar caché primero - commented out
-    # start_time = time.time()
-    # cached_result = cache_system.get_cached_response(prompt, model)
-    # 
-    # if cached_result:
-    #     latency = time.time() - start_time
-    #     logger.info("cache_hit", model=model, latency_ms=round(latency * 1000, 2),
-    #                hit_count=cached_result["hit_count"])
-    #     return cached_result["response"].get("text", str(cached_result["response"]))
-
-    # 2. Cache miss - generar respuesta normal
     try:
-        # Sofía policy: always route Claude requests to Mixtral locally (fallback)
-        original_model = model
-        if model == "claude_code_api":
-            logger.info("claude_local_fallback_to_mixtral", original_model=model)
-            model = "mixtral:8x7b"
-
-        # Generar respuesta
-        start_time = time.time()
-        generation_start = time.time()
-        result = ollama_model.generate(model, prompt, stream=False, timeout=120)
-        generation_time = time.time() - generation_start
-
-        # Normalizar resultado
-        if isinstance(result, str):
-            response_text = result
-        elif hasattr(result, "__iter__"):
-            parts = []
-            for chunk in result:
-                parts.append(chunk)
-            response_text = "".join(parts)
+        payload = {"model": model, "prompt": prompt, "stream": False}
+        r = requests.post(settings.ollama_generate_url, json=payload, timeout=60)
+        if r.status_code == 200:
+            try:
+                data = r.json()
+                # adapt to different response shapes
+                if isinstance(data, dict) and "result" in data:
+                    return data["result"]
+                if isinstance(data, dict) and "text" in data:
+                    return data["text"]
+                return r.text
+            except Exception:
+                return r.text
         else:
-            response_text = str(result)
-
-        # 3. Guardar en caché - commented out
-        # metadata = {
-        #     "generation_time": generation_time,
-        #     "model_used": model,
-        #     "original_model": original_model,
-        #     "cached_at": time.time()
-        # }
-        # 
-        # cache_key = cache_system.save_to_cache(
-        #     query=prompt,
-        #     model_name=model,
-        #     response={"text": response_text},
-        #     metadata=metadata
-        # )
-
-        total_latency = time.time() - start_time
-        logger.info("response_generated", model=model,
-                   generation_ms=round(generation_time * 1000, 2),
-                   total_latency_ms=round(total_latency * 1000, 2))
-
-        return response_text
-
+            logger.warning("generate_non_200", status=r.status_code)
     except Exception as e:
         logger.error("generate_request_failed", error=str(e))
-        # No guardar en caché errores
-        raise
+
+    # Fallback simple echo with diagnosis to avoid silent failures
+    return (
+        f"[NOVA fallback: el motor '{model}' no respondió. "
+        f"Se usó eco temporal. Prompt parcial]: {prompt[:200]}"
+    )
+
+
+def ping_engines() -> dict:
+    """Simple health check for Ollama/engines to quickly surface connectivity issues."""
+    status = {"ollama": "unknown"}
+    try:
+        r = requests.get(settings.ollama_health_url, timeout=10)
+        if r.status_code == 200:
+            status["ollama"] = "ok"
+        else:
+            status["ollama"] = f"http_{r.status_code}"
+    except Exception as e:
+        status["ollama"] = f"error:{e.__class__.__name__}"
+        logger.error("ollama_health_failed", error=str(e))
+    return status
