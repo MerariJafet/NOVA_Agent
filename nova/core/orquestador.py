@@ -2,6 +2,7 @@ from typing import List
 
 import json
 import requests
+from config.settings import settings
 from utils.logging import get_logger
 
 logger = get_logger("core.orquestador")
@@ -64,7 +65,6 @@ def route_query(message: str, has_image: bool = False) -> dict:
     return {"model": default_model, "confidence": 70, "reasoning": "Default routing"}
 
 
-from config.settings import settings
 
 
 def generate_response(model: str, prompt: str, history: list = []) -> str:

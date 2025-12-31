@@ -157,7 +157,6 @@ class DemoRecorder:
             )
 
             if chat_response.status_code == 200:
-                response_data = chat_response.json()
                 logger.info(
                     f"💾 Cache hit demostrado: '{message[:30]}...' → respuesta rápida"
                 )

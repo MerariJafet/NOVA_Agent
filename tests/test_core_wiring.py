@@ -5,20 +5,20 @@ from unittest.mock import patch
 def test_imports():
     """Verify core modules can be imported without syntax errors."""
     try:
-        import nova.core.launcher
-        import nova.core.orquestador
-        import nova.core.intelligent_router
-        import nova.core.memoria
-        import nova.core.episodic_memory
-        import nova.core.semantic_memory
-        import nova.api.routes
+        import nova.core.launcher as _l  # noqa: F401
+        import nova.core.orquestador as _o  # noqa: F401
+        import nova.core.intelligent_router as _ir  # noqa: F401
+        import nova.core.memoria as _m  # noqa: F401
+        import nova.core.episodic_memory as _em  # noqa: F401
+        import nova.core.semantic_memory as _sm  # noqa: F401
+        import nova.api.routes as _r  # noqa: F401
     except ImportError as e:
         pytest.fail(f"Import failed: {e}")
 
 
 def test_launcher_start_structure():
     """Verify launcher.start() returns the correct dictionary structure (mocked)."""
-    with patch("subprocess.Popen") as mock_popen:
+    with patch("subprocess.Popen"):
         with patch("nova.core.launcher._is_ollama_installed", return_value=True):
             with patch("nova.core.launcher._is_ollama_running", return_value=True):
                 with patch("nova.core.launcher._pull_model"):

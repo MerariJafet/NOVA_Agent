@@ -415,7 +415,6 @@ class ProgrammingAgent(BaseAgent):
 
         query_type = analysis.get("query_type", "unknown")
         languages = analysis.get("languages", [])
-        topics = analysis.get("topics", [])
         difficulty = analysis.get("difficulty", "medium")
 
         # Recomendaciones por tipo de consulta

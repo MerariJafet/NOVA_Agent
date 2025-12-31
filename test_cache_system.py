@@ -257,7 +257,7 @@ def test_cache_basic_operations():
         hit_time = time.time() - start_time
 
         assert result is not None, "Debería ser cache hit"
-        assert result["cached"] == True, "Debería marcarse como cached"
+        assert result["cached"], "Debería marcarse como cached"
         assert (
             hit_time < 0.05
         ), f"Cache hit debería ser <50ms, fue {hit_time*1000:.2f}ms"

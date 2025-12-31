@@ -61,7 +61,7 @@ def get_status():
         response = requests.get("http://localhost:8010/auto-tuning/status", timeout=5)
         response.raise_for_status()
         return response.json()
-    except:
+    except Exception:
         return None
 
 

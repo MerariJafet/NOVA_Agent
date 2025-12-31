@@ -253,7 +253,6 @@ class BusinessAgent(BaseAgent):
         recommendations = []
 
         query_type = analysis.get("query_type", "unknown")
-        areas = analysis.get("business_areas", [])
         urgency = analysis.get("urgency_level", "medium")
 
         # Recomendaciones por tipo de consulta

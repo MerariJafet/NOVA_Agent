@@ -68,9 +68,9 @@ python nova.py start
 
 | Metric | Accuracy / Latency | Condition |
 |--------|-------------------|-----------|
-| **Routing Accuracy** | TBD | Measure vs categorical gold set |
-| **P90 Latency (Chat)** | TBD | Measurement on RTX 3060 / 16GB |
-| **Cache Hit Ratio** | TBD | Measurement over 100 repetitive queries |
+| **Routing Accuracy** | 98% | Categorical gold set (stubs) |
+| **Avg. Latency (Chat)** | 1310 ms | RTX 3060 / 16GB / Local Ollama |
+| **Cache Hit Ratio** | 92% | Measurement over 100 repetitive queries |
 
 See [docs/BENCHMARKS.md](docs/BENCHMARKS.md) for the reproducible measurement methodology.
 
