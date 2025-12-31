@@ -7,6 +7,28 @@ This document provides a detailed look at the core components of the NOVA Agent 
 The Routing layer is the "Brain" of NOVA. It prevents overkill by matching the query complexity to the model capability.
 
 ### Decision Flow
+
+```mermaid
+graph TD
+    User([User Prompt]) --> Prep[Preprocessing / Normalization]
+    Prep --> Router{Intelligent Router}
+    
+    Router -- "Keyword: 'analyze', 'image'" --> Vision[Vision Logic]
+    Vision --> LLaVA[LLaVA:7b]
+    LLaVA -- "Fail" --> Moon[Moondream:1.8b]
+    
+    Router -- "High Complexity / Code" --> Mixtral[Mixtral:8x7b]
+    Router -- "General / Chat" --> Dolphin[Dolphin-Mistral:7b]
+    
+    Mixtral -- "Fail" --> Dolphin
+    
+    Vision --> Mem[Memory Enrichment]
+    Mixtral --> Mem
+    Dolphin --> Mem
+    
+    Mem --> Final[Consolidated Response]
+```
+
 1. **Intent Analysis**: The prompt is processed to identify keywords, language, and modal requirements (e.g., "draw", "analyze image", "complex logic").
 2. **Model Selection**:
    - **Simple/Speed Tasks**: `dolphin-mistral:7b`.

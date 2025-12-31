@@ -1,5 +1,7 @@
 # NOVA Agent — Multimodal AI Assistant 🚀
 ![CI Status](https://github.com/MerariJafet/NOVA_Agent/actions/workflows/ci.yml/badge.svg)
+![License](https://img.shields.io/github/license/MerariJafet/NOVA_Agent)
+![Python Version](https://img.shields.io/badge/python-3.10%2B-blue)
 
 NOVA is a professional, local-first multimodal AI assistant that intelligence routes queries between specialized models. It features advanced vision analysis, voice interactivity, and persistent memory layers.
 
