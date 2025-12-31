@@ -65,8 +65,6 @@ def route_query(message: str, has_image: bool = False) -> dict:
     return {"model": default_model, "confidence": 70, "reasoning": "Default routing"}
 
 
-
-
 def generate_response(model: str, prompt: str, history: list = []) -> str:
     logger.info("generate_request", model=model)
     try:

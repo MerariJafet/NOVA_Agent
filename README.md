@@ -1,5 +1,5 @@
 # NOVA Agent — Multimodal AI Assistant 🚀
-![CI Status](https://github.com/MerariJafet/NOVA_Agent/actions/workflows/ci.yml/badge.svg)
+![CI Status](https://github.com/MerariJafet/NOVA_Agent/actions/workflows/ci.yml/badge.svg?branch=main)
 ![License](https://img.shields.io/github/license/MerariJafet/NOVA_Agent)
 ![Python Version](https://img.shields.io/badge/python-3.10%2B-blue)
 
