@@ -1,7 +1,5 @@
 import socket
 import subprocess
-import threading
-import time
 
 import pytest
 
@@ -28,8 +26,11 @@ def test_launcher_port_occupation_handling(monkeypatch):
     started = {}
 
     def fake_popen(cmd, *a, **k):
-        started['cmd'] = cmd
-        class P: pass
+        started["cmd"] = cmd
+
+        class P:
+            pass
+
         return P()
 
     monkeypatch.setattr(subprocess, "Popen", fake_popen)
@@ -38,15 +39,17 @@ def test_launcher_port_occupation_handling(monkeypatch):
     class R:
         status_code = 200
 
-    monkeypatch.setattr(launcher, "requests", type("Req", (), {"get": lambda *a, **k: R()}))
+    monkeypatch.setattr(
+        launcher, "requests", type("Req", (), {"get": lambda *a, **k: R()})
+    )
 
     # Run start (should pick 8001)
     launcher.start()
     s.close()
 
-    assert 'cmd' in started
-    assert '--port' in started['cmd']
-    assert '8001' in [str(x) for x in started['cmd']]
+    assert "cmd" in started
+    assert "--port" in started["cmd"]
+    assert "8001" in [str(x) for x in started["cmd"]]
 
 
 def test_launcher_model_auto_download(monkeypatch):
@@ -65,11 +68,15 @@ def test_launcher_model_auto_download(monkeypatch):
     class R:
         status_code = 200
 
-    monkeypatch.setattr(launcher, "requests", type("Req", (), {"get": lambda *a, **k: R()}))
+    monkeypatch.setattr(
+        launcher, "requests", type("Req", (), {"get": lambda *a, **k: R()})
+    )
 
     launcher.start()
 
     # Ensure pulls for both models invoked (as subprocess.run calls)
-    found = any('dolphin-mistral:7b' in ' '.join(c) for c in calls if isinstance(c, list))
-    found2 = any('moondream:1.8b' in ' '.join(c) for c in calls if isinstance(c, list))
+    found = any(
+        "dolphin-mistral:7b" in " ".join(c) for c in calls if isinstance(c, list)
+    )
+    found2 = any("moondream:1.8b" in " ".join(c) for c in calls if isinstance(c, list))
     assert found or found2 or len(calls) > 0

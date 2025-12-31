@@ -7,8 +7,6 @@ Ejecuta optimización automática cada 24 horas y limpia caché cuando cambian p
 import time
 import logging
 import requests
-import json
-import os
 from pathlib import Path
 from nova.core.auto_optimizer import auto_optimize
 from nova.core.memoria import init_db
@@ -17,13 +15,14 @@ from nova.core.cache_system import cache_system
 # Configuración de logging
 logging.basicConfig(
     level=logging.INFO,
-    format='%(asctime)s - %(levelname)s - %(message)s',
+    format="%(asctime)s - %(levelname)s - %(message)s",
     handlers=[
-        logging.FileHandler('logs/auto_optimize_scheduler.log'),
-        logging.StreamHandler()
-    ]
+        logging.FileHandler("logs/auto_optimize_scheduler.log"),
+        logging.StreamHandler(),
+    ],
 )
 logger = logging.getLogger(__name__)
+
 
 class AutoOptimizeScheduler:
     def __init__(self, interval_hours=24, api_url="http://localhost:8000"):
@@ -35,12 +34,12 @@ class AutoOptimizeScheduler:
         self.profile_hash = None
 
         # Asegurar que existe el directorio de logs
-        Path('logs').mkdir(exist_ok=True)
+        Path("logs").mkdir(exist_ok=True)
 
     def get_profile_hash(self):
         """Obtener hash del archivo de perfiles para detectar cambios"""
         try:
-            profile_file = Path('models/model_profiles.json')
+            profile_file = Path("models/model_profiles.json")
             if profile_file.exists():
                 content = profile_file.read_text()
                 return hash(content)
@@ -86,7 +85,9 @@ class AutoOptimizeScheduler:
 
                 # Log de cambios específicos
                 for change in result.get("changes_applied", []):
-                    logger.info(f"   {change['model']}: {change['old_priority']} → {change['new_priority']}")
+                    logger.info(
+                        f"   {change['model']}: {change['old_priority']} → {change['new_priority']}"
+                    )
 
             elif result["status"] == "insufficient_feedback":
                 logger.info("📭 Optimización omitida: feedback insuficiente")
@@ -100,17 +101,23 @@ class AutoOptimizeScheduler:
     def start_auto_tuning_service(self):
         """Iniciar servicio de auto-tuning via API"""
         try:
-            response = requests.post(f"{self.api_url}/auto-tuning/start", json={"interval_minutes": 30})
+            response = requests.post(
+                f"{self.api_url}/auto-tuning/start", json={"interval_minutes": 30}
+            )
             if response.status_code == 200:
                 logger.info("🎯 Servicio de auto-tuning iniciado (30 min intervals)")
             else:
-                logger.warning(f"⚠️ No se pudo iniciar auto-tuning service: {response.text}")
+                logger.warning(
+                    f"⚠️ No se pudo iniciar auto-tuning service: {response.text}"
+                )
         except Exception as e:
             logger.error(f"❌ Error iniciando auto-tuning service: {e}")
 
     def run_scheduler(self):
         """Ejecutar el scheduler principal"""
-        logger.info(f"🔄 Iniciando scheduler de auto-optimización (cada {self.interval_hours}h)")
+        logger.info(
+            f"🔄 Iniciando scheduler de auto-optimización (cada {self.interval_hours}h)"
+        )
 
         # Inicializar base de datos
         init_db()
@@ -142,13 +149,15 @@ class AutoOptimizeScheduler:
 
         logger.info("🏁 Scheduler finalizado")
 
+
 def main():
     # Crear directorio de logs si no existe
-    Path('logs').mkdir(exist_ok=True)
+    Path("logs").mkdir(exist_ok=True)
 
     # Iniciar scheduler
     scheduler = AutoOptimizeScheduler(interval_hours=24)
     scheduler.run_scheduler()
+
 
 if __name__ == "__main__":
     main()

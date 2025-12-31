@@ -1,6 +1,6 @@
 import pytest
-import sys
-from unittest.mock import MagicMock, patch
+from unittest.mock import patch
+
 
 def test_imports():
     """Verify core modules can be imported without syntax errors."""
@@ -15,6 +15,7 @@ def test_imports():
     except ImportError as e:
         pytest.fail(f"Import failed: {e}")
 
+
 def test_launcher_start_structure():
     """Verify launcher.start() returns the correct dictionary structure (mocked)."""
     with patch("subprocess.Popen") as mock_popen:
@@ -24,11 +25,13 @@ def test_launcher_start_structure():
                     with patch("requests.get") as mock_get:
                         mock_get.return_value.status_code = 200
                         from nova.core.launcher import start
-                        
+
                         # Mock find_free_port
-                        with patch("nova.core.launcher._find_free_port", return_value=8000):
+                        with patch(
+                            "nova.core.launcher._find_free_port", return_value=8000
+                        ):
                             res = start(port=8000)
-                            
+
                             assert isinstance(res, dict)
                             assert "port" in res
                             assert "uvicorn_pid" in res
@@ -36,14 +39,15 @@ def test_launcher_start_structure():
                             assert "ollama_managed" in res
                             assert res["port"] == 8000
 
+
 def test_orquestador_routing_logic():
     """Verify basic keyword routing logic in orquestador."""
     from nova.core.orquestador import route_query
-    
+
     # Test image routing
     res = route_query("what is in this image?", has_image=True)
     assert res["model"] == "moondream:1.8b"
-    
+
     # Test default routing (assuming 'hola' isn't a high-priority trigger for a specific model)
     res = route_query("hola")
     assert "model" in res

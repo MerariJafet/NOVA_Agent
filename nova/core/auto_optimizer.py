@@ -15,7 +15,7 @@ DEFAULT_PRIORITIES = {
     "moondream:1.8b": 30,
     "claude-3-haiku": 20,
     "llava:7b": 25,
-    "llava:13b": 35
+    "llava:13b": 35,
 }
 
 # Estado global de prioridades
@@ -46,7 +46,7 @@ def auto_optimize(max_change: int = 20, min_feedback: int = 5) -> Dict[str, Any]
             return {
                 "status": "insufficient_feedback",
                 "message": f"Necesario al menos {min_feedback} feedback, actualmente {perf_data['total_feedback']}",
-                "changes_applied": []
+                "changes_applied": [],
             }
 
         # Calcular nuevos prioridades basados en ratings
@@ -67,44 +67,46 @@ def auto_optimize(max_change: int = 20, min_feedback: int = 5) -> Dict[str, Any]
                 new_priority = max(0, min(100, current_priority + rating_change))
 
                 if new_priority != current_priority:
-                    changes_applied.append({
-                        "model": model,
-                        "old_priority": current_priority,
-                        "new_priority": new_priority,
-                        "avg_rating": avg_rating,
-                        "feedback_count": stats["count"]
-                    })
+                    changes_applied.append(
+                        {
+                            "model": model,
+                            "old_priority": current_priority,
+                            "new_priority": new_priority,
+                            "avg_rating": avg_rating,
+                            "feedback_count": stats["count"],
+                        }
+                    )
                     _current_priorities[model] = new_priority
 
         # Registrar en historial
-        _optimization_history.append({
-            "timestamp": "now",  # TODO: usar datetime
-            "changes_applied": changes_applied,
-            "performance_data": perf_data
-        })
+        _optimization_history.append(
+            {
+                "timestamp": "now",  # TODO: usar datetime
+                "changes_applied": changes_applied,
+                "performance_data": perf_data,
+            }
+        )
 
         # Mantener solo últimas 10 optimizaciones
         if len(_optimization_history) > 10:
             _optimization_history.pop(0)
 
-        logger.info("auto_optimization_completed",
-                   changes_applied=len(changes_applied),
-                   total_feedback=perf_data["total_feedback"])
+        logger.info(
+            "auto_optimization_completed",
+            changes_applied=len(changes_applied),
+            total_feedback=perf_data["total_feedback"],
+        )
 
         return {
             "status": "optimized",
             "changes_applied": changes_applied,
             "total_feedback": perf_data["total_feedback"],
-            "average_rating": perf_data["average_rating"]
+            "average_rating": perf_data["average_rating"],
         }
 
     except Exception as e:
         logger.error("auto_optimization_failed", error=str(e))
-        return {
-            "status": "error",
-            "message": str(e),
-            "changes_applied": []
-        }
+        return {"status": "error", "message": str(e), "changes_applied": []}
 
 
 def get_current_priorities() -> Dict[str, int]:

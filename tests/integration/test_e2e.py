@@ -5,7 +5,11 @@ import nova.core.orquestador as orchestrator
 
 def test_chat_saves_and_returns(monkeypatch):
     # stub generate_response
-    monkeypatch.setattr(orchestrator, "generate_response", lambda model, prompt, history=[]: "respuesta de prueba")
+    monkeypatch.setattr(
+        orchestrator,
+        "generate_response",
+        lambda model, prompt, history=[]: "respuesta de prueba",
+    )
     client = TestClient(app)
     r = client.post("/chat", json={"message": "Hola mundo", "session_id": "s-e2e"})
     assert r.status_code == 200

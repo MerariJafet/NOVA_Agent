@@ -5,6 +5,7 @@ or yields text chunks when `stream=True`.
 This adapter is defensive: it tries JSON fields `result`, `text`, `response` and
 falls back to streaming raw lines if the server provides chunked text.
 """
+
 from typing import Generator, Optional, Union
 import requests
 import json
@@ -26,10 +27,12 @@ def _parse_json_response(r: requests.Response) -> Optional[str]:
     return None
 
 
-def generate(model: str, prompt: str, stream: bool = False, timeout: int = 10) -> Union[str, Generator[str, None, None]]:
+def generate(
+    model: str, prompt: str, stream: bool = False, timeout: int = 10
+) -> Union[str, Generator[str, None, None]]:
     logger.info("ollama_generate_called", model=model, stream=stream)
     url = settings.ollama_generate_url
-    
+
     # Parámetros optimizados para velocidad y calidad
     payload = {
         "model": model,
@@ -37,28 +40,30 @@ def generate(model: str, prompt: str, stream: bool = False, timeout: int = 10) -
         "stream": stream,
         # Optimizaciones de velocidad
         "options": {
-            "temperature": 0.7,      # Balance entre creatividad y velocidad
-            "top_p": 0.9,           # Nucleus sampling para diversidad
-            "top_k": 40,            # Limitar vocabulario considerado
-            "num_predict": 512,     # Máximo tokens de respuesta (más corto = más rápido)
+            "temperature": 0.7,  # Balance entre creatividad y velocidad
+            "top_p": 0.9,  # Nucleus sampling para diversidad
+            "top_k": 40,  # Limitar vocabulario considerado
+            "num_predict": 512,  # Máximo tokens de respuesta (más corto = más rápido)
             "repeat_penalty": 1.1,  # Penalizar repeticiones
-            "repeat_last_n": 64,    # Memoria para penalización de repeticiones
-            "tfs_z": 1.0,           # Tail free sampling
-            "mirostat": 0,          # Desactivar mirostat para velocidad
+            "repeat_last_n": 64,  # Memoria para penalización de repeticiones
+            "tfs_z": 1.0,  # Tail free sampling
+            "mirostat": 0,  # Desactivar mirostat para velocidad
             "mirostat_tau": 5.0,
             "mirostat_eta": 0.1,
-            "num_ctx": 2048,        # Contexto más pequeño para velocidad
-            "num_thread": -1,       # Usar todos los cores disponibles
-        }
+            "num_ctx": 2048,  # Contexto más pequeño para velocidad
+            "num_thread": -1,  # Usar todos los cores disponibles
+        },
     }
 
     if not stream:
         try:
             r = requests.post(url, json=payload, timeout=timeout)
-            
+
             # Handle HTTP errors immediately for Claude models
             if r.status_code != 200 and "claude" in model:
-                logger.warning("claude_http_error_fallback_to_mixtral", status=r.status_code)
+                logger.warning(
+                    "claude_http_error_fallback_to_mixtral", status=r.status_code
+                )
                 # attempt fallback to mixtral
                 fallback_model = "mixtral:8x7b"
                 payload["model"] = fallback_model
@@ -68,7 +73,7 @@ def generate(model: str, prompt: str, stream: bool = False, timeout: int = 10) -
                 if parsed_f is not None:
                     return parsed_f
                 return rf.text
-            
+
             # If Ollama returns a JSON error like {"error": "model 'X' not found"} and the requested
             # model is Claude, automatically fallback to Mixtral (Sofía's policy).
             try:
@@ -112,7 +117,11 @@ def generate(model: str, prompt: str, stream: bool = False, timeout: int = 10) -
                             parsed2 = j2[k]
                             break
                 if parsed2:
-                    return parsed2 if isinstance(parsed2, str) else json.dumps(parsed2, ensure_ascii=False)
+                    return (
+                        parsed2
+                        if isinstance(parsed2, str)
+                        else json.dumps(parsed2, ensure_ascii=False)
+                    )
             except Exception:
                 pass
 
@@ -135,11 +144,13 @@ def generate(model: str, prompt: str, stream: bool = False, timeout: int = 10) -
 
             # Fallback: return raw text but cleaned (strip surrounding whitespace)
             return text.strip()
-            
+
         except requests.exceptions.HTTPError as e:
             # Handle HTTP errors (like 404 for missing models)
             if "claude" in model and e.response.status_code == 404:
-                logger.warning("claude_http_404_fallback_to_mixtral", status=e.response.status_code)
+                logger.warning(
+                    "claude_http_404_fallback_to_mixtral", status=e.response.status_code
+                )
                 # attempt fallback to mixtral
                 fallback_model = "mixtral:8x7b"
                 payload["model"] = fallback_model
@@ -154,7 +165,9 @@ def generate(model: str, prompt: str, stream: bool = False, timeout: int = 10) -
                     logger.error("mixtral_fallback_failed", error=str(fallback_error))
                     raise fallback_error
             else:
-                logger.error("ollama_http_error", status=e.response.status_code, error=str(e))
+                logger.error(
+                    "ollama_http_error", status=e.response.status_code, error=str(e)
+                )
                 raise
         except Exception as e:
             logger.error("ollama_generate_failed", error=str(e))
@@ -182,7 +195,11 @@ def generate(model: str, prompt: str, stream: bool = False, timeout: int = 10) -
                     for k in ("result", "text", "response", "content"):
                         if k in j:
                             val = j[k]
-                            return val if isinstance(val, str) else json.dumps(val, ensure_ascii=False)
+                            return (
+                                val
+                                if isinstance(val, str)
+                                else json.dumps(val, ensure_ascii=False)
+                            )
             except Exception:
                 pass
             return combined

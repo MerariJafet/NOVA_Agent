@@ -67,7 +67,13 @@ def init_db() -> None:
     logger.info("db_initialized", path=settings.db_path)
 
 
-def save_conversation(session_id: str, role: str, content: str, model_used: Optional[str] = None, routing_decision: Optional[str] = None) -> int:
+def save_conversation(
+    session_id: str,
+    role: str,
+    content: str,
+    model_used: Optional[str] = None,
+    routing_decision: Optional[str] = None,
+) -> int:
     with _get_conn() as conn:
         c = conn.cursor()
         c.execute(
@@ -106,7 +112,10 @@ def get_conversation(session_id: str, limit: int = 20) -> List[Dict]:
 def search_messages(keyword: str, limit: int = 50) -> List[Dict]:
     with _get_conn() as conn:
         c = conn.cursor()
-        c.execute("SELECT id, session_id, role, content FROM messages WHERE content LIKE ? LIMIT ?", (f"%{keyword}%", limit))
+        c.execute(
+            "SELECT id, session_id, role, content FROM messages WHERE content LIKE ? LIMIT ?",
+            (f"%{keyword}%", limit),
+        )
         rows = c.fetchall()
     result = [
         {"id": r[0], "session_id": r[1], "role": r[2], "content": r[3]} for r in rows

@@ -1,6 +1,4 @@
-import os
 from nova.core import memoria
-import tempfile
 
 
 def test_memoria_init_and_save(tmp_path):
@@ -13,6 +11,8 @@ def test_memoria_init_and_save(tmp_path):
 
     memoria.init_db()
     memoria.save_conversation("s1", "user", "hola", "dolphin-mistral:7b", "reason")
-    memoria.save_conversation("s1", "assistant", "respuesta", "dolphin-mistral:7b", "reason")
+    memoria.save_conversation(
+        "s1", "assistant", "respuesta", "dolphin-mistral:7b", "reason"
+    )
     conv = memoria.get_conversation("s1")
     assert len(conv) >= 2

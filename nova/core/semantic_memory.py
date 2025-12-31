@@ -1,5 +1,4 @@
 import os
-import asyncio
 from typing import List, Dict, Any, Optional
 from datetime import datetime
 
@@ -12,7 +11,9 @@ class SemanticMemory:
     """Sistema de memoria semántica usando ChromaDB y embeddings."""
 
     def __init__(self):
-        self.db_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), "data", "chroma_db")
+        self.db_path = os.path.join(
+            os.path.dirname(os.path.dirname(__file__)), "data", "chroma_db"
+        )
         os.makedirs(self.db_path, exist_ok=True)
         self.available = True
         self._model = None
@@ -76,7 +77,7 @@ class SemanticMemory:
         session_id: str,
         role: str,
         model_used: Optional[str] = None,
-        created_at: Optional[str] = None
+        created_at: Optional[str] = None,
     ) -> bool:
         """Agrega un mensaje a la memoria semántica."""
         if not self._ensure_ready():
@@ -93,7 +94,7 @@ class SemanticMemory:
                 "role": role,
                 "model_used": model_used or "",
                 "created_at": created_at or datetime.now().isoformat(),
-                "content_length": len(content)
+                "content_length": len(content),
             }
 
             # ID único para ChromaDB
@@ -104,20 +105,24 @@ class SemanticMemory:
                 ids=[chroma_id],
                 embeddings=[embedding],
                 metadatas=[metadata],
-                documents=[content]
+                documents=[content],
             )
 
-            logger.info("message_added_to_semantic_memory",
-                       message_id=message_id,
-                       session_id=session_id,
-                       role=role)
+            logger.info(
+                "message_added_to_semantic_memory",
+                message_id=message_id,
+                session_id=session_id,
+                role=role,
+            )
             return True
 
         except Exception as e:
-            logger.error("add_message_failed",
-                        error=str(e),
-                        message_id=message_id,
-                        session_id=session_id)
+            logger.error(
+                "add_message_failed",
+                error=str(e),
+                message_id=message_id,
+                session_id=session_id,
+            )
             return False
 
     def search_similar(
@@ -125,7 +130,7 @@ class SemanticMemory:
         query: str,
         n_results: int = 10,
         session_id: Optional[str] = None,
-        min_similarity: float = 0.5
+        min_similarity: float = 0.5,
     ) -> List[Dict[str, Any]]:
         """Busca mensajes similares por semántica."""
         if not self._ensure_ready():
@@ -146,7 +151,7 @@ class SemanticMemory:
                 query_embeddings=[query_embedding],
                 n_results=n_results,
                 where=where,
-                include=["metadatas", "documents", "distances"]
+                include=["metadatas", "documents", "distances"],
             )
 
             # Procesar resultados
@@ -159,33 +164,41 @@ class SemanticMemory:
                     # Filtrar por similitud mínima
                     if similarity >= min_similarity:
                         metadata = results["metadatas"][0][i]
-                        processed_results.append({
-                            "id": doc_id,
-                            "content": results["documents"][0][i],
-                            "metadata": metadata,
-                            "similarity": round(similarity, 3),
-                            "distance": round(distance, 3)
-                        })
+                        processed_results.append(
+                            {
+                                "id": doc_id,
+                                "content": results["documents"][0][i],
+                                "metadata": metadata,
+                                "similarity": round(similarity, 3),
+                                "distance": round(distance, 3),
+                            }
+                        )
 
             # Ordenar por similitud descendente
             processed_results.sort(key=lambda x: x["similarity"], reverse=True)
 
-            logger.info("semantic_search_completed",
-                       query_length=len(query),
-                       results_found=len(processed_results),
-                       session_id=session_id)
+            logger.info(
+                "semantic_search_completed",
+                query_length=len(query),
+                results_found=len(processed_results),
+                session_id=session_id,
+            )
             return processed_results
 
         except Exception as e:
             logger.error("search_similar_failed", error=str(e), query=query[:50])
             return []
 
-    def get_relevant_context(self, query: str, n_results: int = 5, session_id: Optional[str] = None) -> str:
+    def get_relevant_context(
+        self, query: str, n_results: int = 5, session_id: Optional[str] = None
+    ) -> str:
         """Obtiene contexto relevante para una query."""
         if not self._ensure_ready():
             return ""
         try:
-            results = self.search_similar(query, n_results, session_id, min_similarity=0.3)
+            results = self.search_similar(
+                query, n_results, session_id, min_similarity=0.3
+            )
 
             if not results:
                 return ""
@@ -225,14 +238,17 @@ class SemanticMemory:
     def get_stats(self) -> Dict[str, Any]:
         """Obtiene estadísticas de la memoria semántica."""
         if not self.available or not self.collection:
-            return {"error": "Semantic memory unavailable. Install chromadb and sentence-transformers.", "total_messages": 0}
+            return {
+                "error": "Semantic memory unavailable. Install chromadb and sentence-transformers.",
+                "total_messages": 0,
+            }
         try:
             count = self.collection.count()
             return {
                 "total_messages": count,
                 "collection_name": "messages",
                 "db_path": self.db_path,
-                "model_name": "all-MiniLM-L6-v2"
+                "model_name": "all-MiniLM-L6-v2",
             }
         except Exception as e:
             logger.error("get_stats_failed", error=str(e))
@@ -254,6 +270,7 @@ class SemanticMemory:
 
 # Instancia global
 _semantic_memory_instance = None
+
 
 def get_semantic_memory() -> SemanticMemory:
     global _semantic_memory_instance

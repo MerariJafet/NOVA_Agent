@@ -4,6 +4,7 @@ from starlette.responses import Response
 import time
 from typing import Callable
 
+
 def setup_middlewares(app):
     app.add_middleware(
         CORSMiddleware,

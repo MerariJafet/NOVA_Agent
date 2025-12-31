@@ -8,30 +8,32 @@ import sys
 import os
 import time
 import requests
-import json
 from datetime import datetime
 
 from nova.core.cache_system import cache_system
 
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
+
 # Colores ANSI para terminal
 class Colors:
-    HEADER = '\033[95m'
-    BLUE = '\033[94m'
-    GREEN = '\033[92m'
-    YELLOW = '\033[93m'
-    RED = '\033[91m'
-    CYAN = '\033[96m'
-    MAGENTA = '\033[95m'
-    WHITE = '\033[97m'
-    BOLD = '\033[1m'
-    UNDERLINE = '\033[4m'
-    END = '\033[0m'
+    HEADER = "\033[95m"
+    BLUE = "\033[94m"
+    GREEN = "\033[92m"
+    YELLOW = "\033[93m"
+    RED = "\033[91m"
+    CYAN = "\033[96m"
+    MAGENTA = "\033[95m"
+    WHITE = "\033[97m"
+    BOLD = "\033[1m"
+    UNDERLINE = "\033[4m"
+    END = "\033[0m"
+
 
 def clear_screen():
     """Limpiar pantalla"""
-    os.system('clear' if os.name == 'posix' else 'cls')
+    os.system("clear" if os.name == "posix" else "cls")
+
 
 def print_logo():
     """Mostrar logo ASCII de NOVA"""
@@ -52,6 +54,7 @@ def print_logo():
 {Colors.END}"""
     print(logo)
 
+
 def get_status():
     """Obtener estado del sistema"""
     try:
@@ -60,6 +63,7 @@ def get_status():
         return response.json()
     except:
         return None
+
 
 def format_priority_bar(priority, max_priority=100):
     """Crear barra visual de priority"""
@@ -85,16 +89,21 @@ def format_priority_bar(priority, max_priority=100):
     bar = f"{color}{'█' * filled}{Colors.END}{'░' * empty}"
     return f"{bar} {priority:3d} {emoji}"
 
+
 def show_brain_activity():
     """Mostrar actividad cerebral de NOVA"""
     status = get_status()
     if not status:
         print(f"{Colors.RED}❌ No se puede conectar al cerebro de NOVA{Colors.END}")
-        print(f"{Colors.YELLOW}💡 Asegúrate de que el servidor esté corriendo:{Colors.END}")
-        print(f"   uvicorn nova.api.routes:app --host 0.0.0.0 --port 8010")
+        print(
+            f"{Colors.YELLOW}💡 Asegúrate de que el servidor esté corriendo:{Colors.END}"
+        )
+        print("   uvicorn nova.api.routes:app --host 0.0.0.0 --port 8010")
         return
 
-    print(f"{Colors.BOLD}{Colors.BLUE}🧠 CEREBRO DE NOVA - ACTIVIDAD EN TIEMPO REAL{Colors.END}")
+    print(
+        f"{Colors.BOLD}{Colors.BLUE}🧠 CEREBRO DE NOVA - ACTIVIDAD EN TIEMPO REAL{Colors.END}"
+    )
     print("=" * 60)
 
     # Estado del auto-tuning
@@ -107,7 +116,9 @@ def show_brain_activity():
     print(f"{Colors.BOLD}Ciclos de Pensamiento:{Colors.END} {cycles}")
 
     if status["stats"]["last_run"]:
-        last_run_time = datetime.fromtimestamp(status['stats']['last_run']).strftime('%H:%M:%S')
+        last_run_time = datetime.fromtimestamp(status["stats"]["last_run"]).strftime(
+            "%H:%M:%S"
+        )
         print(f"{Colors.BOLD}Última Reflexión:{Colors.END} {last_run_time}")
     else:
         print(f"{Colors.BOLD}Última Reflexión:{Colors.END} Nunca")
@@ -122,7 +133,9 @@ def show_brain_activity():
     for model, priority in priorities.items():
         if model == "dolphin-mistral:7b":
             if priority >= 90:
-                thoughts.append(f"🐬 Dolphin es EXCELENTE ({priority}) - ¡Lo prefiero mucho!")
+                thoughts.append(
+                    f"🐬 Dolphin es EXCELENTE ({priority}) - ¡Lo prefiero mucho!"
+                )
             else:
                 thoughts.append(f"🐬 Dolphin necesita mejorar ({priority})")
         elif model == "claude_code_api":
@@ -160,9 +173,13 @@ def show_brain_activity():
         feedback_count = latest["total_feedback"]
 
         if change > 0:
-            decision = f"¡Subí la priority de {model} porque tiene buen rating ({rating:.1f})!"
+            decision = (
+                f"¡Subí la priority de {model} porque tiene buen rating ({rating:.1f})!"
+            )
         elif change < 0:
-            decision = f"Bajé la priority de {model} porque tiene mal rating ({rating:.1f})"
+            decision = (
+                f"Bajé la priority de {model} porque tiene mal rating ({rating:.1f})"
+            )
         else:
             decision = f"Mantengo {model} estable con rating {rating:.1f}"
 
@@ -172,8 +189,15 @@ def show_brain_activity():
 
     print(f"\n{Colors.BOLD}{Colors.CYAN}📊 ESTADÍSTICAS DEL CEREBRO:{Colors.END}")
     print("-" * 40)
-    total_feedback = sum(entry["total_feedback"] for entry in status["recent_history"][:5])
-    avg_rating = sum(entry["avg_rating"] for entry in status["recent_history"][:5]) / len(status["recent_history"][:5]) if status["recent_history"] else 0
+    total_feedback = sum(
+        entry["total_feedback"] for entry in status["recent_history"][:5]
+    )
+    avg_rating = (
+        sum(entry["avg_rating"] for entry in status["recent_history"][:5])
+        / len(status["recent_history"][:5])
+        if status["recent_history"]
+        else 0
+    )
 
     print(f"  📈 Feedback procesado: {total_feedback}")
     print(f"  ⭐ Rating promedio: {avg_rating:.2f}")
@@ -191,10 +215,14 @@ def show_brain_activity():
     print(f"  🤖 Modelo top: {cache_stats['top_model']}")
     print(f"  📅 TTL: {cache_stats['ttl_days']:.0f} días")
 
+
 def show_footer():
     """Mostrar footer con instrucciones"""
-    print(f"\n{Colors.BOLD}{Colors.WHITE}💡 PRESIONA CTRL+C PARA SALIR | ACTUALIZA CADA 5 SEGUNDOS{Colors.END}")
+    print(
+        f"\n{Colors.BOLD}{Colors.WHITE}💡 PRESIONA CTRL+C PARA SALIR | ACTUALIZA CADA 5 SEGUNDOS{Colors.END}"
+    )
     print(f"{Colors.CYAN}🔄 NOVA se está auto-optimizando continuamente...{Colors.END}")
+
 
 def main():
     """Función principal"""
@@ -211,8 +239,13 @@ def main():
     except KeyboardInterrupt:
         clear_screen()
         print_logo()
-        print(f"\n{Colors.GREEN}👋 ¡Hasta luego! NOVA sigue pensando y mejorándose sola...{Colors.END}")
-        print(f"{Colors.CYAN}💡 El auto-tuning continúa corriendo en background{Colors.END}\n")
+        print(
+            f"\n{Colors.GREEN}👋 ¡Hasta luego! NOVA sigue pensando y mejorándose sola...{Colors.END}"
+        )
+        print(
+            f"{Colors.CYAN}💡 El auto-tuning continúa corriendo en background{Colors.END}\n"
+        )
+
 
 if __name__ == "__main__":
     main()

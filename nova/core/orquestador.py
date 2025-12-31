@@ -1,4 +1,4 @@
-from typing import Dict, List
+from typing import List
 
 import json
 import requests
@@ -11,7 +11,11 @@ with open("config/routing_rules.json", "r", encoding="utf-8") as f:
 
 
 def _tokenize(text: str) -> List[str]:
-    return [t.strip() for t in text.lower().replace("?", " ").replace("¿", " ").split() if t.strip()]
+    return [
+        t.strip()
+        for t in text.lower().replace("?", " ").replace("¿", " ").split()
+        if t.strip()
+    ]
 
 
 def route_query(message: str, has_image: bool = False) -> dict:
@@ -21,7 +25,11 @@ def route_query(message: str, has_image: bool = False) -> dict:
     """
     if has_image:
         logger.info("routing_image_detected")
-        return {"model": "moondream:1.8b", "confidence": 100, "reasoning": "Imagen adjunta"}
+        return {
+            "model": "moondream:1.8b",
+            "confidence": 100,
+            "reasoning": "Imagen adjunta",
+        }
 
     msg = message.lower()
     tokens = _tokenize(message)
@@ -32,7 +40,11 @@ def route_query(message: str, has_image: bool = False) -> dict:
         for t in triggers:
             if t in tokens:
                 logger.info("routing_exact_match", rule=rule, trigger=t)
-                return {"model": cfg["model"], "confidence": 100, "reasoning": f"Trigger exacto: {t}"}
+                return {
+                    "model": cfg["model"],
+                    "confidence": 100,
+                    "reasoning": f"Trigger exacto: {t}",
+                }
 
     # Substring match -> 90
     for rule, cfg in ROUTING_RULES.items():
@@ -40,7 +52,11 @@ def route_query(message: str, has_image: bool = False) -> dict:
         for t in triggers:
             if t in msg:
                 logger.info("routing_partial_match", rule=rule, trigger=t)
-                return {"model": cfg["model"], "confidence": 90, "reasoning": f"Trigger parcial: {t}"}
+                return {
+                    "model": cfg["model"],
+                    "confidence": 90,
+                    "reasoning": f"Trigger parcial: {t}",
+                }
 
     # Default
     default_model = ROUTING_RULES["default"]["model"]

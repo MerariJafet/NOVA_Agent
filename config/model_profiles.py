@@ -3,6 +3,7 @@ from typing import Dict, Any
 
 _DATA: Dict[str, Any] = {}
 
+
 def _load():
     global _DATA
     try:

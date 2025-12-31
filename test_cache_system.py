@@ -11,7 +11,7 @@ import shutil
 import sqlite3
 import hashlib
 import json
-from pathlib import Path
+
 
 # Simular las dependencias mínimas para testing
 class MockSettings:
@@ -19,7 +19,9 @@ class MockSettings:
         self.db_path = ":memory:"
         self.model_profiles_path = "/tmp/test_model_profiles.json"
 
+
 settings = MockSettings()
+
 
 def init_test_db():
     """Inicializar base de datos de prueba en memoria."""
@@ -27,7 +29,8 @@ def init_test_db():
     cursor = conn.cursor()
 
     # Crear tabla response_cache
-    cursor.execute('''
+    cursor.execute(
+        """
         CREATE TABLE IF NOT EXISTS response_cache (
             cache_key TEXT PRIMARY KEY,
             query TEXT NOT NULL,
@@ -39,12 +42,19 @@ def init_test_db():
             hit_count INTEGER DEFAULT 0,
             last_accessed TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         )
-    ''')
+    """
+    )
 
     # Crear índices
-    cursor.execute('CREATE INDEX IF NOT EXISTS idx_response_cache_expires_at ON response_cache(expires_at)')
-    cursor.execute('CREATE INDEX IF NOT EXISTS idx_response_cache_model ON response_cache(model_name)')
-    cursor.execute('CREATE INDEX IF NOT EXISTS idx_response_cache_query_model ON response_cache(query, model_name)')
+    cursor.execute(
+        "CREATE INDEX IF NOT EXISTS idx_response_cache_expires_at ON response_cache(expires_at)"
+    )
+    cursor.execute(
+        "CREATE INDEX IF NOT EXISTS idx_response_cache_model ON response_cache(model_name)"
+    )
+    cursor.execute(
+        "CREATE INDEX IF NOT EXISTS idx_response_cache_query_model ON response_cache(query, model_name)"
+    )
 
     conn.commit()
     return conn
@@ -73,22 +83,28 @@ class CacheSystem:
         cache_key = self._generate_cache_key(query, model_name, parameters)
 
         cursor = self.conn.cursor()
-        cursor.execute('''
+        cursor.execute(
+            """
             SELECT response, metadata, hit_count, created_at, expires_at
             FROM response_cache
             WHERE cache_key = ? AND expires_at > ?
-        ''', (cache_key, time.time()))
+        """,
+            (cache_key, time.time()),
+        )
 
         row = cursor.fetchone()
         if row:
             response_json, metadata_json, hit_count, created_at, expires_at = row
 
             # Incrementar hit_count
-            cursor.execute('''
+            cursor.execute(
+                """
                 UPDATE response_cache
                 SET hit_count = hit_count + 1, last_accessed = CURRENT_TIMESTAMP
                 WHERE cache_key = ?
-            ''', (cache_key,))
+            """,
+                (cache_key,),
+            )
             self.conn.commit()
 
             response = json.loads(response_json)
@@ -100,12 +116,14 @@ class CacheSystem:
                 "metadata": metadata,
                 "hit_count": hit_count + 1,
                 "created_at": created_at,
-                "expires_at": expires_at
+                "expires_at": expires_at,
             }
 
         return None
 
-    def save_to_cache(self, query, model_name, response, parameters=None, metadata=None):
+    def save_to_cache(
+        self, query, model_name, response, parameters=None, metadata=None
+    ):
         """Guardar respuesta en caché."""
         cache_key = self._generate_cache_key(query, model_name, parameters)
         expires_at = self._get_expires_at()
@@ -114,11 +132,14 @@ class CacheSystem:
         metadata_json = json.dumps(metadata or {})
 
         cursor = self.conn.cursor()
-        cursor.execute('''
+        cursor.execute(
+            """
             INSERT OR REPLACE INTO response_cache
             (cache_key, query, model_name, response, metadata, expires_at, hit_count)
             VALUES (?, ?, ?, ?, ?, ?, 0)
-        ''', (cache_key, query, model_name, response_json, metadata_json, expires_at))
+        """,
+            (cache_key, query, model_name, response_json, metadata_json, expires_at),
+        )
 
         self.conn.commit()
         return cache_key
@@ -128,14 +149,18 @@ class CacheSystem:
         cursor = self.conn.cursor()
 
         if model_name and query:
-            cursor.execute('DELETE FROM response_cache WHERE model_name = ? AND query = ?',
-                         (model_name, query))
+            cursor.execute(
+                "DELETE FROM response_cache WHERE model_name = ? AND query = ?",
+                (model_name, query),
+            )
         elif model_name:
-            cursor.execute('DELETE FROM response_cache WHERE model_name = ?', (model_name,))
+            cursor.execute(
+                "DELETE FROM response_cache WHERE model_name = ?", (model_name,)
+            )
         elif query:
-            cursor.execute('DELETE FROM response_cache WHERE query = ?', (query,))
+            cursor.execute("DELETE FROM response_cache WHERE query = ?", (query,))
         else:
-            cursor.execute('DELETE FROM response_cache')
+            cursor.execute("DELETE FROM response_cache")
 
         deleted_count = cursor.rowcount
         self.conn.commit()
@@ -144,7 +169,9 @@ class CacheSystem:
     def cleanup_expired(self):
         """Limpiar entradas expiradas."""
         cursor = self.conn.cursor()
-        cursor.execute('DELETE FROM response_cache WHERE expires_at <= ?', (time.time(),))
+        cursor.execute(
+            "DELETE FROM response_cache WHERE expires_at <= ?", (time.time(),)
+        )
         deleted_count = cursor.rowcount
         self.conn.commit()
         return deleted_count
@@ -154,15 +181,17 @@ class CacheSystem:
         cursor = self.conn.cursor()
 
         # Total de entradas
-        cursor.execute('SELECT COUNT(*) FROM response_cache')
+        cursor.execute("SELECT COUNT(*) FROM response_cache")
         total_entries = cursor.fetchone()[0]
 
         # Entradas válidas (no expiradas)
-        cursor.execute('SELECT COUNT(*) FROM response_cache WHERE expires_at > ?', (time.time(),))
+        cursor.execute(
+            "SELECT COUNT(*) FROM response_cache WHERE expires_at > ?", (time.time(),)
+        )
         valid_entries = cursor.fetchone()[0]
 
         # Total de hits
-        cursor.execute('SELECT SUM(hit_count) FROM response_cache')
+        cursor.execute("SELECT SUM(hit_count) FROM response_cache")
         total_hits = cursor.fetchone()[0] or 0
 
         # Calcular hit rate (si hay entradas válidas)
@@ -173,7 +202,7 @@ class CacheSystem:
             "valid_entries": valid_entries,
             "expired_entries": total_entries - valid_entries,
             "total_hits": total_hits,
-            "hit_rate_percent": hit_rate
+            "hit_rate_percent": hit_rate,
         }
 
 
@@ -191,10 +220,7 @@ def setup_test_environment():
     # Inicializar DB de prueba
     init_test_db()
 
-    return {
-        "temp_dir": temp_dir,
-        "original_db_path": original_db_path
-    }
+    return {"temp_dir": temp_dir, "original_db_path": original_db_path}
 
 
 def cleanup_test_environment(env):
@@ -220,7 +246,7 @@ def test_cache_basic_operations():
         cache_key = cache.save_to_cache(
             query="¿Qué es la IA?",
             model_name="dolphin-mistral:7b",
-            response=response_data
+            response=response_data,
         )
         assert cache_key is not None, "Debería generar una cache_key"
         print("✅ Guardado en caché exitoso")
@@ -232,13 +258,19 @@ def test_cache_basic_operations():
 
         assert result is not None, "Debería ser cache hit"
         assert result["cached"] == True, "Debería marcarse como cached"
-        assert hit_time < 0.05, f"Cache hit debería ser <50ms, fue {hit_time*1000:.2f}ms"
-        assert result["response"]["text"] == response_data["text"], "Respuesta debería coincidir"
+        assert (
+            hit_time < 0.05
+        ), f"Cache hit debería ser <50ms, fue {hit_time*1000:.2f}ms"
+        assert (
+            result["response"]["text"] == response_data["text"]
+        ), "Respuesta debería coincidir"
         print(f"✅ Cache hit en {hit_time*1000:.2f}ms (<50ms requerido)")
 
         # Test 4: Hit count incrementa
         result2 = cache.get_cached_response("¿Qué es la IA?", "dolphin-mistral:7b")
-        assert result2["hit_count"] == result["hit_count"] + 1, "Hit count debería incrementarse"
+        assert (
+            result2["hit_count"] == result["hit_count"] + 1
+        ), "Hit count debería incrementarse"
         print("✅ Hit count se incrementa correctamente")
 
         print("✅ Test básico de operaciones completado")
@@ -253,7 +285,7 @@ def test_cache_expiration():
 
     try:
         # Crear caché con TTL muy corto (0.1 segundos para test rápido)
-        cache = CacheSystem(ttl_days=1/86400/10)  # 0.1 segundos
+        cache = CacheSystem(ttl_days=1 / 86400 / 10)  # 0.1 segundos
 
         # Guardar en caché
         cache.save_to_cache("test query", "test_model", {"text": "test response"})
@@ -327,8 +359,14 @@ def test_cache_performance():
 
         # Preparar datos de prueba
         test_queries = [
-            f"¿Qué es {topic}?" for topic in
-            ["Python", "Machine Learning", "Deep Learning", "Neural Networks", "Computer Vision"]
+            f"¿Qué es {topic}?"
+            for topic in [
+                "Python",
+                "Machine Learning",
+                "Deep Learning",
+                "Neural Networks",
+                "Computer Vision",
+            ]
         ]
 
         # Test de cache misses (primera vez)
@@ -342,7 +380,9 @@ def test_cache_performance():
             miss_times.append(miss_time)
 
             # Guardar en caché para próximos tests
-            cache.save_to_cache(query, "dolphin-mistral:7b", {"text": f"Respuesta sobre {query}"})
+            cache.save_to_cache(
+                query, "dolphin-mistral:7b", {"text": f"Respuesta sobre {query}"}
+            )
 
         avg_miss_time = sum(miss_times) / len(miss_times)
         print(f"   Cache miss promedio: {avg_miss_time*1000:.2f}ms")
@@ -364,7 +404,9 @@ def test_cache_performance():
         print(f"   Cache hit promedio: {avg_hit_time*1000:.2f}ms")
 
         # Verificar requerimientos
-        assert avg_hit_time < 0.05, f"Cache hits deben ser <50ms, fueron {avg_hit_time*1000:.2f}ms"
+        assert (
+            avg_hit_time < 0.05
+        ), f"Cache hits deben ser <50ms, fueron {avg_hit_time*1000:.2f}ms"
         print("✅ Performance de caché cumple requerimientos (<50ms)")
 
         # Calcular hit rate
@@ -442,18 +484,26 @@ def test_hit_rate_requirement():
                 # Consultas siguientes deberían ser hits
                 if result is not None:
                     actual_hits += 1
-                    print(f"   Consulta {i+1}: HIT ({result['hit_count']} hits totales)")
+                    print(
+                        f"   Consulta {i+1}: HIT ({result['hit_count']} hits totales)"
+                    )
                 else:
                     print(f"   Consulta {i+1}: MISS (inesperado)")
 
         # Calcular hit rate
-        hit_rate = (actual_hits / (total_requests - 1)) * 100  # Excluimos la primera consulta
+        hit_rate = (
+            actual_hits / (total_requests - 1)
+        ) * 100  # Excluimos la primera consulta
 
-        print(f"🎯 Resultado: {actual_hits}/{total_requests-1} hits = {hit_rate:.1f}% hit rate")
+        print(
+            f"🎯 Resultado: {actual_hits}/{total_requests-1} hits = {hit_rate:.1f}% hit rate"
+        )
 
         # Validar requerimiento >90%
         assert hit_rate >= 90.0, f"Hit rate debe ser >=90%, fue {hit_rate:.1f}%"
-        assert actual_hits == expected_hits, f"Deberían ser {expected_hits} hits, fueron {actual_hits}"
+        assert (
+            actual_hits == expected_hits
+        ), f"Deberían ser {expected_hits} hits, fueron {actual_hits}"
 
         print("✅ Hit rate >90% en consultas repetidas ✓")
         print("✅ Requerimiento del Sprint 3 Día 3 cumplido ✓")
@@ -490,6 +540,7 @@ def run_all_tests():
     except Exception as e:
         print(f"❌ Error en tests: {e}")
         import traceback
+
         traceback.print_exc()
         return False
 

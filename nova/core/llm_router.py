@@ -2,6 +2,7 @@
 LLM Router fallback.
 Provee una interfaz compatible cuando no hay router LLM externo disponible.
 """
+
 from typing import Dict, Any
 
 from utils.logging import get_logger

@@ -6,11 +6,14 @@ Muestra cómo NOVA se auto-optimiza basado en feedback humano
 
 import sys
 import os
-import time
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from nova.core.auto_optimizer import auto_optimize, get_optimization_history, get_current_priorities
+from nova.core.auto_optimizer import (
+    auto_optimize,
+    get_optimization_history,
+    get_current_priorities,
+)
 from nova.core.memoria import init_db, save_conversation
 from nova.core.feedback_system import record_feedback
 from nova.core.auto_optimizer import _init_optimization_log
@@ -38,19 +41,30 @@ def demo_auto_optimization():
     # Dolphin recibe feedback excelente (rating 5)
     print("   🐬 Dolphin recibe 15 evaluaciones excelentes...")
     for i in range(15):
-        msg_id = save_conversation(f"demo_dolphin_{i}", "user", f"¿Qué es la IA? {i}", "dolphin-mistral:7b")
-        record_feedback(msg_id, f"demo_dolphin_{i}", 5, "Respuesta excepcional, muy útil")
+        msg_id = save_conversation(
+            f"demo_dolphin_{i}", "user", f"¿Qué es la IA? {i}", "dolphin-mistral:7b"
+        )
+        record_feedback(
+            msg_id, f"demo_dolphin_{i}", 5, "Respuesta excepcional, muy útil"
+        )
 
     # Claude recibe feedback malo (rating 2)
     print("   🤖 Claude recibe 12 evaluaciones negativas...")
     for i in range(12):
-        msg_id = save_conversation(f"demo_claude_{i}", "user", f"¿Cómo funciona Python? {i}", "claude_code_api")
+        msg_id = save_conversation(
+            f"demo_claude_{i}", "user", f"¿Cómo funciona Python? {i}", "claude_code_api"
+        )
         record_feedback(msg_id, f"demo_claude_{i}", 2, "Respuesta confusa y poco útil")
 
     # Mixtral recibe feedback neutral (rating 3)
     print("   🔄 Mixtral recibe 8 evaluaciones neutrales...")
     for i in range(8):
-        msg_id = save_conversation(f"demo_mixtral_{i}", "user", f"¿Qué es machine learning? {i}", "mixtral:8x7b")
+        msg_id = save_conversation(
+            f"demo_mixtral_{i}",
+            "user",
+            f"¿Qué es machine learning? {i}",
+            "mixtral:8x7b",
+        )
         record_feedback(msg_id, f"demo_mixtral_{i}", 3, "Respuesta aceptable")
 
     print()
@@ -67,7 +81,9 @@ def demo_auto_optimization():
     print("📋 Cambios aplicados:")
     for change in result["changes_applied"]:
         direction = "⬆️" if change["change"] > 0 else "⬇️"
-        print(f"   {direction} {change['model']}: {change['old_priority']} → {change['new_priority']} (cambio: {change['change']})")
+        print(
+            f"   {direction} {change['model']}: {change['old_priority']} → {change['new_priority']} (cambio: {change['change']})"
+        )
     print()
 
     # Mostrar priorities finales
@@ -84,7 +100,9 @@ def demo_auto_optimization():
     print("📜 Historial de optimización:")
     history = get_optimization_history(limit=10)
     for entry in history:
-        print(f"   {entry['created_at'][:19]} | {entry['model_name']} | cambio: {entry['change_amount']:+d} | rating: {entry['avg_rating']:.1f}")
+        print(
+            f"   {entry['created_at'][:19]} | {entry['model_name']} | cambio: {entry['change_amount']:+d} | rating: {entry['avg_rating']:.1f}"
+        )
     print()
 
     # Mostrar backup creado

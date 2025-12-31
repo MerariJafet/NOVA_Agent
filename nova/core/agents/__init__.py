@@ -7,9 +7,9 @@ from .programming_agent import ProgrammingAgent
 from .math_agent import MathAgent
 
 __all__ = [
-    'BaseAgent',
-    'AgentRegistry',
-    'BusinessAgent',
-    'ProgrammingAgent',
-    'MathAgent'
+    "BaseAgent",
+    "AgentRegistry",
+    "BusinessAgent",
+    "ProgrammingAgent",
+    "MathAgent",
 ]

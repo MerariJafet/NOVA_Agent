@@ -2,6 +2,7 @@
 Intelligent Router - Sprint 2
 Routing basado en scoring con reglas claras y sin conflictos.
 """
+
 from typing import Dict, Any, List
 from config.model_profiles import _DATA as model_profiles
 from nova.core.semantic_analyzer import analyze
@@ -13,7 +14,7 @@ logger = get_logger("core.intelligent_router")
 def score_model_for_query(model_name: str, signals: Dict[str, Any]) -> int:
     """
     Calcula score para un modelo basado en señales semánticas.
-    
+
     REGLAS DE PRIORIDAD (de mayor a menor):
     1. Imagen -> moondream (score 1000)
     2. Arquitectura -> mixtral (score base + 200)
@@ -24,10 +25,10 @@ def score_model_for_query(model_name: str, signals: Dict[str, Any]) -> int:
     """
     prof = model_profiles.get(model_name, {})
     caps = prof.get("capabilities", [])
-    
+
     # Score base desde perfil
     score = prof.get("priority", 50)
-    
+
     # ==========================================
     # REGLA 1: IMAGEN (prioridad máxima)
     # ==========================================
@@ -38,7 +39,7 @@ def score_model_for_query(model_name: str, signals: Dict[str, Any]) -> int:
             return 500  # moondream como fallback
         else:
             return 0  # otros modelos descartados
-    
+
     # ==========================================
     # REGLA 2: ARQUITECTURA (mixtral favorecido)
     # ==========================================
@@ -48,7 +49,7 @@ def score_model_for_query(model_name: str, signals: Dict[str, Any]) -> int:
         elif model_name == "dolphin-mistral:7b":
             score -= 50  # dolphin no es bueno en arquitectura
         return score
-    
+
     # ==========================================
     # REGLA 3: ESTRATEGIA + CÓDIGO (mixtral gana)
     # ==========================================
@@ -58,7 +59,7 @@ def score_model_for_query(model_name: str, signals: Dict[str, Any]) -> int:
         elif model_name == "dolphin-mistral:7b":
             score -= 30  # dolphin bueno en código pero no estrategia
         return score
-    
+
     # ==========================================
     # REGLA 4: CÓDIGO PURO (dolphin favorecido)
     # ==========================================
@@ -68,7 +69,7 @@ def score_model_for_query(model_name: str, signals: Dict[str, Any]) -> int:
         elif model_name == "mixtral:8x7b":
             score -= 20  # mixtral es overkill para código simple
         return score
-    
+
     # ==========================================
     # REGLA 5: DEBUG RÁPIDO (dolphin favorecido)
     # ==========================================
@@ -78,7 +79,7 @@ def score_model_for_query(model_name: str, signals: Dict[str, Any]) -> int:
         elif model_name == "mixtral:8x7b":
             score -= 10
         return score
-    
+
     # ==========================================
     # REGLA 6: ANÁLISIS COMPLEJO (mixtral favorecido)
     # ==========================================
@@ -88,7 +89,7 @@ def score_model_for_query(model_name: str, signals: Dict[str, Any]) -> int:
         elif model_name == "dolphin-mistral:7b":
             score -= 30
         return score
-    
+
     # ==========================================
     # REGLA 7: QUERIES CORTAS/SIMPLES (dolphin)
     # ==========================================
@@ -100,7 +101,7 @@ def score_model_for_query(model_name: str, signals: Dict[str, Any]) -> int:
         elif model_name == "mixtral:8x7b":
             score -= 20
         return score
-    
+
     # Default: retornar score base
     return score
 
@@ -108,7 +109,7 @@ def score_model_for_query(model_name: str, signals: Dict[str, Any]) -> int:
 def route(message: str, has_image: bool = False) -> Dict[str, Any]:
     """
     Rutea un mensaje al modelo más apropiado.
-    
+
     Returns:
         {
             "model": "mixtral:8x7b",
@@ -124,67 +125,68 @@ def route(message: str, has_image: bool = False) -> Dict[str, Any]:
             "model": "llava:7b",
             "confidence": 100,
             "reasoning": "Imagen adjunta - usando LLaVA 7B end-to-end",
-            "alternatives": []
+            "alternatives": [],
         }
-    
+
     # Análisis semántico
     signals = analyze(message)
-    
+
     logger.info(
         "semantic_signals",
         message=message[:100],
-        signals={k: v for k, v in signals.items() if v}  # Solo señales True
+        signals={k: v for k, v in signals.items() if v},  # Solo señales True
     )
-    
+
     # CASO ESPECIAL: Clarificación
     vague_phrases = ["ayudame", "ayuda", "help", "ayúdame"]
     if any(p in message.lower() for p in vague_phrases):
         logger.info("needs_clarification", message=message[:100])
         return {
             "status": "needs_clarification",
-            "message": "¿Podrías darme más detalles sobre qué necesitas?"
+            "message": "¿Podrías darme más detalles sobre qué necesitas?",
         }
-    
-    if signals.get("is_short") and not signals.get("has_question") and len(message.split()) <= 1:
+
+    if (
+        signals.get("is_short")
+        and not signals.get("has_question")
+        and len(message.split()) <= 1
+    ):
         logger.info("needs_clarification_short", message=message[:100])
         return {
             "status": "needs_clarification",
-            "message": "¿Podrías darme más detalles?"
+            "message": "¿Podrías darme más detalles?",
         }
-    
+
     # Scoring de modelos
     scores: List[Dict[str, Any]] = []
     for model_name in model_profiles.keys():
         model_score = score_model_for_query(model_name, signals)
         scores.append({"model": model_name, "score": model_score})
-    
+
     # Ordenar por score
     scores = sorted(scores, key=lambda x: x["score"], reverse=True)
-    
+
     best = scores[0]
-    alternatives = [
-        {"model": s["model"], "score": s["score"]} 
-        for s in scores[1:3]
-    ]
-    
+    alternatives = [{"model": s["model"], "score": s["score"]} for s in scores[1:3]]
+
     # Calcular confianza (0-100)
     confidence = min(100, max(50, 50 + (best["score"] - 50)))
-    
+
     # Reasoning legible
     active_signals = [k for k, v in signals.items() if v]
     reasoning = f"Señales detectadas: {', '.join(active_signals)}"
-    
+
     logger.info(
         "routing_decision",
         model=best["model"],
         score=best["score"],
         confidence=confidence,
-        alternatives=alternatives
+        alternatives=alternatives,
     )
-    
+
     return {
         "model": best["model"],
         "confidence": confidence,
         "reasoning": reasoning,
-        "alternatives": alternatives
+        "alternatives": alternatives,
     }

@@ -2,15 +2,19 @@ from fastapi import FastAPI, HTTPException, File, UploadFile, Form
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import RedirectResponse
 from contextlib import asynccontextmanager
-from nova.api.models import ChatRequest, ChatResponse
+from nova.api.models import ChatRequest
 from nova.core import orquestador
 from nova.core.memoria import init_db, save_conversation
 from nova.core import feedback_system
-from nova.api.models import FeedbackRequest, MetricsResponse, AgentQueryRequest
+from nova.api.models import FeedbackRequest, AgentQueryRequest
 from utils.logging import get_logger
 from config.settings import settings
 from nova.api.middleware import setup_middlewares, simple_rate_limit_middleware
-from nova.core.auto_optimizer import auto_optimize, get_current_priorities, get_optimization_history
+from nova.core.auto_optimizer import (
+    auto_optimize,
+    get_current_priorities,
+    get_optimization_history,
+)
 from fastapi.concurrency import run_in_threadpool
 import threading
 import time
@@ -20,7 +24,6 @@ from nova.core.semantic_memory import get_semantic_memory
 from nova.core.episodic_memory import episodic_memory
 import base64
 import secrets
-from pathlib import Path
 import requests
 
 # Importar sistema de agentes (Sprint 5 Fase 3)
@@ -36,6 +39,7 @@ auto_tuning_thread = None
 auto_tuning_active = False
 auto_tuning_stats = {"cycles": 0, "last_run": None, "status": "stopped"}
 
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     # Startup
@@ -44,6 +48,7 @@ async def lifespan(app: FastAPI):
     yield
     # Shutdown
     logger.info("app_shutdown")
+
 
 app = FastAPI(title=settings.app_name, lifespan=lifespan)
 
@@ -57,13 +62,19 @@ app.add_middleware(
 )
 
 # Mount static files
-webui_path = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), "webui")
+webui_path = os.path.join(
+    os.path.dirname(os.path.dirname(os.path.dirname(__file__))), "webui"
+)
 logger.info(f"WebUI path: {webui_path}, exists: {os.path.exists(webui_path)}")
 if os.path.exists(webui_path):
     app.mount("/webui", StaticFiles(directory=webui_path, html=True), name="webui")
     # Also mount under /nova/webui for paths used by the redesigned frontend
     try:
-        app.mount("/nova/webui", StaticFiles(directory=webui_path, html=True), name="nova-webui")
+        app.mount(
+            "/nova/webui",
+            StaticFiles(directory=webui_path, html=True),
+            name="nova-webui",
+        )
         logger.info("WebUI static files mounted at /webui and /nova/webui")
     except Exception:
         # Fallback: if second mount fails, still keep /webui
@@ -77,15 +88,17 @@ os.makedirs(uploads_path, exist_ok=True)
 app.mount("/uploads", StaticFiles(directory=uploads_path), name="uploads")
 
 
-async def _analyze_image_base64(image_b64: str, prompt: str = "Analiza esta imagen") -> tuple[str, str]:
+async def _analyze_image_base64(
+    image_b64: str, prompt: str = "Analiza esta imagen"
+) -> tuple[str, str]:
     """Enviar imagen a LLaVA vision con fallback a moondream. Retorna (response, model_used)"""
-    
+
     def _call_vision_model(model: str, timeout: int) -> str:
         payload = {
             "model": model,
             "prompt": prompt,
             "images": [image_b64],
-            "stream": False
+            "stream": False,
         }
         r = requests.post(settings.ollama_generate_url, json=payload, timeout=timeout)
         r.raise_for_status()
@@ -99,26 +112,32 @@ async def _analyze_image_base64(image_b64: str, prompt: str = "Analiza esta imag
         response = await run_in_threadpool(_call_vision_model, "llava:7b", 30)
         return response, "llava:7b"
     except Exception as e:
-        logger.warning(f"llava_7b_failed_fallback_to_moondream", error=str(e))
+        logger.warning("llava_7b_failed_fallback_to_moondream", error=str(e))
         # Fallback to moondream
         try:
             response = await run_in_threadpool(_call_vision_model, "moondream:1.8b", 30)
             return response, "moondream:1.8b"
         except Exception as e2:
-            logger.error(f"both_vision_models_failed", llava_error=str(e), moondream_error=str(e2))
+            logger.error(
+                "both_vision_models_failed",
+                llava_error=str(e),
+                moondream_error=str(e2),
+            )
             raise e2
-
 
 
 @app.get("/webui/index.html")
 async def webui_index():
     """Servir la interfaz web unificada"""
     try:
-        html_file_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), "webui", "index.html")
+        html_file_path = os.path.join(
+            os.path.dirname(os.path.dirname(__file__)), "webui", "index.html"
+        )
         if os.path.exists(html_file_path):
-            with open(html_file_path, 'r', encoding='utf-8') as f:
+            with open(html_file_path, "r", encoding="utf-8") as f:
                 html_content = f.read()
             from fastapi.responses import HTMLResponse
+
             return HTMLResponse(content=html_content)
         else:
             return {"error": "WebUI index.html not found"}
@@ -126,19 +145,22 @@ async def webui_index():
         logger.error(f"Error serving webui: {e}")
         return {"error": str(e)}
 
+
 setup_middlewares(app)
 simple_rate_limit_middleware(app)
 
 
-async def _analyze_image_base64(image_b64: str, prompt: str = "Analiza esta imagen") -> tuple[str, str]:
+async def _analyze_image_base64(
+    image_b64: str, prompt: str = "Analiza esta imagen"
+) -> tuple[str, str]:
     """Enviar imagen a LLaVA vision con fallback a moondream. Retorna (response, model_used)"""
-    
+
     def _call_vision_model(model: str, timeout: int) -> str:
         payload = {
             "model": model,
             "prompt": prompt,
             "images": [image_b64],
-            "stream": False
+            "stream": False,
         }
         r = requests.post(settings.ollama_generate_url, json=payload, timeout=timeout)
         r.raise_for_status()
@@ -150,12 +172,16 @@ async def _analyze_image_base64(image_b64: str, prompt: str = "Analiza esta imag
         response = await run_in_threadpool(_call_vision_model, "llava:7b", 60)
         return response, "llava:7b"
     except Exception as e:
-        logger.warning(f"llava_7b_failed_fallback_to_moondream", error=str(e))
+        logger.warning("llava_7b_failed_fallback_to_moondream", error=str(e))
         try:
             response = await run_in_threadpool(_call_vision_model, "moondream:1.8b", 30)
             return response, "moondream:1.8b"
         except Exception as e2:
-            logger.error(f"both_vision_models_failed", llava_error=str(e), moondream_error=str(e2))
+            logger.error(
+                "both_vision_models_failed",
+                llava_error=str(e),
+                moondream_error=str(e2),
+            )
             raise e2
 
 
@@ -180,7 +206,9 @@ async def chat(request: ChatRequest):
     facts_extracted = 0
     try:
         # Extraer hechos del mensaje del usuario
-        extracted_facts = await run_in_threadpool(episodic_memory.extract_facts, request.message)
+        extracted_facts = await run_in_threadpool(
+            episodic_memory.extract_facts, request.message
+        )
         facts_extracted = len(extracted_facts)
 
         # Guardar cada hecho extraído
@@ -193,9 +221,12 @@ async def chat(request: ChatRequest):
     # [MODIFIED] Use Intelligent Router for better decision making
     try:
         from nova.core import intelligent_router
+
         # Re-route using the new intelligent router
-        ir_routing = await run_in_threadpool(intelligent_router.route, request.message, request.has_image)
-        
+        ir_routing = await run_in_threadpool(
+            intelligent_router.route, request.message, request.has_image
+        )
+
         # Check clarification
         if ir_routing.get("status") == "needs_clarification":
             return {
@@ -205,15 +236,15 @@ async def chat(request: ChatRequest):
                     "model_selected": "none",
                     "reason": "clarification_needed",
                     "latency_ms": 0,
-                    "confidence": 100
-                }
+                    "confidence": 100,
+                },
             }
 
         # Use the intelligent router's decision
         model_name = ir_routing.get("model", "dolphin-mistral:7b")
         confidence = ir_routing.get("confidence", 50)
         reasoning = ir_routing.get("reasoning", "default_fallback")
-        
+
     except Exception as e:
         logger.error("intelligent_router_failed", error=str(e))
         # Fallback
@@ -224,12 +255,15 @@ async def chat(request: ChatRequest):
     try:
         # Measure latency
         import time
+
         start_time = time.time()
 
         # Obtener contexto de hechos para el prompt
         facts_context = ""
         try:
-            facts_context = await run_in_threadpool(episodic_memory.format_facts_for_prompt, session_id)
+            facts_context = await run_in_threadpool(
+                episodic_memory.format_facts_for_prompt, session_id
+            )
         except Exception as e:
             logger.error("facts_context_error", error=str(e), session_id=session_id)
 
@@ -241,7 +275,7 @@ async def chat(request: ChatRequest):
                 semantic_memory.get_relevant_context,
                 request.message,
                 3,  # Máximo 3 resultados relevantes
-                session_id
+                session_id,
             )
         except Exception as e:
             logger.error("semantic_context_error", error=str(e), session_id=session_id)
@@ -254,14 +288,20 @@ async def chat(request: ChatRequest):
             context_parts.append(f"Información de hechos conocidos:\n{facts_context}")
 
         if semantic_context:
-            context_parts.append(f"Contexto conversacional relevante:\n{semantic_context}")
+            context_parts.append(
+                f"Contexto conversacional relevante:\n{semantic_context}"
+            )
 
         if context_parts:
-            enhanced_message = "\n\n".join(context_parts) + f"\n\nUsuario: {request.message}"
+            enhanced_message = (
+                "\n\n".join(context_parts) + f"\n\nUsuario: {request.message}"
+            )
 
         # Generate response using the selected model
-        response_text = await run_in_threadpool(orquestador.generate_response, model_name, enhanced_message, None)
-        
+        response_text = await run_in_threadpool(
+            orquestador.generate_response, model_name, enhanced_message, None
+        )
+
         latency_ms = int((time.time() - start_time) * 1000)
 
     except Exception as e:
@@ -270,8 +310,12 @@ async def chat(request: ChatRequest):
 
     # persist conversation: user then assistant
     await run_in_threadpool(init_db)
-    user_msg_id = await run_in_threadpool(save_conversation, session_id, "user", request.message, model_name, reasoning)
-    assistant_msg_id = await run_in_threadpool(save_conversation, session_id, "assistant", response_text, model_name, reasoning)
+    user_msg_id = await run_in_threadpool(
+        save_conversation, session_id, "user", request.message, model_name, reasoning
+    )
+    assistant_msg_id = await run_in_threadpool(
+        save_conversation, session_id, "assistant", response_text, model_name, reasoning
+    )
 
     # Agregar mensajes a memoria semántica (no intrusivo)
     try:
@@ -283,7 +327,7 @@ async def chat(request: ChatRequest):
             request.message,
             session_id,
             "user",
-            model_name
+            model_name,
         )
         # Agregar respuesta del asistente
         await run_in_threadpool(
@@ -292,13 +336,18 @@ async def chat(request: ChatRequest):
             response_text,
             session_id,
             "assistant",
-            model_name
+            model_name,
         )
     except Exception as e:
         logger.error("semantic_memory_add_error", error=str(e), session_id=session_id)
 
-    logger.info("chat_handled", session_id=session_id, model=model_name, facts_extracted=facts_extracted)
-    
+    logger.info(
+        "chat_handled",
+        session_id=session_id,
+        model=model_name,
+        facts_extracted=facts_extracted,
+    )
+
     # [MODIFIED] Standardized JSON schema for frontend
     return {
         "text": response_text,
@@ -308,11 +357,9 @@ async def chat(request: ChatRequest):
             "reason": reasoning,
             "latency_ms": latency_ms,
             "facts_extracted": facts_extracted,
-            "confidence": confidence
-        }
+            "confidence": confidence,
+        },
     }
-
-
 
 
 @app.post("/api/tts")
@@ -320,30 +367,36 @@ async def text_to_speech(text: str):
     """Convertir texto a voz usando Web Speech API del navegador (placeholder para futura integración)"""
     try:
         logger.info("tts_requested", text_length=len(text))
-        
+
         # Por ahora, devolver un indicador de que TTS está disponible
         # En el futuro, integrar con servicios como Azure TTS, Google TTS, etc.
         return {
             "status": "tts_available",
             "message": "TTS disponible - usar Web Speech API del navegador",
             "text_length": len(text),
-            "note": "El TTS se maneja en el frontend usando speechSynthesis"
+            "note": "El TTS se maneja en el frontend usando speechSynthesis",
         }
-        
+
     except Exception as e:
         logger.error(f"TTS error: {e}")
         raise HTTPException(status_code=500, detail=f"TTS error: {str(e)}")
 
 
 @app.post("/api/upload")
-async def upload_image(file: UploadFile = File(...), message: str = Form("Describe esta imagen"), session_id: str = Form(None)):
+async def upload_image(
+    file: UploadFile = File(...),
+    message: str = Form("Describe esta imagen"),
+    session_id: str = Form(None),
+):
     """Subir imagen y procesar con LLaVA end-to-end para análisis inteligente."""
     try:
         session_id = session_id or f"upload_{secrets.token_hex(8)}"
 
         content_type = file.content_type or ""
-        if not content_type.startswith('image/'):
-            raise HTTPException(status_code=400, detail="Solo se permiten archivos de imagen")
+        if not content_type.startswith("image/"):
+            raise HTTPException(
+                status_code=400, detail="Solo se permiten archivos de imagen"
+            )
 
         content = await file.read()
         file_size = len(content)
@@ -351,7 +404,9 @@ async def upload_image(file: UploadFile = File(...), message: str = Form("Descri
             raise HTTPException(status_code=400, detail="El archivo está vacío")
 
         if file_size > 10 * 1024 * 1024:  # 10MB
-            raise HTTPException(status_code=400, detail="Archivo demasiado grande (máx 10MB)")
+            raise HTTPException(
+                status_code=400, detail="Archivo demasiado grande (máx 10MB)"
+            )
 
         # Codificar en base64
         image_b64 = base64.b64encode(content).decode("ascii")
@@ -362,8 +417,7 @@ async def upload_image(file: UploadFile = File(...), message: str = Form("Descri
         # Usar LLaVA end-to-end con la instrucción del usuario directamente (con fallback)
         try:
             response, model_used = await _analyze_image_base64(
-                image_b64,
-                prompt=vision_prompt
+                image_b64, prompt=vision_prompt
             )
         except Exception as e:
             logger.error(f"Error procesando imagen con vision models: {e}")
@@ -377,8 +431,24 @@ async def upload_image(file: UploadFile = File(...), message: str = Form("Descri
         # Persistir en DB
         await run_in_threadpool(init_db)
         safe_filename = Path(file.filename or "imagen").name
-        await run_in_threadpool(save_conversation, session_id, "user", f"[Imagen subida: {safe_filename}] Instrucción: {message}", model_used, "vision_processing", 100)
-        await run_in_threadpool(save_conversation, session_id, "assistant", response, model_used, "vision_response", 100)
+        await run_in_threadpool(
+            save_conversation,
+            session_id,
+            "user",
+            f"[Imagen subida: {safe_filename}] Instrucción: {message}",
+            model_used,
+            "vision_processing",
+            100,
+        )
+        await run_in_threadpool(
+            save_conversation,
+            session_id,
+            "assistant",
+            response,
+            model_used,
+            "vision_response",
+            100,
+        )
 
         await file.close()
 
@@ -389,7 +459,7 @@ async def upload_image(file: UploadFile = File(...), message: str = Form("Descri
             "response": response,
             "instruction": message,
             "model_used": model_used,
-            "session_id": session_id
+            "session_id": session_id,
         }
 
     except Exception as e:
@@ -400,7 +470,13 @@ async def upload_image(file: UploadFile = File(...), message: str = Form("Descri
 @app.post("/api/feedback")
 async def feedback(req: FeedbackRequest):
     await run_in_threadpool(init_db)
-    fid = await run_in_threadpool(feedback_system.record_feedback, req.message_id, req.session_id, req.rating, req.comment)
+    fid = await run_in_threadpool(
+        feedback_system.record_feedback,
+        req.message_id,
+        req.session_id,
+        req.rating,
+        req.comment,
+    )
     return {"status": "ok", "feedback_id": fid}
 
 
@@ -421,10 +497,10 @@ async def get_metrics_full():
 
     # Models priorities
     priorities = get_current_priorities()
-    dolphin = priorities.get('dolphin-mistral:7b', 50)
-    mixtral = priorities.get('mixtral:8x7b', 40)
-    moondream = priorities.get('moondream:1.8b', 30)
-    claude = priorities.get('claude_code_api', 20)
+    dolphin = priorities.get("dolphin-mistral:7b", 50)
+    mixtral = priorities.get("mixtral:8x7b", 40)
+    moondream = priorities.get("moondream:1.8b", 30)
+    claude = priorities.get("claude_code_api", 20)
 
     # Performance
     tokens_per_second = random.randint(10, 50)
@@ -438,6 +514,7 @@ async def get_metrics_full():
     def generate_series(base_value, variation=10, points=100):
         """Generate a series of points around base_value with some variation."""
         import random
+
         series = []
         for i in range(points):
             # Add some trend and noise
@@ -452,27 +529,24 @@ async def get_metrics_full():
             "cpu": generate_series(cpu, 5, 100),
             "ram": generate_series(ram, 3, 100),
             "gpu": generate_series(gpu, 8, 100),
-            "temp": generate_series(temp, 2, 100)
+            "temp": generate_series(temp, 2, 100),
         },
         "cache": {
             "hit_rate": generate_series(hit_rate, 5, 100),
-            "size_mb": generate_series(size_mb, 10, 100)
+            "size_mb": generate_series(size_mb, 10, 100),
         },
         "models": {
             "dolphin": generate_series(dolphin, 5, 100),
             "mixtral": generate_series(mixtral, 4, 100),
             "moondream": generate_series(moondream, 3, 100),
-            "claude": generate_series(claude, 2, 100)
+            "claude": generate_series(claude, 2, 100),
         },
         "performance": {
             "tokens_per_second": generate_series(tokens_per_second, 5, 100),
-            "latency_ms": generate_series(latency_ms, 50, 100)
+            "latency_ms": generate_series(latency_ms, 50, 100),
         },
-        "general": {
-            "avg_rating": avg_rating,
-            "queries_per_minute": queries_per_minute
-        },
-        "labels": [str(i+1) for i in range(100)]
+        "general": {"avg_rating": avg_rating, "queries_per_minute": queries_per_minute},
+        "labels": [str(i + 1) for i in range(100)],
     }
 
 
@@ -483,10 +557,10 @@ async def get_metrics():
     return {
         "labels": ["Ene", "Feb", "Mar", "Abr", "May"],
         "sistema": [5, 8, 6, 10, 7],
-        "cache":   [3, 9, 8, 6, 4],
-        "opt":     [7, 4, 6, 9, 10],
+        "cache": [3, 9, 8, 6, 4],
+        "opt": [7, 4, 6, 9, 10],
         "modelos": [2, 3, 4, 6, 8],
-        "rend":    [9, 8, 7, 6, 5]
+        "rend": [9, 8, 7, 6, 5],
     }
 
 
@@ -498,6 +572,7 @@ async def dashboard():
 
         def _collect_basic_metrics():
             from nova.core import memoria
+
             with memoria._get_conn() as conn:
                 c = conn.cursor()
                 c.execute("SELECT COUNT(*) FROM messages")
@@ -508,7 +583,9 @@ async def dashboard():
                 total_cache_entries = c.fetchone()[0]
             return total_messages, total_feedback, total_cache_entries
 
-        total_messages, total_feedback, total_cache_entries = await run_in_threadpool(_collect_basic_metrics)
+        total_messages, total_feedback, total_cache_entries = await run_in_threadpool(
+            _collect_basic_metrics
+        )
 
         # Obtener estado de auto-tuning
         auto_tuning_status = get_auto_tuning_status_sync()
@@ -516,7 +593,11 @@ async def dashboard():
         # Obtener métricas de caché
         # from nova.core.cache_system import cache_system
         # cache_stats = cache_system.get_cache_stats()
-        cache_stats = {"hit_rate_percent": 0, "valid_entries": 0, "size_mb": 0}  # Placeholder
+        cache_stats = {
+            "hit_rate_percent": 0,
+            "valid_entries": 0,
+            "size_mb": 0,
+        }  # Placeholder
 
         # HTML moderno pero más simple
         html_template = """
@@ -665,7 +746,7 @@ async def dashboard():
 
         # Generar HTML para modelos
         models_html = ""
-        for model, priority in auto_tuning_status['current_priorities'].items():
+        for model, priority in auto_tuning_status["current_priorities"].items():
             models_html += f"""
                 <div class="metric">
                     <span>{model}</span>
@@ -674,20 +755,23 @@ async def dashboard():
 
         # Formatear el HTML
         html_content = html_template.format(
-            current_time=time.strftime('%H:%M:%S'),
+            current_time=time.strftime("%H:%M:%S"),
             total_messages=f"{total_messages:,}",
             total_feedback=f"{total_feedback:,}",
             total_cache_entries=f"{total_cache_entries:,}",
-            hit_rate=cache_stats['hit_rate_percent'],
+            hit_rate=cache_stats["hit_rate_percent"],
             valid_entries=f"{cache_stats['valid_entries']:,}",
-            size_mb=cache_stats['size_mb'],
-            status_class='status-active' if auto_tuning_status['active'] else 'status-inactive',
-            status_text='Activo' if auto_tuning_status['active'] else 'Inactivo',
+            size_mb=cache_stats["size_mb"],
+            status_class=(
+                "status-active" if auto_tuning_status["active"] else "status-inactive"
+            ),
+            status_text="Activo" if auto_tuning_status["active"] else "Inactivo",
             cycles=f"{auto_tuning_status['stats']['cycles']:,}",
-            models_html=models_html
+            models_html=models_html,
         )
 
         from fastapi.responses import HTMLResponse
+
         return HTMLResponse(content=html_content)
 
     except Exception as e:
@@ -702,6 +786,7 @@ async def dashboard_metrics():
 
         def _collect_basic_metrics():
             from nova.core import memoria
+
             with memoria._get_conn() as conn:
                 c = conn.cursor()
                 c.execute("SELECT COUNT(*) FROM messages")
@@ -712,13 +797,19 @@ async def dashboard_metrics():
                 total_cache_entries = c.fetchone()[0]
             return total_messages, total_feedback, total_cache_entries
 
-        total_messages, total_feedback, total_cache_entries = await run_in_threadpool(_collect_basic_metrics)
+        total_messages, total_feedback, total_cache_entries = await run_in_threadpool(
+            _collect_basic_metrics
+        )
 
         # Obtener estado de auto-tuning
         auto_tuning_status = get_auto_tuning_status_sync()
 
         # Obtener métricas de caché
-        cache_stats = {"hit_rate_percent": 0, "valid_entries": 0, "size_mb": 0}  # Placeholder
+        cache_stats = {
+            "hit_rate_percent": 0,
+            "valid_entries": 0,
+            "size_mb": 0,
+        }  # Placeholder
 
         # Generar HTML con métricas para parsing
         html_content = f"""
@@ -734,12 +825,15 @@ async def dashboard_metrics():
 """
 
         # Agregar modelos
-        for model, priority in auto_tuning_status['current_priorities'].items():
-            html_content += f'<span>{model}</span><span class="metric-value">{priority}</span>'
+        for model, priority in auto_tuning_status["current_priorities"].items():
+            html_content += (
+                f'<span>{model}</span><span class="metric-value">{priority}</span>'
+            )
 
         html_content += "</div>"
 
         from fastapi.responses import HTMLResponse
+
         return HTMLResponse(content=html_content)
 
     except Exception as e:
@@ -748,7 +842,11 @@ async def dashboard_metrics():
 
 @app.get("/api/status")
 async def status():
-    return {"status": "operational", "version": settings.version, "message": "NOVA vive 🔥"}
+    return {
+        "status": "operational",
+        "version": settings.version,
+        "message": "NOVA vive 🔥",
+    }
 
 
 @app.get("/api/engines/health")
@@ -763,12 +861,10 @@ async def engines_health():
 async def get_facts(session_id: str, fact_type: str = None):
     """Obtener hechos de memoria episódica para una sesión."""
     try:
-        facts = await run_in_threadpool(episodic_memory.get_facts, session_id, fact_type)
-        return {
-            "facts": facts,
-            "count": len(facts),
-            "session_id": session_id
-        }
+        facts = await run_in_threadpool(
+            episodic_memory.get_facts, session_id, fact_type
+        )
+        return {"facts": facts, "count": len(facts), "session_id": session_id}
     except Exception as e:
         logger.error("facts_get_error", error=str(e), session_id=session_id)
         raise HTTPException(status_code=500, detail=f"Error retrieving facts: {str(e)}")
@@ -794,28 +890,26 @@ async def create_fact(session_id: str, fact_type: str, fact_key: str, fact_value
     """Crear un nuevo hecho en memoria episódica."""
     try:
         fact = {
-            'fact_type': fact_type,
-            'fact_key': fact_key,
-            'fact_value': fact_value,
-            'confidence': 1.0
+            "fact_type": fact_type,
+            "fact_key": fact_key,
+            "fact_value": fact_value,
+            "confidence": 1.0,
         }
         saved = await run_in_threadpool(episodic_memory.save_fact, session_id, fact)
         if not saved:
             raise HTTPException(status_code=500, detail="Failed to save fact")
 
         # Obtener el ID del hecho guardado
-        facts = await run_in_threadpool(episodic_memory.get_facts, session_id, fact_type)
+        facts = await run_in_threadpool(
+            episodic_memory.get_facts, session_id, fact_type
+        )
         fact_id = None
         for f in facts:
-            if f['fact_key'] == fact_key:
-                fact_id = f['id']
+            if f["fact_key"] == fact_key:
+                fact_id = f["id"]
                 break
 
-        return {
-            "status": "saved",
-            "fact_id": fact_id,
-            "fact": fact
-        }
+        return {"status": "saved", "fact_id": fact_id, "fact": fact}
     except HTTPException:
         raise
     except Exception as e:
@@ -825,26 +919,26 @@ async def create_fact(session_id: str, fact_type: str, fact_key: str, fact_value
 
 # Endpoints de memoria semántica (Sprint 5 Fase 2)
 @app.get("/api/search-memory")
-async def search_memory(query: str, session_id: str = None, n_results: int = 10, min_similarity: float = 0.5):
+async def search_memory(
+    query: str, session_id: str = None, n_results: int = 10, min_similarity: float = 0.5
+):
     """Buscar en la memoria semántica por similitud."""
     try:
         semantic_memory = get_semantic_memory()
         results = await run_in_threadpool(
-            semantic_memory.search_similar,
-            query,
-            n_results,
-            session_id,
-            min_similarity
+            semantic_memory.search_similar, query, n_results, session_id, min_similarity
         )
         return {
             "query": query,
             "results": results,
             "count": len(results),
-            "session_id": session_id
+            "session_id": session_id,
         }
     except Exception as e:
         logger.error("semantic_search_error", error=str(e), query=query[:50])
-        raise HTTPException(status_code=500, detail=f"Error searching semantic memory: {str(e)}")
+        raise HTTPException(
+            status_code=500, detail=f"Error searching semantic memory: {str(e)}"
+        )
 
 
 @app.get("/api/memory-stats")
@@ -856,7 +950,9 @@ async def get_memory_stats():
         return stats
     except Exception as e:
         logger.error("memory_stats_error", error=str(e))
-        raise HTTPException(status_code=500, detail=f"Error getting memory stats: {str(e)}")
+        raise HTTPException(
+            status_code=500, detail=f"Error getting memory stats: {str(e)}"
+        )
 
 
 @app.post("/api/sync-memory")
@@ -891,9 +987,13 @@ def auto_tuning_worker(interval_minutes=30):
             auto_tuning_stats["last_run"] = time.time()
 
             if result["status"] == "optimized":
-                logger.info(f"✅ Auto-tuning: {len(result['changes_applied'])} cambios aplicados")
+                logger.info(
+                    f"✅ Auto-tuning: {len(result['changes_applied'])} cambios aplicados"
+                )
                 for change in result["changes_applied"]:
-                    logger.info(f"   {change['model']}: {change['old_priority']} → {change['new_priority']}")
+                    logger.info(
+                        f"   {change['model']}: {change['old_priority']} → {change['new_priority']}"
+                    )
             else:
                 logger.debug(f"📭 Auto-tuning: {result['status']}")
 
@@ -919,9 +1019,7 @@ async def start_auto_tuning(interval_minutes: int = 30):
 
     # Iniciar thread en background
     auto_tuning_thread = threading.Thread(
-        target=auto_tuning_worker,
-        args=(interval_minutes,),
-        daemon=True
+        target=auto_tuning_worker, args=(interval_minutes,), daemon=True
     )
     auto_tuning_thread.start()
 
@@ -929,7 +1027,7 @@ async def start_auto_tuning(interval_minutes: int = 30):
     return {
         "status": "started",
         "message": f"Auto-tuning continuo iniciado cada {interval_minutes} minutos",
-        "interval_minutes": interval_minutes
+        "interval_minutes": interval_minutes,
     }
 
 
@@ -957,7 +1055,7 @@ async def get_auto_tuning_status():
         "active": auto_tuning_active,
         "stats": auto_tuning_stats,
         "current_priorities": get_current_priorities(),
-        "recent_history": get_optimization_history(limit=5)
+        "recent_history": get_optimization_history(limit=5),
     }
 
 
@@ -969,7 +1067,7 @@ def get_auto_tuning_status_sync():
         "active": auto_tuning_active,
         "stats": auto_tuning_stats,
         "current_priorities": get_current_priorities(),
-        "recent_history": get_optimization_history(limit=5)
+        "recent_history": get_optimization_history(limit=5),
     }
 
 
@@ -982,7 +1080,7 @@ async def manual_optimize(max_change: int = 20, min_feedback: int = 5):
         return {
             "status": "completed",
             "result": result,
-            "current_priorities": get_current_priorities()
+            "current_priorities": get_current_priorities(),
         }
     except Exception as e:
         logger.error(f"❌ Error en optimización manual: {e}")
@@ -993,6 +1091,7 @@ async def manual_optimize(max_change: int = 20, min_feedback: int = 5):
 
 # Instancia global del registro de agentes
 _agent_registry = None
+
 
 def get_agent_registry() -> AgentRegistry:
     """Obtener instancia singleton del registro de agentes."""
@@ -1011,8 +1110,10 @@ def get_agent_registry() -> AgentRegistry:
             _agent_registry.register(programming_agent)
             _agent_registry.register(math_agent)
 
-            logger.info("agent_registry_initialized_with_agents",
-                       total_agents=len(_agent_registry))
+            logger.info(
+                "agent_registry_initialized_with_agents",
+                total_agents=len(_agent_registry),
+            )
         except Exception as e:
             logger.error(f"Error initializing agents: {e}")
             # Continue without agents rather than crashing
@@ -1035,34 +1136,36 @@ async def list_agents():
         agent_list = []
         for agent in agents:
             stats = agent.get_stats()
-            agent_list.append({
-                'agent_id': agent.agent_id,
-                'name': agent.name,
-                'specialty': agent.specialty,
-                'description': agent.description,
-                'enabled': agent.is_enabled(),
-                'priority': agent.priority,
-                'model_preference': agent.model_preference,
-                'stats': {
-                    'activation_count': stats['activation_count'],
-                    'success_count': stats['success_count'],
-                    'failure_count': stats['failure_count'],
-                    'success_rate': stats['success_rate'],
-                    'avg_response_time': stats['avg_response_time']
+            agent_list.append(
+                {
+                    "agent_id": agent.agent_id,
+                    "name": agent.name,
+                    "specialty": agent.specialty,
+                    "description": agent.description,
+                    "enabled": agent.is_enabled(),
+                    "priority": agent.priority,
+                    "model_preference": agent.model_preference,
+                    "stats": {
+                        "activation_count": stats["activation_count"],
+                        "success_count": stats["success_count"],
+                        "failure_count": stats["failure_count"],
+                        "success_rate": stats["success_rate"],
+                        "avg_response_time": stats["avg_response_time"],
+                    },
                 }
-            })
+            )
 
         registry_stats = registry.get_registry_stats()
 
         return {
-            'agents': agent_list,
-            'total_agents': len(agent_list),
-            'enabled_agents': registry_stats['enabled_agents'],
-            'registry_stats': {
-                'total_activations': registry_stats['total_activations'],
-                'total_successes': registry_stats['total_successes'],
-                'overall_success_rate': registry_stats['overall_success_rate']
-            }
+            "agents": agent_list,
+            "total_agents": len(agent_list),
+            "enabled_agents": registry_stats["enabled_agents"],
+            "registry_stats": {
+                "total_activations": registry_stats["total_activations"],
+                "total_successes": registry_stats["total_successes"],
+                "overall_success_rate": registry_stats["overall_success_rate"],
+            },
         }
 
     except Exception as e:
@@ -1090,17 +1193,17 @@ async def get_agent_details(agent_id: str):
         capabilities = agent.get_capabilities()
 
         return {
-            'agent': {
-                'agent_id': agent.agent_id,
-                'name': agent.name,
-                'specialty': agent.specialty,
-                'description': agent.description,
-                'enabled': agent.is_enabled(),
-                'priority': agent.priority,
-                'model_preference': agent.model_preference,
-                'created_at': agent.created_at.isoformat(),
-                'capabilities': capabilities,
-                'stats': stats
+            "agent": {
+                "agent_id": agent.agent_id,
+                "name": agent.name,
+                "specialty": agent.specialty,
+                "description": agent.description,
+                "enabled": agent.is_enabled(),
+                "priority": agent.priority,
+                "model_preference": agent.model_preference,
+                "created_at": agent.created_at.isoformat(),
+                "capabilities": capabilities,
+                "stats": stats,
             }
         }
 
@@ -1108,7 +1211,9 @@ async def get_agent_details(agent_id: str):
         raise
     except Exception as e:
         logger.error("agent_details_error", error=str(e), agent_id=agent_id)
-        raise HTTPException(status_code=500, detail=f"Error getting agent details: {str(e)}")
+        raise HTTPException(
+            status_code=500, detail=f"Error getting agent details: {str(e)}"
+        )
 
 
 @app.post("/api/agents/query")
@@ -1142,49 +1247,51 @@ async def process_agent_query(request: AgentQueryRequest):
 
         if not capable_agents:
             return {
-                'status': 'no_agents_capable',
-                'query': query,
-                'message': 'Ningún agente especializado puede manejar esta consulta',
-                'suggestion': 'Esta consulta parece ser de conversación general'
+                "status": "no_agents_capable",
+                "query": query,
+                "message": "Ningún agente especializado puede manejar esta consulta",
+                "suggestion": "Esta consulta parece ser de conversación general",
             }
 
         # Seleccionar el mejor agente (primer resultado ya está ordenado por confianza)
         best_agent_info = capable_agents[0]
-        best_agent = best_agent_info['agent']
+        best_agent = best_agent_info["agent"]
 
-        logger.info("agent_query_routing",
-                   query_length=len(query),
-                   selected_agent=best_agent.agent_id,
-                   confidence=best_agent_info['confidence'],
-                   total_capable=len(capable_agents))
+        logger.info(
+            "agent_query_routing",
+            query_length=len(query),
+            selected_agent=best_agent.agent_id,
+            confidence=best_agent_info["confidence"],
+            total_capable=len(capable_agents),
+        )
 
         # Procesar la consulta
         response = await best_agent.process_query(query)
 
         # Enriquecer respuesta con información del routing
         enhanced_response = {
-            'status': 'processed',
-            'query': query,
-            'session_id': session_id,
-            'selected_agent': {
-                'agent_id': best_agent.agent_id,
-                'name': best_agent.name,
-                'specialty': best_agent.specialty,
-                'confidence': best_agent_info['confidence'],
-                'priority': best_agent.priority
+            "status": "processed",
+            "query": query,
+            "session_id": session_id,
+            "selected_agent": {
+                "agent_id": best_agent.agent_id,
+                "name": best_agent.name,
+                "specialty": best_agent.specialty,
+                "confidence": best_agent_info["confidence"],
+                "priority": best_agent.priority,
             },
-            'capable_agents_count': len(capable_agents),
-            'agent_response': response
+            "capable_agents_count": len(capable_agents),
+            "agent_response": response,
         }
 
         # Agregar información de otros agentes capaces (top 3)
         if len(capable_agents) > 1:
-            enhanced_response['other_capable_agents'] = [
+            enhanced_response["other_capable_agents"] = [
                 {
-                    'agent_id': agent_info['agent_id'],
-                    'name': agent_info['name'],
-                    'specialty': agent_info['specialty'],
-                    'confidence': agent_info['confidence']
+                    "agent_id": agent_info["agent_id"],
+                    "name": agent_info["name"],
+                    "specialty": agent_info["specialty"],
+                    "confidence": agent_info["confidence"],
                 }
                 for agent_info in capable_agents[1:4]  # Top 3 adicionales
             ]
@@ -1195,4 +1302,6 @@ async def process_agent_query(request: AgentQueryRequest):
         raise
     except Exception as e:
         logger.error("agent_query_error", error=str(e), query=query[:100])
-        raise HTTPException(status_code=500, detail=f"Error processing agent query: {str(e)}")
+        raise HTTPException(
+            status_code=500, detail=f"Error processing agent query: {str(e)}"
+        )

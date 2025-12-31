@@ -16,6 +16,7 @@ def stop() -> None:
     """Stop the NOVA system (placeholder)."""
     logger.info("system_stopped")
 
+
 def _is_ollama_installed() -> bool:
     return shutil.which("ollama") is not None
 
@@ -30,7 +31,9 @@ def _is_ollama_running(health_url: str = "http://localhost:11434/api/tags") -> b
 
 def _start_ollama_serve() -> subprocess.Popen:
     logger.info("starting_ollama_serve")
-    p = subprocess.Popen(["ollama", "serve"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    p = subprocess.Popen(
+        ["ollama", "serve"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL
+    )
     logger.info("ollama_serve_started", pid=p.pid)
     return p
 
@@ -44,7 +47,7 @@ def _pull_model(model: str) -> None:
         logger.warning("pull_model_cmd_failed", model=model)
     # Simple progress indicator (simulated) via structured logs
     for i in range(0, 101, 10):
-        logger.info("startup_progress", step=f"pulling_model", model=model, percent=i)
+        logger.info("startup_progress", step="pulling_model", model=model, percent=i)
         time.sleep(0.05)
     logger.info("pull_model_done", model=model)
 
@@ -121,20 +124,32 @@ def start(port: int = 8000) -> dict:
         "|_| \\_|\\___/|_| \\_| \\___/ |_| \\_|\n\nN O V A   O P E R A T I V O"
     )
     logger.info("startup_progress", message=ascii_art)
-    logger.info("startup_progress", message=f"NOVA OPERATIVO → http://localhost:{free_port} | Presiona Ctrl+C para detener")
+    logger.info(
+        "startup_progress",
+        message=f"NOVA OPERATIVO → http://localhost:{free_port} | Presiona Ctrl+C para detener",
+    )
 
     # Launch uvicorn in background
     try:
-        uvicorn_cmd = [sys.executable, "-m", "uvicorn", "nova.api.routes:app", "--host", "0.0.0.0", "--port", str(free_port)]
+        uvicorn_cmd = [
+            sys.executable,
+            "-m",
+            "uvicorn",
+            "nova.api.routes:app",
+            "--host",
+            "0.0.0.0",
+            "--port",
+            str(free_port),
+        ]
         uvicorn_proc = subprocess.Popen(uvicorn_cmd)
         logger.info("uvicorn_started", port=free_port, pid=uvicorn_proc.pid)
-        
+
         # Return system information for testing and control
         return {
             "port": free_port,
             "uvicorn_pid": uvicorn_proc.pid,
-            "ollama_pid": None, # Non-managed for now in this simplification
-            "ollama_managed": False
+            "ollama_pid": None,  # Non-managed for now in this simplification
+            "ollama_managed": False,
         }
     except Exception as e:
         logger.error("uvicorn_start_failed", error=str(e))

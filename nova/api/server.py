@@ -20,9 +20,17 @@ async def chat(request: ChatRequest):
         response = generate_response(routing["model"], request.message)
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
-    return {"response": response, "model_used": routing["model"], "router_confidence": routing["confidence"]}
+    return {
+        "response": response,
+        "model_used": routing["model"],
+        "router_confidence": routing["confidence"],
+    }
 
 
 @app.get("/status")
 async def status():
-    return {"status": "operational", "version": "1.0.0-sprint1-mvp", "message": "NOVA vive 🔥"}
+    return {
+        "status": "operational",
+        "version": "1.0.0-sprint1-mvp",
+        "message": "NOVA vive 🔥",
+    }

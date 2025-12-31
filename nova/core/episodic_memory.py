@@ -31,33 +31,33 @@ class EpisodicMemory:
 
         # Patrones de extracción de hechos
         patterns = {
-            'name': [
-                r'me llamo ([A-Za-zÁÉÍÓÚáéíóúñÑ\s]+)',
-                r'mi nombre es ([A-Za-zÁÉÍÓÚáéíóúñÑ\s]+)',
-                r'soy ([A-Za-zÁÉÍÓÚáéíóúñÑ\s]+)',
+            "name": [
+                r"me llamo ([A-Za-zÁÉÍÓÚáéíóúñÑ\s]+)",
+                r"mi nombre es ([A-Za-zÁÉÍÓÚáéíóúñÑ\s]+)",
+                r"soy ([A-Za-zÁÉÍÓÚáéíóúñÑ\s]+)",
             ],
-            'age': [
-                r'tengo (\d+) años',
-                r'tengo (\d+) años de edad',
+            "age": [
+                r"tengo (\d+) años",
+                r"tengo (\d+) años de edad",
             ],
-            'employer': [
-                r'trabajo en ([A-Za-zÁÉÍÓÚáéíóúñÑ\s&]+)',
-                r'trabajo para ([A-Za-zÁÉÍÓÚáéíóúñÑ\s&]+)',
+            "employer": [
+                r"trabajo en ([A-Za-zÁÉÍÓÚáéíóúñÑ\s&]+)",
+                r"trabajo para ([A-Za-zÁÉÍÓÚáéíóúñÑ\s&]+)",
             ],
-            'job_title': [
-                r'trabajo como ([A-Za-zÁÉÍÓÚáéíóúñÑ\s]+)',
-                r'soy ([A-Za-zÁÉÍÓÚáéíóúñÑ\s]+) de profesión',
-                r'mi profesión es ([A-Za-zÁÉÍÓÚáéíóúñÑ\s]+)',
+            "job_title": [
+                r"trabajo como ([A-Za-zÁÉÍÓÚáéíóúñÑ\s]+)",
+                r"soy ([A-Za-zÁÉÍÓÚáéíóúñÑ\s]+) de profesión",
+                r"mi profesión es ([A-Za-zÁÉÍÓÚáéíóúñÑ\s]+)",
             ],
-            'likes': [
-                r'me gusta ([A-Za-zÁÉÍÓÚáéíóúñÑ\s]+)',
-                r'me encantan? ([A-Za-zÁÉÍÓÚáéíóúñÑ\s]+)',
+            "likes": [
+                r"me gusta ([A-Za-zÁÉÍÓÚáéíóúñÑ\s]+)",
+                r"me encantan? ([A-Za-zÁÉÍÓÚáéíóúñÑ\s]+)",
             ],
-            'location': [
-                r'vivo en ([A-Za-zÁÉÍÓÚáéíóúñÑ\s,]+)',
-                r'estoy en ([A-Za-zÁÉÍÓÚáéíóúñÑ\s,]+)',
-                r'mi ubicación es ([A-Za-zÁÉÍÓÚáéíóúñÑ\s,]+)',
-            ]
+            "location": [
+                r"vivo en ([A-Za-zÁÉÍÓÚáéíóúñÑ\s,]+)",
+                r"estoy en ([A-Za-zÁÉÍÓÚáéíóúñÑ\s,]+)",
+                r"mi ubicación es ([A-Za-zÁÉÍÓÚáéíóúñÑ\s,]+)",
+            ],
         }
 
         for fact_type, pattern_list in patterns.items():
@@ -70,14 +70,18 @@ class EpisodicMemory:
                         # Crear clave única para el hecho
                         fact_key = f"{fact_type}_{value.lower().replace(' ', '_').replace(',', '')}"
 
-                        facts.append({
-                            'fact_type': fact_type,
-                            'fact_key': fact_key,
-                            'fact_value': value,
-                            'confidence': 1.0
-                        })
+                        facts.append(
+                            {
+                                "fact_type": fact_type,
+                                "fact_key": fact_key,
+                                "fact_value": value,
+                                "confidence": 1.0,
+                            }
+                        )
 
-        logger.info("facts_extracted", message_length=len(message), facts_found=len(facts))
+        logger.info(
+            "facts_extracted", message_length=len(message), facts_found=len(facts)
+        )
         return facts
 
     def save_fact(self, session_id: str, fact: Dict[str, Any]) -> bool:
@@ -98,7 +102,8 @@ class EpisodicMemory:
                 c = conn.cursor()
 
                 # Verificar si existe la tabla facts
-                c.execute("""
+                c.execute(
+                    """
                     CREATE TABLE IF NOT EXISTS facts (
                         id INTEGER PRIMARY KEY AUTOINCREMENT,
                         session_id TEXT NOT NULL,
@@ -109,37 +114,47 @@ class EpisodicMemory:
                         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                         updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
                     )
-                """)
+                """
+                )
 
                 # Intentar insertar, si ya existe actualizar
-                c.execute("""
+                c.execute(
+                    """
                     INSERT OR REPLACE INTO facts
                     (session_id, fact_type, fact_key, fact_value, confidence, updated_at)
                     VALUES (?, ?, ?, ?, ?, CURRENT_TIMESTAMP)
-                """, (
-                    session_id,
-                    fact['fact_type'],
-                    fact['fact_key'],
-                    fact['fact_value'],
-                    fact.get('confidence', 1.0)
-                ))
+                """,
+                    (
+                        session_id,
+                        fact["fact_type"],
+                        fact["fact_key"],
+                        fact["fact_value"],
+                        fact.get("confidence", 1.0),
+                    ),
+                )
 
                 conn.commit()
 
-                logger.info("fact_saved",
-                           session_id=session_id,
-                           fact_type=fact['fact_type'],
-                           fact_key=fact['fact_key'])
+                logger.info(
+                    "fact_saved",
+                    session_id=session_id,
+                    fact_type=fact["fact_type"],
+                    fact_key=fact["fact_key"],
+                )
                 return True
 
         except Exception as e:
-            logger.error("fact_save_failed",
-                        error=str(e),
-                        session_id=session_id,
-                        fact_type=fact.get('fact_type'))
+            logger.error(
+                "fact_save_failed",
+                error=str(e),
+                session_id=session_id,
+                fact_type=fact.get("fact_type"),
+            )
             return False
 
-    def get_facts(self, session_id: str, fact_type: Optional[str] = None) -> List[Dict[str, Any]]:
+    def get_facts(
+        self, session_id: str, fact_type: Optional[str] = None
+    ) -> List[Dict[str, Any]]:
         """
         Obtiene hechos de una sesión.
 
@@ -157,33 +172,41 @@ class EpisodicMemory:
                 c = conn.cursor()
 
                 if fact_type:
-                    c.execute("""
+                    c.execute(
+                        """
                         SELECT id, session_id, fact_type, fact_key, fact_value, confidence, created_at, updated_at
                         FROM facts
                         WHERE session_id = ? AND fact_type = ?
                         ORDER BY updated_at DESC
-                    """, (session_id, fact_type))
+                    """,
+                        (session_id, fact_type),
+                    )
                 else:
-                    c.execute("""
+                    c.execute(
+                        """
                         SELECT id, session_id, fact_type, fact_key, fact_value, confidence, created_at, updated_at
                         FROM facts
                         WHERE session_id = ?
                         ORDER BY updated_at DESC
-                    """, (session_id,))
+                    """,
+                        (session_id,),
+                    )
 
                 rows = c.fetchall()
                 facts = []
                 for row in rows:
-                    facts.append({
-                        'id': row[0],
-                        'session_id': row[1],
-                        'fact_type': row[2],
-                        'fact_key': row[3],
-                        'fact_value': row[4],
-                        'confidence': row[5],
-                        'created_at': row[6],
-                        'updated_at': row[7]
-                    })
+                    facts.append(
+                        {
+                            "id": row[0],
+                            "session_id": row[1],
+                            "fact_type": row[2],
+                            "fact_key": row[3],
+                            "fact_value": row[4],
+                            "confidence": row[5],
+                            "created_at": row[6],
+                            "updated_at": row[7],
+                        }
+                    )
 
                 return facts
 
@@ -241,19 +264,19 @@ class EpisodicMemory:
             # Organizar hechos por tipo
             facts_by_type = {}
             for fact in facts:
-                fact_type = fact['fact_type']
+                fact_type = fact["fact_type"]
                 if fact_type not in facts_by_type:
                     facts_by_type[fact_type] = []
                 facts_by_type[fact_type].append(fact)
 
             # Mapeo de tipos a secciones
             section_mapping = {
-                'name': ('👤 Personal', 'Se llama {}'),
-                'age': ('👤 Personal', 'Tiene {} años'),
-                'location': ('👤 Personal', 'Vive en {}'),
-                'employer': ('💼 Profesional', 'Trabaja en {}'),
-                'job_title': ('💼 Profesional', 'Trabaja como {}'),
-                'likes': ('⭐ Preferencias', 'Le gusta {}'),
+                "name": ("👤 Personal", "Se llama {}"),
+                "age": ("👤 Personal", "Tiene {} años"),
+                "location": ("👤 Personal", "Vive en {}"),
+                "employer": ("💼 Profesional", "Trabaja en {}"),
+                "job_title": ("💼 Profesional", "Trabaja como {}"),
+                "likes": ("⭐ Preferencias", "Le gusta {}"),
             }
 
             sections = {}
@@ -265,7 +288,9 @@ class EpisodicMemory:
                         sections[section_name] = []
 
                     for fact in fact_list:
-                        sections[section_name].append(template.format(fact['fact_value']))
+                        sections[section_name].append(
+                            template.format(fact["fact_value"])
+                        )
 
             # Construir el texto formateado
             if not sections:
@@ -281,7 +306,9 @@ class EpisodicMemory:
             formatted_parts.append("--- Fin información usuario ---")
 
             result = "\n".join(formatted_parts)
-            logger.info("facts_formatted", session_id=session_id, facts_count=len(facts))
+            logger.info(
+                "facts_formatted", session_id=session_id, facts_count=len(facts)
+            )
             return result
 
         except Exception as e:
